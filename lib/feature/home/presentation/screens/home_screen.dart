@@ -10,6 +10,7 @@ import 'package:ecommerce_app/feature/home/presentation/widgets/category_chips_r
 import 'package:ecommerce_app/feature/home/presentation/widgets/home_app_bar.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/hot_deals.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/promo_banner.dart';
+import 'package:ecommerce_app/feature/search/presentation/screens/search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,12 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 12.h),
-            const CustomSearchBar(),
+            CustomSearchBar(
+              readOnly: true,
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const SearchScreen()),
+              ),
+            ),
             SizedBox(height: 12.h),
             const PromoBannerCarousel(),
             SizedBox(height: 12.h),
