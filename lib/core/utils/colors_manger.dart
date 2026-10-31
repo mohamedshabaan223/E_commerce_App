@@ -16,4 +16,7 @@ abstract class ColorsManger {
   static const Color modalBackdrop = Color(0xBF141416);
   static const Color surfaceVariant = Color(0xff26252A);
   static const Color headerBackground = Color(0xD9141416);
+  static const Color categoryCard = Color(0xff1F1F21);
+  static const Color cartBadgeBg = Color(0xff1D1D23);
+  static const Color dealsBadgeBg = Color(0xff353437);
 }
