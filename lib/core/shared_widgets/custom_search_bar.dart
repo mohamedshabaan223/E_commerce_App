@@ -11,6 +11,7 @@ class CustomSearchBar extends StatelessWidget {
     this.onTap,
     this.onClear,
     this.readOnly = false,
+    this.hasBorder = false,
   });
 
   final String hint;
@@ -19,6 +20,7 @@ class CustomSearchBar extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onClear;
   final bool readOnly;
+  final bool hasBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,9 @@ class CustomSearchBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorsManger.surface,
         borderRadius: BorderRadius.circular(12.r),
+        border: hasBorder
+            ? Border.all(color: ColorsManger.border, width: 1)
+            : null,
         boxShadow: const [
           BoxShadow(
             color: ColorsManger.surface,

@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
@@ -13,27 +14,17 @@ class BottomNavBar extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   static const List<_NavItemData> _items = [
-    _NavItemData(
-      label: 'Home',
-      icon: Icons.home_outlined,
-      activeIcon: Icons.home,
-    ),
+    _NavItemData(label: 'Home', iconAsset: 'assets/icons/nav_home.svg'),
     _NavItemData(
       label: 'Categories',
-      icon: Icons.grid_view_outlined,
-      activeIcon: Icons.grid_view,
+      iconAsset: 'assets/icons/nav_categories.svg',
     ),
     _NavItemData(
       label: 'Cart',
-      icon: Icons.shopping_bag_outlined,
-      activeIcon: Icons.shopping_bag,
+      iconAsset: 'assets/icons/nav_cart.svg',
       hasBadge: true,
     ),
-    _NavItemData(
-      label: 'Profile',
-      icon: Icons.person_outline,
-      activeIcon: Icons.person,
-    ),
+    _NavItemData(label: 'Profile', iconAsset: 'assets/icons/nav_profile.svg'),
   ];
 
   @override
@@ -61,6 +52,9 @@ class BottomNavBar extends StatelessWidget {
             children: List.generate(_items.length, (index) {
               final isSelected = index == currentIndex;
               final item = _items[index];
+              final iconColor = isSelected
+                  ? ColorsManger.primaryColor
+                  : ColorsManger.navInactive;
               return GestureDetector(
                 onTap: () => onTap(index),
                 behavior: HitTestBehavior.opaque,
@@ -79,23 +73,35 @@ class BottomNavBar extends StatelessWidget {
                       Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          Icon(
-                            isSelected ? item.activeIcon : item.icon,
-                            size: 20.sp,
-                            color: isSelected
-                                ? ColorsManger.primaryColor
-                                : ColorsManger.navInactive,
+                          SvgPicture.asset(
+                            item.iconAsset,
+                            width: 22.r,
+                            height: 22.r,
+                            colorFilter: ColorFilter.mode(
+                              iconColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
                           if (item.hasBadge)
                             Positioned(
-                              top: -1,
-                              right: -1,
+                              top: -4,
+                              right: -6,
                               child: Container(
-                                width: 6.r,
-                                height: 6.r,
+                                width: 16.r,
+                                height: 16.r,
                                 decoration: const BoxDecoration(
                                   color: ColorsManger.primaryColor,
                                   shape: BoxShape.circle,
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(
+                                    color: ColorsManger.cartBadgeBg,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
                                 ),
                               ),
                             ),
@@ -109,9 +115,7 @@ class BottomNavBar extends StatelessWidget {
                           fontWeight: isSelected
                               ? FontWeight.w500
                               : FontWeight.normal,
-                          color: isSelected
-                              ? ColorsManger.primaryColor
-                              : ColorsManger.navInactive,
+                          color: iconColor,
                         ),
                       ),
                     ],
@@ -129,13 +133,11 @@ class BottomNavBar extends StatelessWidget {
 class _NavItemData {
   const _NavItemData({
     required this.label,
-    required this.icon,
-    required this.activeIcon,
+    required this.iconAsset,
     this.hasBadge = false,
   });
 
   final String label;
-  final IconData icon;
-  final IconData activeIcon;
+  final String iconAsset;
   final bool hasBadge;
 }

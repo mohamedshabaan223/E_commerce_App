@@ -36,6 +36,7 @@ class ProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorsManger.surface,
         borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: ColorsManger.border, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,14 +79,15 @@ class ProductCard extends StatelessWidget {
                         vertical: 3.h,
                       ),
                       decoration: BoxDecoration(
-                        color: ColorsManger.primaryColor,
+                        color: ColorsManger.dealsBadgeBg,
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: Text(
                         badge,
                         style: TextStyle(
-                          color: ColorsManger.textPrimary,
+                          color: ColorsManger.primaryColor,
                           fontSize: 11.sp,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),

@@ -17,15 +17,21 @@ class CategoryChipItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.r),
-          child: Container(
-            height: 64.r,
-            width: 64.r,
-            color: ColorsManger.surfaceVariant,
+        Container(
+          width: 72.r,
+          height: 72.r,
+          decoration: BoxDecoration(
+            color: ColorsManger.categoryCard,
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(color: ColorsManger.border, width: 1),
+          ),
+          padding: EdgeInsets.all(7.r),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
             child: Image.asset(imageUrl, fit: BoxFit.cover),
           ),
         ),
+        SizedBox(height: 6.h),
         Text(
           name,
           style: AppStyle.text12Medium.copyWith(

@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key, this.onNotificationTap});
@@ -41,7 +42,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: Stack(
             clipBehavior: Clip.none,
             children: [
-              const Icon(Icons.notifications_none),
+              SvgPicture.asset(
+                'assets/icons/icon_bell.svg',
+                width: 24.r,
+                height: 24.r,
+                colorFilter: const ColorFilter.mode(
+                  ColorsManger.primaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
               Positioned(
                 top: 2,
                 right: 2,
@@ -60,7 +69,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-          color: ColorsManger.primaryColor,
         ),
         SizedBox(width: 8.w),
       ],
