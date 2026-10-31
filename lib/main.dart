@@ -9,8 +9,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(brightness: Brightness.dark),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: ConstantRoute.mainScreen,
+        initialRoute: ConstantRoute.forgetPassword,
       ),
     );
   }
