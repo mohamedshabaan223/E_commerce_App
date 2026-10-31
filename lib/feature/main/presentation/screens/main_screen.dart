@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/core/shared_widgets/bottom_nav_bar.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce_app/feature/home/presentation/screens/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
-    Center(child: Text('Categories')),
+    CategoriesScreen(),
     Center(child: Text('Cart')),
     Center(child: Text('Profile')),
   ];
