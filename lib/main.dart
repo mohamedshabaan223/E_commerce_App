@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/routing/route_genrator.dart';
+import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,17 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-       designSize: const Size(380, 690),
+      designSize: const Size(380, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-       debugShowCheckedModeBanner: false,
-       theme: ThemeData(brightness: Brightness.dark,
-       fontFamily: 'DMSerifDisplay'),
-       onGenerateRoute: RouteGenrator.getRoute,
-       initialRoute: ConstantRoute.orderScreen,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.dark,
+        ),
+        onGenerateRoute: RouteGenrator.getRoute,
+        home: const MainScreen(),
       ),
     );
   }
 }
-
