@@ -1,9 +1,6 @@
 import 'package:ecommerce_app/core/routing/constant_route.dart';
-<<<<<<< HEAD
-import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
-=======
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
->>>>>>> 8e3b8827797e74094eddfe76a95ac262bf4378a1
+import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
 import 'package:ecommerce_app/feature/reset_password/presentation/screens/otp_verification.dart';
@@ -21,10 +18,8 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => MainScreen());
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
-<<<<<<< HEAD
       case ConstantRoute.checkoutScreen:
         return MaterialPageRoute(builder: (_) => CheckoutScreen());
-=======
       case ConstantRoute.forgetPassword:
         return MaterialPageRoute(builder: (_) => ForgetPassword());
       case ConstantRoute.changePassword:
@@ -37,7 +32,6 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => Updated());
       case ConstantRoute.otpVerification:
         return MaterialPageRoute(builder: (_) => Verification());
->>>>>>> 8e3b8827797e74094eddfe76a95ac262bf4378a1
       default:
         return MaterialPageRoute(
           builder: (_) =>

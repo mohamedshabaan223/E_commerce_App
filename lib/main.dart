@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(brightness: Brightness.dark),
+        theme: ThemeData(brightness: Brightness.dark , 
+       fontFamily:  'DMSerifDisplay'),
         onGenerateRoute: RouteGenrator.getRoute,
         initialRoute: ConstantRoute.mainScreen,
       ),
