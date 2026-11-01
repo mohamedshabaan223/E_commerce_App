@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/routing/constant_route.dart';
+import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,8 @@ abstract class RouteGenrator {
     switch (settings.name) {
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
+      case ConstantRoute.checkoutScreen:
+        return MaterialPageRoute(builder: (_) => CheckoutScreen());
       default:
         return MaterialPageRoute(
           builder: (_) =>
