@@ -1,13 +1,17 @@
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+ 
 class CartItem {
-  static Widget cartItemDesign({required String image,required String name,required double price}) {
+  static Widget cartItemDesign({
+    required String image,
+    required String name,
+    required double price,
+  }) {
     return Container(
-      height: 130,
-      padding:  EdgeInsets.all(16),
-      margin: EdgeInsets.only(bottom: 15),
+      height: 140,
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
         color: ColorsManger.cartBadgeBg,
         borderRadius: BorderRadius.circular(16),
@@ -17,13 +21,14 @@ class CartItem {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(image
-              ,
+            child: Image.asset(
+              image,
+              width: 98,
+              height: 98,
               fit: BoxFit.cover,
             ),
           ),
-           SizedBox(width: 16),
-
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               spacing: 5,
@@ -35,6 +40,8 @@ class CartItem {
                     Expanded(
                       child: Text(
                         name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: ColorsManger.white,
                           fontSize: 14.sp,
@@ -44,32 +51,37 @@ class CartItem {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon:  Icon(
+                      icon: Icon(
                         Icons.delete,
                         color: ColorsManger.passwordColor,
                         size: 15,
                       ),
                       padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
+                      constraints: const BoxConstraints(),
+                      visualDensity: VisualDensity.compact,
+                      style: IconButton.styleFrom(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
                     ),
                   ],
                 ),
                 Text(
-                  '\$$price'
-                   ,
+                  '\$$price',
                   style: TextStyle(
                     color: ColorsManger.primaryColor,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFF2A2A2A),
+                    color: const Color(0xFF2A2A2A),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -78,11 +90,11 @@ class CartItem {
                         child: Icon(
                           Icons.remove,
                           color: ColorsManger.white,
-                          size: 10,
+                          size: 20,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           '1',
                           style: TextStyle(
@@ -97,7 +109,7 @@ class CartItem {
                         child: Icon(
                           Icons.add,
                           color: ColorsManger.white,
-                          size: 10,
+                          size: 20,
                         ),
                       ),
                     ],
