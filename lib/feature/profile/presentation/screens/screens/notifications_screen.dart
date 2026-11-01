@@ -1,0 +1,175 @@
+// feature/profile/presentation/screens/screens/notifications_screen.dart
+import 'package:ecommerce_app/core/utils/app_colors.dart';
+import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/feature/profile/models/notification_model.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/notification_item.dart';
+import 'package:flutter/material.dart';
+
+
+class NotificationsScreen extends StatefulWidget {
+  const NotificationsScreen({super.key});
+
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  bool _showUnreadOnly = false;
+
+  List<NotificationModel> _notifications = const [
+    NotificationModel(
+      time: '10m ago',
+      prefix: 'Your order ',
+      highlight: '#LX-84920',
+      highlightIsGold: true,
+      suffix: ' has been dispatched and is on its way.',
+    ),
+    NotificationModel(
+      time: '2h ago',
+      prefix: 'New arrival: ',
+      highlight: 'Chronograph Noir 41mm',
+      suffix: ' is back in stock.',
+    ),
+    NotificationModel(
+      time: 'Yesterday',
+      prefix: 'Your delivery address was successfully updated.',
+      isRead: true,
+    ),
+  ];
+
+  int get _unreadCount => _notifications.where((n) => !n.isRead).length;
+
+  void _markAllRead() {
+    setState(() {
+      _notifications =
+          _notifications.map((n) => n.copyWith(isRead: true)).toList();
+    });
+  }
+
+  void _markRead(int index) {
+    setState(() {
+      final list = [..._notifications];
+      list[index] = list[index].copyWith(isRead: true);
+      _notifications = list;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final visible = <int>[
+      for (int i = 0; i < _notifications.length; i++)
+        if (!_showUnreadOnly || !_notifications[i].isRead) i
+    ];
+
+    return Scaffold(
+      appBar: const LuxeAppBar(title: 'Notifications'),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            _buildFilterRow(),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: visible.length,
+                itemBuilder: (_, i) => NotificationItem(
+                  notification: _notifications[visible[i]],
+                  onTap: () => _markRead(visible[i]),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilterRow() {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: context.colors.card,
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Row(
+            children: [
+              _FilterChip(
+                label: 'All',
+                selected: !_showUnreadOnly,
+                showDot: _unreadCount > 0,
+                onTap: () => setState(() => _showUnreadOnly = false),
+              ),
+              _FilterChip(
+                label: 'Unread',
+                selected: _showUnreadOnly,
+                onTap: () => setState(() => _showUnreadOnly = true),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        TextButton.icon(
+          onPressed: _markAllRead,
+          icon: Icon(Icons.done_all_rounded,
+              size: 16, color: context.colors.textSecondary),
+          label: Text(
+            'MARK ALL READ',
+            style: AppTheme.body(
+                size: 11,
+                color: context.colors.textSecondary,
+                weight: FontWeight.w600,
+                letterSpacing: 0.8),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _FilterChip extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final bool showDot;
+  final VoidCallback onTap;
+
+  const _FilterChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    this.showDot = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = selected ? context.colors.onGold : context.colors.textSecondary;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+        decoration: BoxDecoration(
+          color: selected ? context.colors.gold : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          children: [
+            Text(label,
+                style: AppTheme.body(
+                    size: 13, color: color, weight: FontWeight.w600)),
+            if (showDot && selected) ...[
+              const SizedBox(width: 6),
+              Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                    color: color, shape: BoxShape.circle),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
