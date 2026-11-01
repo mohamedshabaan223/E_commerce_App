@@ -3,7 +3,7 @@ import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_theme.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
@@ -13,7 +13,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
     return Scaffold(
       appBar: const LuxeAppBar(title: 'Privacy Policy'),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+        padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
         children: [
           const _PolicySection(
             title: 'Information we collect',
@@ -37,13 +37,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
             link: 'support@luxe-store.com',
             trailing: '.',
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Divider(color: context.colors.divider, thickness: 1),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(
             'LAST UPDATED: OCTOBER 2026',
             style: AppTheme.body(
-                size: 11,
+                size: 11.sp,
                 color: context.colors.textMuted,
                 weight: FontWeight.w600,
                 letterSpacing: 1),
@@ -70,14 +70,14 @@ class _PolicySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bodyStyle = AppTheme.body(
-        size: 16, color: context.colors.textBody, height: 1.5);
+        size: 16.sp, color: context.colors.textBody, height: 1.5);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: EdgeInsets.only(bottom: 24.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: AppTheme.heading(size: 20)),
-          const SizedBox(height: 8),
+          Text(title, style: AppTheme.heading(size: 20.sp)),
+          SizedBox(height: 8.h),
           Text.rich(
             TextSpan(style: bodyStyle, children: [
               TextSpan(text: text),

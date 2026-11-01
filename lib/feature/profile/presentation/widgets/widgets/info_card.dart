@@ -2,6 +2,7 @@
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'icon_box.dart';
 
@@ -24,17 +25,18 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: context.colors.card,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // IconBox already applies ScreenUtil scaling internally.
           IconBox(icon: icon, size: 48, iconSize: 22),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,30 +46,30 @@ class InfoCard extends StatelessWidget {
                     Text(
                       label,
                       style: AppTheme.body(
-                          size: 10,
+                          size: 10.sp,
                           color: context.colors.textSecondary,
                           weight: FontWeight.w600,
                           letterSpacing: 1),
                     ),
                     if (tag != null) ...[
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 6.w, vertical: 2.h),
                         decoration: BoxDecoration(
                           color: context.colors.iconBox,
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(4.r),
                         ),
                         child: Text(tag!,
                             style: AppTheme.body(
-                                size: 10,
+                                size: 10.sp,
                                 color: context.colors.textSecondary,
                                 weight: FontWeight.w600)),
                       ),
                     ],
                   ],
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
                 content,
               ],
             ),

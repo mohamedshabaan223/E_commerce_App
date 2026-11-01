@@ -5,7 +5,7 @@ import 'package:ecommerce_app/feature/profile/models/notification_model.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/notification_item.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -65,11 +65,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: const LuxeAppBar(title: 'Notifications'),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           children: [
             _buildFilterRow(),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Expanded(
               child: ListView.builder(
                 itemCount: visible.length,
@@ -89,10 +89,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(4),
+          padding: EdgeInsets.all(4.r),
           decoration: BoxDecoration(
             color: context.colors.card,
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(24.r),
           ),
           child: Row(
             children: [
@@ -114,11 +114,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         TextButton.icon(
           onPressed: _markAllRead,
           icon: Icon(Icons.done_all_rounded,
-              size: 16, color: context.colors.textSecondary),
+              size: 16.sp, color: context.colors.textSecondary),
           label: Text(
             'MARK ALL READ',
             style: AppTheme.body(
-                size: 11,
+                size: 11.sp,
                 color: context.colors.textSecondary,
                 weight: FontWeight.w600,
                 letterSpacing: 0.8),
@@ -144,27 +144,28 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? context.colors.onGold : context.colors.textSecondary;
+    final color =
+        selected ? context.colors.onGold : context.colors.textSecondary;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
         decoration: BoxDecoration(
           color: selected ? context.colors.gold : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
           children: [
             Text(label,
                 style: AppTheme.body(
-                    size: 13, color: color, weight: FontWeight.w600)),
+                    size: 13.sp, color: color, weight: FontWeight.w600)),
             if (showDot && selected) ...[
-              const SizedBox(width: 6),
+              SizedBox(width: 6.w),
               Container(
-                width: 6,
-                height: 6,
-                decoration: BoxDecoration(
-                    color: color, shape: BoxShape.circle),
+                width: 6.w,
+                height: 6.h,
+                decoration:
+                    BoxDecoration(color: color, shape: BoxShape.circle),
               ),
             ],
           ],

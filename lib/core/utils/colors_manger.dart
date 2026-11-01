@@ -26,3 +26,16 @@ abstract class ColorsManger {
 
 
 }
+/*
+background: Color(0xFF131315),
+    card: Color(0xFF1C1C1F),
+    iconBox: Color(0xFF2A2A2D),
+    gold: Color(0xFFC9AE7C),
+    onGold: Color(0xFF131315),
+    textPrimary: Color(0xFFF2F2F2),
+    textBody: Color(0xFFD6CFC4),
+    textSecondary: Color(0xFF9A9A9F),
+    textMuted: Color(0xFF6E6E73),
+    danger: Color(0xFFF08A8A),
+    divider: Color(0xFF26262A),
+ */

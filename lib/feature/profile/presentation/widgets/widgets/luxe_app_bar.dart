@@ -2,14 +2,14 @@
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LuxeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   const LuxeAppBar({super.key, required this.title});
 
   @override
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(60.h);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,10 @@ class LuxeAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios_new_rounded,
-            color: context.colors.textPrimary, size: 20),
+            color: context.colors.textPrimary, size: 20.sp),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: Text(title, style: AppTheme.heading(size: 20)),
+      title: Text(title, style: AppTheme.heading(size: 20.sp)),
     );
   }
 }

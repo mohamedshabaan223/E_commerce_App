@@ -8,6 +8,7 @@ import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_bottom_nav.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/profile_menu_group.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'about_us_screen.dart';
 import 'contact_us_screen.dart';
@@ -83,19 +84,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onTap: (i) => setState(() => _navIndex = i),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           children: [
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             _buildAvatar(),
-            const SizedBox(height: 16),
-            Text('Alexander Kane', style: AppTheme.heading(size: 24)),
-            const SizedBox(height: 4),
+            SizedBox(height: 16.h),
+            Text('Alexander Kane', style: AppTheme.heading(size: 24.sp)),
+            SizedBox(height: 4.h),
             Text(
               'alexander.kane@example.com',
-              style: AppTheme.body(size: 14, color: context.colors.textSecondary),
+              style: AppTheme.body(
+                size: 14.sp,
+                color: context.colors.textSecondary,
+              ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             _buildDarkModeCard(),
             ProfileMenuGroup(items: _orders),
             ProfileMenuGroup(items: _account),
@@ -110,38 +114,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildAvatar() {
     return Container(
-      width: 80,
-      height: 80,
+      width: 80.w,
+      height: 80.h,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: context.colors.gold,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
       ),
-      child: Text('AK',
-          style: AppTheme.heading(size: 20, color: context.colors.onGold)),
+      child: Text(
+        'AK',
+        style: AppTheme.heading(size: 20.sp, color: context.colors.onGold),
+      ),
     );
   }
 
   Widget _buildDarkModeCard() {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: context.colors.card,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
       ),
       child: Row(
         children: [
           const IconBox(icon: Icons.nightlight_outlined),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w),
           Expanded(
-            child: Text('Dark Mode',
-                style: AppTheme.body(size: 16, weight: FontWeight.w500)),
+            child: Text(
+              'Dark Mode',
+              style: AppTheme.body(size: 16.sp, weight: FontWeight.w500),
+            ),
           ),
           Switch(
             value: Theme.of(context).brightness == Brightness.dark,
             onChanged: (isDark) => themeNotifier.value =
-                isDark ? ThemeMode.dark : ThemeMode.light,
+                isDark ? ThemeMode.dark : ThemeMode.dark,
             activeThumbColor: context.colors.gold,
             activeTrackColor: context.colors.iconBox,
             inactiveThumbColor: context.colors.textSecondary,

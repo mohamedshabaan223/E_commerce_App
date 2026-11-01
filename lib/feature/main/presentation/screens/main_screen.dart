@@ -1,10 +1,10 @@
-import 'package:ecommerce_app/feature/cart/presentation/screens/cart_screen.dart';
-import 'package:flutter/material.dart';
-
 import 'package:ecommerce_app/core/shared_widgets/bottom_nav_bar.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/cart/presentation/screens/cart_screen.dart';
 import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce_app/feature/home/presentation/screens/home_screen.dart';
+import 'package:ecommerce_app/feature/profile/presentation/screens/screens/profile_screen.dart';
+import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,7 +20,8 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     CategoriesScreen(),
     CartScreen(),
-    Center(child: Text('Profile')),
+    ProfileScreen(),
+    //Center(child: Text('Profile')),
   ];
 
   @override

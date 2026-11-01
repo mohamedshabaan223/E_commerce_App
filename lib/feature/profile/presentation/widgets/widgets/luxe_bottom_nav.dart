@@ -2,7 +2,7 @@
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LuxeBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -27,11 +27,11 @@ class LuxeBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
           color: context.colors.card,
-          borderRadius: BorderRadius.circular(32),
+          borderRadius: BorderRadius.circular(32.r),
           border: Border.all(color: context.colors.divider),
         ),
         child: Row(
@@ -77,26 +77,26 @@ class _NavItem extends StatelessWidget {
         Stack(
           clipBehavior: Clip.none,
           children: [
-            Icon(icon, color: color, size: 24),
+            Icon(icon, color: color, size: 24.sp),
             if (badge != null)
               Positioned(
-                top: -6,
-                right: -8,
+                top: -6.h,
+                right: -8.w,
                 child: Container(
-                  padding: const EdgeInsets.all(4),
+                  padding: EdgeInsets.all(4.r),
                   decoration: BoxDecoration(
                       color: context.colors.gold, shape: BoxShape.circle),
                   child: Text('$badge',
                       style: AppTheme.body(
-                          size: 9,
+                          size: 9.sp,
                           color: context.colors.onGold,
                           weight: FontWeight.w700)),
                 ),
               ),
           ],
         ),
-        const SizedBox(height: 4),
-        Text(label, style: AppTheme.body(size: 11, color: color)),
+        SizedBox(height: 4.h),
+        Text(label, style: AppTheme.body(size: 11.sp, color: color)),
       ],
     );
   }

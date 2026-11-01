@@ -3,7 +3,7 @@ import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_theme.dart';
 import 'package:ecommerce_app/feature/profile/models/notification_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationItem extends StatelessWidget {
   final NotificationModel notification;
@@ -14,34 +14,35 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final unread = !notification.isRead;
-    final baseColor = unread ? context.colors.textPrimary : context.colors.textMuted;
-    final base = AppTheme.body(size: 15, color: baseColor, height: 1.4);
+    final baseColor =
+        unread ? context.colors.textPrimary : context.colors.textMuted;
+    final base = AppTheme.body(size: 15.sp, color: baseColor, height: 1.4);
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+        margin: EdgeInsets.only(bottom: 12.h),
+        padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
         decoration: BoxDecoration(
           color: context.colors.card,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Stack(
           children: [
             if (unread)
               Positioned(
-                top: 4,
-                left: 36,
+                top: 4.h,
+                left: 36.w,
                 child: Container(
-                  width: 8,
-                  height: 8,
+                  width: 8.w,
+                  height: 8.h,
                   decoration: BoxDecoration(
                     color: context.colors.gold,
                     shape: BoxShape.circle,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                          color: Color(0x99C9AE7C),
-                          blurRadius: 8),
+                          color: const Color(0x99C9AE7C),
+                          blurRadius: 8.r),
                     ],
                   ),
                 ),
@@ -53,14 +54,14 @@ class NotificationItem extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Text(notification.time,
                       style: AppTheme.body(
-                          size: 12,
+                          size: 12.sp,
                           color: unread
                               ? context.colors.textSecondary
                               : context.colors.textMuted)),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Padding(
-                  padding: const EdgeInsets.only(left: 52),
+                  padding: EdgeInsets.only(left: 52.w),
                   child: Text.rich(
                     TextSpan(style: base, children: [
                       TextSpan(text: notification.prefix),

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/routing/route_genrator.dart';
+import 'package:ecommerce_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(brightness: Brightness.dark ,
+        theme: AppTheme.light,
+        darkTheme: ThemeData(brightness: Brightness.dark ,
        fontFamily:  'DMSerifDisplay'),
         onGenerateRoute: RouteGenrator.getRoute,
         initialRoute: ConstantRoute.mainScreen,
