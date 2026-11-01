@@ -1,0 +1,24 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class ProductImageGallery extends StatelessWidget {
+  const ProductImageGallery({super.key, required this.imageAsset});
+
+  final String imageAsset;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 270.h,
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        color: ColorsManger.surface,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: ColorsManger.border, width: 1),
+      ),
+      child: Center(child: Image.asset(imageAsset, fit: BoxFit.contain)),
+    );
+  }
+}
