@@ -13,8 +13,10 @@ abstract class ConstantRoute {
   static const String updatedDone = '/updated_screen.dart';
   static const String otpVerification = '/otp_verification.dart';
   static const String productDetails = '/product_details_screen.dart';
-static const String Login='/Login.dart';
-  static const String  SignUp='/SignUp.dart';
-  static const String  VerifyEmail='/VerifyEmail.dart';
-  static const String  Logout='/Logout.dart';
+  static const String Login = '/Login.dart';
+  static const String SignUp = '/SignUp.dart';
+  static const String VerifyEmail = '/VerifyEmail.dart';
+  static const String Logout = '/Logout.dart';
+  static const String splash = '/splash_screen.dart';
+  static const String onboarding = '/onboarding.dart';
 }
