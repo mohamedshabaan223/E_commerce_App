@@ -2,8 +2,8 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/models/notification_model.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/notification_item.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/notification_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

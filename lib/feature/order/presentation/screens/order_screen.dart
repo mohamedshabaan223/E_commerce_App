@@ -13,9 +13,12 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ColorsManger.white,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ColorsManger.white,
+          ),
         ),
         centerTitle: true,
         title: Text(
@@ -25,44 +28,61 @@ class OrderScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
                 children: [
-                  Text(
-                    'My Orders',
-                    style: AppStyle.text22Medium.copyWith(
-                      color: ColorsManger.white,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'My Orders',
+                        style: AppStyle.text22Medium.copyWith(
+                          color: ColorsManger.white,
+                        ),
+                      ),
+                      Text(
+                        '3 orders',
+                        style: AppStyle.text12Medium.copyWith(
+                          color: ColorsManger.white,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    '3 orders',
-                    style: AppStyle.text12Medium.copyWith(
-                      color: ColorsManger.white,
-                    ),
-                  ),
+                  SizedBox(height: 15.h),
                 ],
               ),
-              SizedBox(height: 15.h),
-              ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(height: 10.h),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 4,
-                itemBuilder: (context, index) => OrderItem(),
+            ),
+            SliverList.separated(
+              separatorBuilder: (context, index) => SizedBox(height: 10.h),
+              itemCount: 4,
+              itemBuilder: (context, index) => InkWell(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  ConstantRoute.orderDeatilsScreen,
+                ),
+                child: OrderItem(),
               ),
-              SizedBox(height: 40.h),
-              CustomElevetedbutton(
-                onPressed: () {
-                  Navigator.pushNamed(context, ConstantRoute.checkoutScreen);
-                },
-                label: 'Checkout',
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SizedBox(height: 40.h),
+                  CustomElevetedbutton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        ConstantRoute.checkoutScreen,
+                      );
+                    },
+                    label: 'Checkout',
+                  ),
+                  SizedBox(height: 30.h),
+                ],
               ),
-              SizedBox(height: 30.h),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

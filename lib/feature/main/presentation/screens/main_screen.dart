@@ -3,7 +3,7 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/presentation/screens/cart_screen.dart';
 import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce_app/feature/home/presentation/screens/home_screen.dart';
-import 'package:ecommerce_app/feature/profile/presentation/screens/screens/profile_screen.dart';
+import 'package:ecommerce_app/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {

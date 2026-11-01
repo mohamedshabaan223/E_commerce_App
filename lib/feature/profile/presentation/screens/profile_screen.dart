@@ -2,10 +2,11 @@
 
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/profile/models/profile_item_model.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/icon_box.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/profile_menu_group.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _isDarkMode = true;
 
   final List<ProfileItemModel> _orders = const [
-    ProfileItemModel(title: 'My Orders', icon: Icons.shopping_bag_outlined),
+    ProfileItemModel(title: 'My Orders', icon: Icons.shopping_bag_outlined , destination: OrderScreen()),
     ProfileItemModel(title: 'Addresses', icon: Icons.location_on_outlined),
   ];
 

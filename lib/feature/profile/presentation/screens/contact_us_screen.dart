@@ -1,8 +1,8 @@
 // feature/profile/presentation/screens/screens/contact_us_screen.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/info_card.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/info_card.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

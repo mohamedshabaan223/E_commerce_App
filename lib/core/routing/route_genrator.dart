@@ -5,6 +5,8 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
+import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
+import 'package:ecommerce_app/feature/order/presentation/screens/order_details_screen.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
 import 'package:ecommerce_app/feature/splash/presentation/screen/splash_screen.dart';
@@ -17,6 +19,10 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => MainScreen());
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
+           case ConstantRoute.checkoutScreen:
+        return MaterialPageRoute(builder: (_) => CheckoutScreen());
+           case ConstantRoute.orderDeatilsScreen:
+        return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
         return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
       case ConstantRoute.Login:
