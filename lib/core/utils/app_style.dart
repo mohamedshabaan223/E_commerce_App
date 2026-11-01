@@ -10,6 +10,10 @@ abstract class AppStyle {
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
   );
+  static TextStyle text22Semibold= TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeight.w600,
+  );
    static TextStyle text18Medium= TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
@@ -28,6 +32,10 @@ abstract class AppStyle {
   );
   static TextStyle text22Medium= TextStyle(
     fontSize: 22.sp,
+    fontWeight: FontWeight.w500,
+  );
+   static TextStyle text14Medium= TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   );
   static TextStyle text12Medium= TextStyle(

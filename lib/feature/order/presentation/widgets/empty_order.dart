@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/core/utils/images_manger.dart';
 import 'package:ecommerce_app/feature/order/presentation/widgets/custom_elevetedbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,7 @@ class EmptyOrder extends StatelessWidget {
         child: Column(
           children: [
             Spacer(flex: 1),
-            SvgPicture.asset('assets/icons/Background.svg'),
+            SvgPicture.asset(ImagesManger.emptyOrderIcon),
             SizedBox(height: 10.h),
             Text(
               'No orders yet',
