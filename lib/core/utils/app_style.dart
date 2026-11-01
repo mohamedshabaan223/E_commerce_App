@@ -7,12 +7,20 @@ abstract class AppStyle {
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
   );
+
   static TextStyle text10Semibold = TextStyle(
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
   );
+
+  static TextStyle text22Semibold = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeight.w600,
+  );
+
   static TextStyle text18Medium = TextStyle(
     fontFamily: 'DMSerifDisplay',
+
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
   );
@@ -33,6 +41,11 @@ abstract class AppStyle {
     fontSize: 22.sp,
     fontWeight: FontWeight.w500,
   );
+  static TextStyle text14Medium = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle text12Medium = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
