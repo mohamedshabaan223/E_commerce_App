@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/feature/cart/presentation/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/core/shared_widgets/bottom_nav_bar.dart';
@@ -18,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = const [
     HomeScreen(),
     CategoriesScreen(),
-    Center(child: Text('Cart')),
+    CartScreen(),
     Center(child: Text('Profile')),
   ];
 

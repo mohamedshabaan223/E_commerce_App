@@ -17,12 +17,10 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          fontFamily: 'DMSerifDisplay',
-        ),
+        theme: ThemeData(brightness: Brightness.dark ,
+       fontFamily:  'DMSerifDisplay'),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: ConstantRoute.orderDeatilsScreen,
+        initialRoute: ConstantRoute.mainScreen,
       ),
     );
   }
