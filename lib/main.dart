@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(brightness: Brightness.dark),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: ConstantRoute.forgetPassword,
+        initialRoute: ConstantRoute.mainScreen,
       ),
     );
   }
