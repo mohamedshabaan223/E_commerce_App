@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/order/presentation/widgets/custom_elevetedbutton.dart';
@@ -53,9 +54,13 @@ class OrderScreen extends StatelessWidget {
                 itemBuilder: (context, index) => OrderItem(),
               ),
               SizedBox(height: 40.h),
-              CustomElevetedbutton(onPressed: () {}, label: 'Checkout'),
-                             SizedBox(height: 30.h),
-
+              CustomElevetedbutton(
+                onPressed: () {
+                  Navigator.pushNamed(context, ConstantRoute.checkoutScreen);
+                },
+                label: 'Checkout',
+              ),
+              SizedBox(height: 30.h),
             ],
           ),
         ),
