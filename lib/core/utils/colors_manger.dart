@@ -21,5 +21,5 @@ abstract class ColorsManger {
   static const Color dealsBadgeBg = Color(0xff353437);
   static const Color passwordColor = Color(0xffCFC5B8);
   static const Color foreground = Color(0xff221B08);
-
+  static const Color darkGrey =  Color(0xFF2C2C2E);
 }

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(brightness: Brightness.dark , 
        fontFamily:  'DMSerifDisplay'),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: ConstantRoute.mainScreen,
+        initialRoute: ConstantRoute.orderDeatilsScreen,
       ),
     );
   }
