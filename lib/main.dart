@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'DMSerifDisplay',
         ),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: ConstantRoute.orderDeatilsScreen,
+        initialRoute: ConstantRoute.splash,
       ),
     );
   }

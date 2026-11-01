@@ -7,6 +7,11 @@ abstract class AppStyle {
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
   );
+  static TextStyle text25Semibold = TextStyle(
+    fontFamily: 'DMSerifDisplay',
+    fontSize: 25.sp,
+    fontWeight: FontWeight.w700,
+  );
 
   static TextStyle text10Semibold = TextStyle(
     fontSize: 10.sp,
