@@ -1,5 +1,5 @@
 // feature/profile/presentation/widgets/widgets/profile_menu_group.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/models/profile_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +16,7 @@ class ProfileMenuGroup extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: context.colors.card,
+        color: ColorsManger.darkCard,
         borderRadius: BorderRadius.circular(14.r),
       ),
       clipBehavior: Clip.antiAlias,
@@ -34,8 +34,8 @@ class ProfileMenuGroup extends StatelessWidget {
                       ),
             ),
             if (i != items.length - 1)
-              Divider(
-                  height: 1, thickness: 1, color: context.colors.divider),
+              const Divider(
+                  height: 1, thickness: 1, color: ColorsManger.darkDivider),
           ],
         ],
       ),

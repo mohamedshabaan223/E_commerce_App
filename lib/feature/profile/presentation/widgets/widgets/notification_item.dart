@@ -1,6 +1,6 @@
 // feature/profile/presentation/widgets/widgets/notification_item.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/models/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,8 +15,8 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final unread = !notification.isRead;
     final baseColor =
-        unread ? context.colors.textPrimary : context.colors.textMuted;
-    final base = AppTheme.body(size: 15.sp, color: baseColor, height: 1.4);
+        unread ? ColorsManger.darkTextPrimary : ColorsManger.darkTextMuted;
+    final base = AppStyle.text15Regular.copyWith(color: baseColor, height: 1.4);
 
     return GestureDetector(
       onTap: onTap,
@@ -24,7 +24,7 @@ class NotificationItem extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
         decoration: BoxDecoration(
-          color: context.colors.card,
+          color: ColorsManger.darkCard,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Stack(
@@ -37,11 +37,11 @@ class NotificationItem extends StatelessWidget {
                   width: 8.w,
                   height: 8.h,
                   decoration: BoxDecoration(
-                    color: context.colors.gold,
+                    color: ColorsManger.darkGold,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                          color: const Color(0x99C9AE7C),
+                          color: ColorsManger.darkGoldGlow,
                           blurRadius: 8.r),
                     ],
                   ),
@@ -52,12 +52,14 @@ class NotificationItem extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text(notification.time,
-                      style: AppTheme.body(
-                          size: 12.sp,
-                          color: unread
-                              ? context.colors.textSecondary
-                              : context.colors.textMuted)),
+                  child: Text(
+                    notification.time,
+                    style: AppStyle.text12Regular.copyWith(
+                      color: unread
+                          ? ColorsManger.darkTextSecondary
+                          : ColorsManger.darkTextMuted,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 4.h),
                 Padding(
@@ -70,8 +72,8 @@ class NotificationItem extends StatelessWidget {
                           text: notification.highlight,
                           style: base.copyWith(
                             color: notification.highlightIsGold
-                                ? context.colors.gold
-                                : context.colors.textPrimary,
+                                ? ColorsManger.darkGold
+                                : ColorsManger.darkTextPrimary,
                             fontWeight: notification.highlightIsGold
                                 ? FontWeight.w400
                                 : FontWeight.w700,

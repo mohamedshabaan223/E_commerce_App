@@ -1,6 +1,6 @@
 // feature/profile/presentation/screens/screens/notifications_screen.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/models/notification_model.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/notification_item.dart';
@@ -63,6 +63,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     ];
 
     return Scaffold(
+      backgroundColor: ColorsManger.darkBackground,
       appBar: const LuxeAppBar(title: 'Notifications'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -91,7 +92,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         Container(
           padding: EdgeInsets.all(4.r),
           decoration: BoxDecoration(
-            color: context.colors.card,
+            color: ColorsManger.darkCard,
             borderRadius: BorderRadius.circular(24.r),
           ),
           child: Row(
@@ -114,14 +115,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         TextButton.icon(
           onPressed: _markAllRead,
           icon: Icon(Icons.done_all_rounded,
-              size: 16.sp, color: context.colors.textSecondary),
+              size: 16.sp, color: ColorsManger.darkTextSecondary),
           label: Text(
             'MARK ALL READ',
-            style: AppTheme.body(
-                size: 11.sp,
-                color: context.colors.textSecondary,
-                weight: FontWeight.w600,
-                letterSpacing: 0.8),
+            style: AppStyle.text11Semibold.copyWith(
+              color: ColorsManger.darkTextSecondary,
+              letterSpacing: 0.8,
+            ),
           ),
         ),
       ],
@@ -145,20 +145,19 @@ class _FilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color =
-        selected ? context.colors.onGold : context.colors.textSecondary;
+        selected ? ColorsManger.darkOnGold : ColorsManger.darkTextSecondary;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
         decoration: BoxDecoration(
-          color: selected ? context.colors.gold : Colors.transparent,
+          color: selected ? ColorsManger.darkGold : Colors.transparent,
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
           children: [
             Text(label,
-                style: AppTheme.body(
-                    size: 13.sp, color: color, weight: FontWeight.w600)),
+                style: AppStyle.text13Semibold.copyWith(color: color)),
             if (showDot && selected) ...[
               SizedBox(width: 6.w),
               Container(

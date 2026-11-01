@@ -1,6 +1,6 @@
 // feature/profile/presentation/widgets/widgets/luxe_bottom_nav.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,9 +30,9 @@ class LuxeBottomNav extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
-          color: context.colors.card,
+          color: ColorsManger.darkCard,
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: context.colors.divider),
+          border: Border.all(color: ColorsManger.darkDivider),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,7 +70,8 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? context.colors.gold : context.colors.textSecondary;
+    final color =
+        selected ? ColorsManger.darkGold : ColorsManger.darkTextSecondary;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -84,19 +85,20 @@ class _NavItem extends StatelessWidget {
                 right: -8.w,
                 child: Container(
                   padding: EdgeInsets.all(4.r),
-                  decoration: BoxDecoration(
-                      color: context.colors.gold, shape: BoxShape.circle),
-                  child: Text('$badge',
-                      style: AppTheme.body(
-                          size: 9.sp,
-                          color: context.colors.onGold,
-                          weight: FontWeight.w700)),
+                  decoration: const BoxDecoration(
+                      color: ColorsManger.darkGold, shape: BoxShape.circle),
+                  child: Text(
+                    '$badge',
+                    style: AppStyle.text9Bold.copyWith(
+                      color: ColorsManger.darkOnGold,
+                    ),
+                  ),
                 ),
               ),
           ],
         ),
         SizedBox(height: 4.h),
-        Text(label, style: AppTheme.body(size: 11.sp, color: color)),
+        Text(label, style: AppStyle.text11Regular.copyWith(color: color)),
       ],
     );
   }

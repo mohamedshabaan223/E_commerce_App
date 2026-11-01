@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 abstract class ColorsManger {
   static const Color primaryColor = Color(0xffB6A17A);
@@ -22,20 +22,17 @@ abstract class ColorsManger {
   static const Color passwordColor = Color(0xffCFC5B8);
   static const Color foreground = Color(0xff221B08);
   static const Color cartButtonFg = Color(0xff382F1B);
-  static const Color darkGrey =  Color(0xFF2C2C2E);
-
-
+  static const Color darkGrey = Color(0xFF2C2C2E);
+  static const Color darkBackground = Color(0xFF131315);
+  static const Color darkCard = Color(0xFF1C1C1F);
+  static const Color darkIconBox = Color(0xFF2A2A2D);
+  static const Color darkGold = Color(0xFFC9AE7C);
+  static const Color darkGoldGlow = Color(0x99C9AE7C);
+  static const Color darkOnGold = Color(0xFF131315);
+  static const Color darkTextPrimary = Color(0xFFF2F2F2);
+  static const Color darkTextBody = Color(0xFFD6CFC4);
+  static const Color darkTextSecondary = Color(0xFF9A9A9F);
+  static const Color darkTextMuted = Color(0xFF6E6E73);
+  static const Color darkDanger = Color(0xFFF08A8A);
+  static const Color darkDivider = Color(0xFF26262A);
 }
-/*
-background: Color(0xFF131315),
-    card: Color(0xFF1C1C1F),
-    iconBox: Color(0xFF2A2A2D),
-    gold: Color(0xFFC9AE7C),
-    onGold: Color(0xFF131315),
-    textPrimary: Color(0xFFF2F2F2),
-    textBody: Color(0xFFD6CFC4),
-    textSecondary: Color(0xFF9A9A9F),
-    textMuted: Color(0xFF6E6E73),
-    danger: Color(0xFFF08A8A),
-    divider: Color(0xFF26262A),
- */

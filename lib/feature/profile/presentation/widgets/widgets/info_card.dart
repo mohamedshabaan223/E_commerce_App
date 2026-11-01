@@ -1,6 +1,6 @@
 // feature/profile/presentation/widgets/widgets/info_card.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +28,7 @@ class InfoCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: context.colors.card,
+        color: ColorsManger.darkCard,
         borderRadius: BorderRadius.circular(14.r),
       ),
       child: Row(
@@ -45,11 +45,10 @@ class InfoCard extends StatelessWidget {
                   children: [
                     Text(
                       label,
-                      style: AppTheme.body(
-                          size: 10.sp,
-                          color: context.colors.textSecondary,
-                          weight: FontWeight.w600,
-                          letterSpacing: 1),
+                      style: AppStyle.text10Semibold.copyWith(
+                        color: ColorsManger.darkTextSecondary,
+                        letterSpacing: 1,
+                      ),
                     ),
                     if (tag != null) ...[
                       SizedBox(width: 8.w),
@@ -57,14 +56,15 @@ class InfoCard extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 6.w, vertical: 2.h),
                         decoration: BoxDecoration(
-                          color: context.colors.iconBox,
+                          color: ColorsManger.darkIconBox,
                           borderRadius: BorderRadius.circular(4.r),
                         ),
-                        child: Text(tag!,
-                            style: AppTheme.body(
-                                size: 10.sp,
-                                color: context.colors.textSecondary,
-                                weight: FontWeight.w600)),
+                        child: Text(
+                          tag!,
+                          style: AppStyle.text10Semibold.copyWith(
+                            color: ColorsManger.darkTextSecondary,
+                          ),
+                        ),
                       ),
                     ],
                   ],

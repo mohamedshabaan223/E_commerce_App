@@ -1,6 +1,6 @@
 // feature/profile/presentation/screens/screens/about_us_screen.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +11,7 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManger.darkBackground,
       appBar: const LuxeAppBar(title: 'About Us'),
       body: Center(
         child: Padding(
@@ -23,7 +24,7 @@ class AboutUsScreen extends StatelessWidget {
                 height: 112.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: context.colors.card,
+                  color: ColorsManger.darkCard,
                   borderRadius: BorderRadius.circular(24.r),
                   boxShadow: [
                     BoxShadow(
@@ -32,24 +33,35 @@ class AboutUsScreen extends StatelessWidget {
                         offset: Offset(0, 6.h)),
                   ],
                 ),
-                child: Text('L',
-                    style: AppTheme.heading(
-                        size: 40.sp, color: context.colors.gold)),
+                child: Text(
+                  'L',
+                  style: AppStyle.text40Semibold.copyWith(
+                    color: ColorsManger.darkGold,
+                  ),
+                ),
               ),
               SizedBox(height: 24.h),
-              Text('L U X E',
-                  style: AppTheme.heading(size: 18.sp).copyWith(
-                      fontWeight: FontWeight.w700, letterSpacing: 4)),
+              Text(
+                'L U X E',
+                style: AppStyle.text18Semibold.copyWith(
+                  color: ColorsManger.darkTextPrimary,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 4,
+                ),
+              ),
               SizedBox(height: 10.h),
-              Container(width: 24.w, height: 2.h, color: context.colors.gold),
+              Container(
+                  width: 24.w, height: 2.h, color: ColorsManger.darkGold),
               SizedBox(height: 24.h),
               Text(
                 'LUXE is an accessories store offering watches, rings, '
                 'wallets and more. We bring you quality products at fair '
                 'prices with fast delivery.',
                 textAlign: TextAlign.center,
-                style: AppTheme.body(
-                    size: 16.sp, color: context.colors.textBody, height: 1.6),
+                style: AppStyle.text16Regular.copyWith(
+                  color: ColorsManger.darkTextBody,
+                  height: 1.6,
+                ),
               ),
             ],
           ),

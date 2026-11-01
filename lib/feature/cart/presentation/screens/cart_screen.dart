@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/core/shared_widgets/custom_app_bar.dart';
-import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_button.dart';
 import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_item.dart';

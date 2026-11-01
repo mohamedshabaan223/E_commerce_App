@@ -1,6 +1,6 @@
 // feature/profile/presentation/screens/screens/privacy_policy_screen.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +11,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManger.darkBackground,
       appBar: const LuxeAppBar(title: 'Privacy Policy'),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
@@ -38,15 +39,14 @@ class PrivacyPolicyScreen extends StatelessWidget {
             trailing: '.',
           ),
           SizedBox(height: 8.h),
-          Divider(color: context.colors.divider, thickness: 1),
+          const Divider(color: ColorsManger.darkDivider, thickness: 1),
           SizedBox(height: 12.h),
           Text(
             'LAST UPDATED: OCTOBER 2026',
-            style: AppTheme.body(
-                size: 11.sp,
-                color: context.colors.textMuted,
-                weight: FontWeight.w600,
-                letterSpacing: 1),
+            style: AppStyle.text11Semibold.copyWith(
+              color: ColorsManger.darkTextMuted,
+              letterSpacing: 1,
+            ),
           ),
         ],
       ),
@@ -69,14 +69,21 @@ class _PolicySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bodyStyle = AppTheme.body(
-        size: 16.sp, color: context.colors.textBody, height: 1.5);
+    final bodyStyle = AppStyle.text16Regular.copyWith(
+      color: ColorsManger.darkTextBody,
+      height: 1.5,
+    );
     return Padding(
       padding: EdgeInsets.only(bottom: 24.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: AppTheme.heading(size: 20.sp)),
+          Text(
+            title,
+            style: AppStyle.text20Semibold.copyWith(
+              color: ColorsManger.darkTextPrimary,
+            ),
+          ),
           SizedBox(height: 8.h),
           Text.rich(
             TextSpan(style: bodyStyle, children: [
@@ -84,7 +91,8 @@ class _PolicySection extends StatelessWidget {
               if (link != null)
                 TextSpan(
                     text: link,
-                    style: bodyStyle.copyWith(color: context.colors.gold)),
+                    style:
+                        bodyStyle.copyWith(color: ColorsManger.darkGold)),
               if (trailing != null) TextSpan(text: trailing),
             ]),
           ),

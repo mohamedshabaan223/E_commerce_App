@@ -1,11 +1,11 @@
 // feature/profile/presentation/widgets/widgets/icon_box.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IconBox extends StatelessWidget {
   final IconData icon;
-  final Color? color; // if null, the theme's gold color is used
+  final Color? color; // if null, the gold color is used
   final double size;
   final double iconSize;
 
@@ -25,12 +25,12 @@ class IconBox extends StatelessWidget {
       width: size.w,
       height: size.h,
       decoration: BoxDecoration(
-        color: context.colors.iconBox,
+        color: ColorsManger.darkIconBox,
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Icon(
         icon,
-        color: color ?? context.colors.gold,
+        color: color ?? ColorsManger.darkGold,
         size: iconSize.sp,
       ),
     );

@@ -1,6 +1,6 @@
 // feature/profile/presentation/screens/screens/contact_us_screen.dart
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/utils/app_theme.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/info_card.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/widgets/luxe_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,18 @@ class ContactUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final valueStyle = AppStyle.text15Regular.copyWith(
+      color: ColorsManger.darkTextPrimary,
+    );
+    final dayStyle = AppStyle.text15Medium.copyWith(
+      color: ColorsManger.darkTextPrimary,
+    );
+    final hoursStyle = AppStyle.text14Regular.copyWith(
+      color: ColorsManger.darkTextSecondary,
+    );
+
     return Scaffold(
+      backgroundColor: ColorsManger.darkBackground,
       appBar: const LuxeAppBar(title: 'Contact Us'),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 20.h),
@@ -19,14 +30,12 @@ class ContactUsScreen extends StatelessWidget {
           InfoCard(
             icon: Icons.mail_outline_rounded,
             label: 'EMAIL',
-            content: Text('support@luxe-store.com',
-                style: AppTheme.body(size: 15.sp)),
+            content: Text('support@luxe-store.com', style: valueStyle),
           ),
           InfoCard(
             icon: Icons.phone_outlined,
             label: 'PHONE',
-            content:
-                Text('+1 (800) 589-3290', style: AppTheme.body(size: 15.sp)),
+            content: Text('+1 (800) 589-3290', style: valueStyle),
           ),
           InfoCard(
             icon: Icons.location_on_outlined,
@@ -35,7 +44,7 @@ class ContactUsScreen extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 16.h),
               child: Text(
                 '450 5th Avenue, Suite 1800, New York, NY 10018',
-                style: AppTheme.body(size: 15.sp, height: 1.6),
+                style: valueStyle.copyWith(height: 1.6),
               ),
             ),
           ),
@@ -46,21 +55,13 @@ class ContactUsScreen extends StatelessWidget {
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Monday – Friday',
-                    style:
-                        AppTheme.body(size: 15.sp, weight: FontWeight.w500)),
+                Text('Monday – Friday', style: dayStyle),
                 SizedBox(height: 4.h),
-                Text('9:00 AM – 6:00 PM EST',
-                    style: AppTheme.body(
-                        size: 14.sp, color: context.colors.textSecondary)),
+                Text('9:00 AM – 6:00 PM EST', style: hoursStyle),
                 SizedBox(height: 14.h),
-                Text('Saturday',
-                    style:
-                        AppTheme.body(size: 15.sp, weight: FontWeight.w500)),
+                Text('Saturday', style: dayStyle),
                 SizedBox(height: 4.h),
-                Text('10:00 AM – 4:00 PM EST',
-                    style: AppTheme.body(
-                        size: 14.sp, color: context.colors.textSecondary)),
+                Text('10:00 AM – 4:00 PM EST', style: hoursStyle),
               ],
             ),
           ),
