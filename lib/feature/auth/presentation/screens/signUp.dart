@@ -1,8 +1,9 @@
+import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../core/routing/constant_route.dart';
 import '../widgets/authHeader.dart';
 import '../widgets/form_field.dart';
-
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -89,10 +90,24 @@ class _SignUpState extends State<SignUp> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (
+                            context,
+                            animation,
+                            secondaryAnimation,
+                          ) => VerifyEmail(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffB6A17A),
                       foregroundColor: Color(0xff3C2E11),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(12),
+                      ),
                     ),
                     child: const Text('Create Account'),
                   ),
@@ -107,7 +122,10 @@ class _SignUpState extends State<SignUp> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacementNamed(context, ConstantRoute.Login);
+                        Navigator.pushReplacementNamed(
+                          context,
+                          ConstantRoute.Login,
+                        );
                       },
 
                       child: const Text(

@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:ecommerce_app/core/shared_widgets/section_header.dart';
 import 'package:ecommerce_app/core/shared_widgets/custom_search_bar.dart';
-
+import 'package:ecommerce_app/core/shared_widgets/section_header.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/all_products.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/category_chips_row.dart';
@@ -11,6 +7,10 @@ import 'package:ecommerce_app/feature/home/presentation/widgets/home_app_bar.dar
 import 'package:ecommerce_app/feature/home/presentation/widgets/hot_deals.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/promo_banner.dart';
 import 'package:ecommerce_app/feature/search/presentation/screens/search_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../product_details/presentation/screens/product_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,9 +28,9 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 12.h),
             CustomSearchBar(
               readOnly: true,
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const SearchScreen()),
-              ),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const SearchScreen())),
             ),
             SizedBox(height: 12.h),
             const PromoBannerCarousel(),
@@ -45,7 +45,18 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 24.h),
             const SectionHeader(title: 'All Products'),
             SizedBox(height: 12.h),
-            const AllProductsGrid(),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        ProductDetailsScreen(),
+                  ),
+                );
+              },
+              child: const AllProductsGrid(),
+            ),
             SizedBox(height: 80.h),
           ],
         ),

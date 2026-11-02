@@ -42,7 +42,9 @@ class ChangePassword extends StatelessWidget {
                     SizedBox(height: 40.h),
                     CustomFilledButton(
                       text: "Update Password",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ],
                 ),

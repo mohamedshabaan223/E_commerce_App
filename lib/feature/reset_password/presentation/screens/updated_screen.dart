@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,7 +65,21 @@ class Updated extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 45.h),
-                  CustomFilledButton(text: "Back to Login"),
+                  CustomFilledButton(
+                    text: "Back to Login",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (
+                            context,
+                            animation,
+                            secondaryAnimation,
+                          ) => Login(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],
