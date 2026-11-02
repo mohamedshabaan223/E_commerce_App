@@ -2,11 +2,15 @@
 
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
+import 'package:ecommerce_app/feature/adresses/presentation/screens/addresses_list_screen.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/profile/models/profile_item_model.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';
+import 'package:ecommerce_app/feature/reset_password/presentation/screens/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,8 +31,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _isDarkMode = true;
 
   final List<ProfileItemModel> _orders = const [
-    ProfileItemModel(title: 'My Orders', icon: Icons.shopping_bag_outlined , destination: OrderScreen()),
-    ProfileItemModel(title: 'Addresses', icon: Icons.location_on_outlined),
+    ProfileItemModel(
+      title: 'My Orders',
+      icon: Icons.shopping_bag_outlined,
+      destination: OrderScreen(),
+    ),
+    ProfileItemModel(
+      title: 'Addresses',
+      icon: Icons.location_on_outlined,
+      destination: AddressesListScreen(),
+    ),
   ];
 
   final List<ProfileItemModel> _account = const [
@@ -37,7 +49,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       icon: Icons.notifications_none_rounded,
       destination: NotificationsScreen(),
     ),
-    ProfileItemModel(title: 'Change Password', icon: Icons.lock_reset_rounded),
+    ProfileItemModel(
+      title: 'Change Password',
+      icon: Icons.lock_reset_rounded,
+      destination: ChangePassword(),
+    ),
   ];
 
   final List<ProfileItemModel> _info = const [
@@ -63,6 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Admin Dashboard',
       icon: Icons.dashboard_customize_outlined,
       badge: 'ADMIN',
+      destination: AdminScreens(),
     ),
   ];
 
@@ -71,6 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Logout',
       icon: Icons.logout_rounded,
       isDanger: true,
+      destination: Logout(),
     ),
   ];
 

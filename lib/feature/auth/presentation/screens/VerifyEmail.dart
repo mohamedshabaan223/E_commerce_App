@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmail extends StatelessWidget {
@@ -25,8 +26,10 @@ class VerifyEmail extends StatelessWidget {
                 color: const Color(0xFF26262A),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Icon(Icons.mark_email_read_outlined,
-                  color: Colors.white70),
+              child: const Icon(
+                Icons.mark_email_read_outlined,
+                color: Colors.white70,
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -47,7 +50,7 @@ class VerifyEmail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
                 6,
-                    (index) => SizedBox(
+                (index) => SizedBox(
                   width: 46,
                   height: 52,
                   child: TextField(
@@ -76,10 +79,21 @@ class VerifyEmail extends StatelessWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          Login(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFC2A878),
                   foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                  ),
                 ),
                 child: const Text('VERIFY'),
               ),
