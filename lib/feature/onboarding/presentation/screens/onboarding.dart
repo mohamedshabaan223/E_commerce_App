@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/reset_password/presentation/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -13,7 +14,7 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   final images = [
-    "assets/images/category_watches_large.png",
+    "assets/images/category_watches.png",
     "assets/images/promo_banner.png",
     "assets/images/category_rings.png",
   ];
@@ -40,7 +41,7 @@ class _OnboardingState extends State<Onboarding> {
               ),
             ),
             Spacer(),
-            currentPage >= images.length
+            currentPage < images.length - 1
                 ? TextButton(
                     onPressed: () {},
                     child: Text(
@@ -63,9 +64,12 @@ class _OnboardingState extends State<Onboarding> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
               ),
-              height: 300,
+              height: 250.h,
               width: double.infinity,
-              child: Image.asset(images[currentPage], fit: BoxFit.cover),
+              child: ClipRRect(
+                borderRadius: BorderRadiusGeometry.circular(12),
+                child: Image.asset(images[currentPage], fit: BoxFit.cover),
+              ),
             ),
             SizedBox(height: 100),
             Text(text[currentPage], style: AppStyle.text22Medium),
@@ -96,7 +100,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
             SizedBox(height: 20),
             CustomFilledButton(
-              text: "text",
+              text: currentPage < images.length - 1 ? "NEXT" : "GET STARTED",
               onPressed: () {
                 if (currentPage < images.length - 1) {
                   setState(() {

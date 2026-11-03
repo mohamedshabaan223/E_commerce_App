@@ -29,7 +29,7 @@ class AdminProductCard extends StatelessWidget {
     final bool isOutOfStock = stockCount <= 0;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: const Color(0xFF1B1B1D),
         borderRadius: BorderRadius.circular(12),

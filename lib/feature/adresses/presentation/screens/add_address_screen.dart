@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_button.dart';
+import 'package:ecommerce_app/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -96,7 +97,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             SizedBox(height: 5),
             CartButton.cartButtonDesign(
               context: context,
-              page: AddAddressScreen(),
+              page: ProfileScreen(),
               text: "SAVE ADDRESS",
             ),
           ],
