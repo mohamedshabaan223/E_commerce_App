@@ -41,6 +41,8 @@ dependencies:
   file_picker: ^13.3.1
   timeline_tile: ^2.0.0
   google_fonts: ^9.0.0
+  dio: ^5.11.1
+  pretty_dio_logger: ^1.4.0
   
 
 
