@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Customhead extends StatelessWidget {
   final String title, subtitle;
@@ -18,7 +19,7 @@ class Customhead extends StatelessWidget {
         SizedBox(height: 5),
         Text(
           subtitle,
-          style: AppStyle.text14Regular.copyWith(color: Color(0xffCFC5B8)),
+          style: const TextStyle(color: Color(0xffCFC5B8), fontFamily: null),
         ),
       ],
     );

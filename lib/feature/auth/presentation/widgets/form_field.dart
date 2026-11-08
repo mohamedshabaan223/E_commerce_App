@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class FormFieldWidget extends StatefulWidget {
@@ -33,22 +34,21 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: isObscure,
+      cursorColor: ColorsManger.primaryColor,
       decoration: InputDecoration(
         labelText: widget.label,
+        labelStyle: TextStyle(color: Color(0xffAAA59D)),
         hintText: widget.hintText,
         prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
-        suffixIcon: widget.isPassword ? IconButton(
-          onPressed: () {
-            setState(() {
-              isObscure = !isObscure;
-            });
-          },
-          icon: Icon(
-            isObscure
-                ? Icons.visibility_off
-                : Icons.visibility,
-          ),
-        )
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    isObscure = !isObscure;
+                  });
+                },
+                icon: Icon(isObscure ? Icons.visibility_off : Icons.visibility),
+              )
             : widget.suffixIcon == null
             ? null
             : Icon(widget.suffixIcon),

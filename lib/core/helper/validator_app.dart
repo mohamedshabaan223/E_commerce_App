@@ -1,3 +1,5 @@
+import 'appstring.dart';
+
 class ValidatorApp {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -11,12 +13,34 @@ class ValidatorApp {
     return null;
   }
 
-  static String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your Password';
+  static String? validatePassword(String password) {
+    if (password.isEmpty) {
+      return AppStrings.fieldRequired;
     }
-    if (value.length < 7) {
-      return 'Please make the Password length at least 8 character';
+    if (password.length < 6) {
+      return AppStrings.passwordAtLeast8Char;
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return AppStrings.passwordAtLeast1Uppercase;
+    }
+    if (!RegExp(r'[a-z]').hasMatch(password)) {
+      return AppStrings.passwordAtLeast1Lowercase;
+    }
+    if (!RegExp(r'\d').hasMatch(password)) {
+      return AppStrings.passwordAtLeast1Number;
+    }
+    if (!RegExp(r'[@$!%*?&]').hasMatch(password)) {
+      return AppStrings.passwordAtLeast1SpecialChar;
+    }
+    return null;
+  }
+
+  static String? confirmPassword(String? confirmPassword, String? password) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    if (confirmPassword != password) {
+      return AppStrings.passwordNotTheSame;
     }
     return null;
   }

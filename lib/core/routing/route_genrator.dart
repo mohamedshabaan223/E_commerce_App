@@ -3,6 +3,7 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
+import 'package:ecommerce_app/feature/auth/reset_password/presentation/screens/forget_password.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
@@ -19,9 +20,12 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => MainScreen());
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
-           case ConstantRoute.checkoutScreen:
+      case ConstantRoute.checkoutScreen:
         return MaterialPageRoute(builder: (_) => CheckoutScreen());
-           case ConstantRoute.orderDeatilsScreen:
+      case ConstantRoute.orderDeatilsScreen:
+      case ConstantRoute.checkoutScreen:
+        return MaterialPageRoute(builder: (_) => CheckoutScreen());
+      case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
         return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
@@ -37,6 +41,8 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case ConstantRoute.onboarding:
         return MaterialPageRoute(builder: (_) => const Onboarding());
+      case ConstantRoute.forgetPassword:
+        return MaterialPageRoute(builder: (_) => const ForgetPassword());
       default:
         return MaterialPageRoute(
           builder: (_) =>

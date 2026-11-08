@@ -11,7 +11,6 @@ class DioFactory {
 
   final _storage = SecureStorageCacheing();
   late final Dio dio = _setupDio();
-
   Dio _setupDio() {
     final dio = Dio(
       BaseOptions(
@@ -37,9 +36,9 @@ class DioFactory {
               try {
                 final res =
                     await Dio(BaseOptions(baseUrl: ApiConstatnt.baseUrl)).post(
-                  ApiConstatnt.refreshTokenEndPoint,
-                  data: {'refreshToken': refreshToken},
-                );
+                      ApiConstatnt.refreshTokenEndPoint,
+                      data: {'refreshToken': refreshToken},
+                    );
                 final newAccessToken = res.data['accessToken'];
                 await _storage.saveAuthData(
                   accessToken: newAccessToken,
@@ -60,6 +59,11 @@ class DioFactory {
       ),
     );
 
+    connectTimeout:
+    Duration(minutes: 1);
+    receiveTimeout:
+    Duration(minutes: 1);
+
     dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
@@ -72,6 +76,11 @@ class DioFactory {
         enabled: kDebugMode,
         filter: (options, args) {
           if (options.path.contains('/posts')) return false;
+          // don't print requests with uris containing '/posts'
+          if (options.path.contains('/posts')) {
+            return false;
+          }
+          // don't print responses with unit8 list data
           return !args.isResponse || !args.hasUint8ListData;
         },
       ),

@@ -23,6 +23,16 @@ class ErrorHandler implements Exception {
           final responseData = error.response?.data;
 
           if (responseData is Map<String, dynamic>) {
+            //
+            final fieldError = _getApiErrorMessage(responseData);
+
+            if (fieldError != null) {
+              return Failure(
+                code: statusCode ?? ResponseCode.customDefault,
+                message: fieldError,
+              );
+            }
+            //
             final message = responseData['message'];
 
             if (message is String && message.isNotEmpty) {
@@ -108,7 +118,27 @@ class ErrorHandler implements Exception {
 
     return null;
   }
+
+  //
+  static String? _getApiErrorMessage(Map<String, dynamic> responseData) {
+    final errors = responseData['errors'];
+
+    if (errors is Map && errors.isNotEmpty) {
+      if (errors['otp'] is List && (errors['otp'] as List).isNotEmpty) {
+        return ResponseMessage.invalidOtp;
+      }
+      if (errors['email'] is List && (errors['email'] as List).isNotEmpty) {
+        return ResponseMessage.invalidEmail;
+      }
+      if (errors['newPassword'] is List &&
+          (errors['newPassword'] as List).isNotEmpty) {
+        return ResponseMessage.invalidPassword;
+      }
+    }
+    return null;
+  }
 }
+//
 
 enum DataSource {
   noContent,
@@ -253,6 +283,12 @@ class ResponseMessage {
   static String customDefault = "Something went wrong";
 
   static String emailNotFound = "Email not found";
+
+  static String invalidOtp = "Invalid OTP or Email.";
+
+  static String invalidEmail = "Invalid email address.";
+
+  static String invalidPassword = "Invalid password.";
 }
 
 class ApiInternalStatus {
