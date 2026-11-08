@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/core/shared_widgets/product_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HotDealsList extends StatelessWidget {
   const HotDealsList({super.key, required this.products});
@@ -25,7 +25,9 @@ class HotDealsList extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const ProductDetailsScreen()),
+                MaterialPageRoute(
+                  builder: (_) => ProductDetailsScreen(productId: p.id),
+                ),
               ),
               child: ProductCard(
                 imageUrl: p.coverPictureUrl,

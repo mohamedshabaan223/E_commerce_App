@@ -31,7 +31,9 @@ class AllProductsGrid extends StatelessWidget {
         return GestureDetector(
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const ProductDetailsScreen()),
+            MaterialPageRoute(
+              builder: (_) => ProductDetailsScreen(productId: p.id),
+            ),
           ),
           child: ProductCard(
             imageUrl: p.coverPictureUrl,

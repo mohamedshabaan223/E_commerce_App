@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/routing/constant_route.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
@@ -11,6 +12,7 @@ import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.da
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
 import 'package:ecommerce_app/feature/splash/presentation/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class RouteGenrator {
   static Route getRoute(RouteSettings settings) {
@@ -19,18 +21,25 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => MainScreen());
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
-           case ConstantRoute.checkoutScreen:
+      case ConstantRoute.checkoutScreen:
         return MaterialPageRoute(builder: (_) => CheckoutScreen());
-           case ConstantRoute.orderDeatilsScreen:
+      case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
-        return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
+        return MaterialPageRoute(
+          builder: (_) =>
+              ProductDetailsScreen(productId: settings.arguments as String),
+        );
       case ConstantRoute.Login:
-        return MaterialPageRoute(builder: (_) => const Login());
+        return MaterialPageRoute(
+          builder: (_) =>
+              BlocProvider(create: (context) => AuthCubit(), child: Login()),
+        );
       case ConstantRoute.SignUp:
         return MaterialPageRoute(builder: (_) => const SignUp());
       case ConstantRoute.VerifyEmail:
-        return MaterialPageRoute(builder: (_) => const VerifyEmail());
+        final email = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => VerifyEmail(email: email));
       case ConstantRoute.Logout:
         return MaterialPageRoute(builder: (_) => const Logout());
       case ConstantRoute.splash:
