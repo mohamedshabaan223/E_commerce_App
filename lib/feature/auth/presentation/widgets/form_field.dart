@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class FormFieldWidget extends StatefulWidget {
@@ -39,7 +40,9 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
       obscureText: isObscure,
       decoration: InputDecoration(
         labelText: widget.label,
+        labelStyle: AppStyle.text14Medium,
         hintText: widget.hintText,
+        
         prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
         suffixIcon: widget.isPassword ? IconButton(
           onPressed: () {

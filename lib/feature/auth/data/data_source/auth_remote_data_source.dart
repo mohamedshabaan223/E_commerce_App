@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
@@ -22,7 +24,28 @@ class AuthRemoteDataSource {
         refreshToken: response.data['refreshToken'],
         expiresAt: DateTime.parse(response.data['expiresAtUtc']),
       );
-      return  Right(null);
+      return Right(null);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, void>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String confirmNewPassword,
+  }) async {
+    try {
+      final Response response = await dio.post(
+        ApiConstatnt.changePasswordEndPoint,
+        data: {
+          "currentPassword": currentPassword,
+          "newPassword": newPassword,
+          "confirmNewPassword": confirmNewPassword,
+        },
+      );
+      log(response.data);
+      return Right(null);
     } catch (e) {
       return Left(ErrorHandler.handle(e).failure);
     }

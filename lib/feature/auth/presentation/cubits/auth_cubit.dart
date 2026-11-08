@@ -15,4 +15,21 @@ class AuthCubit extends Cubit<AuthState> {
       (value) => emit(AuthSuccessState()),
     );
   }
+
+  Future<void> changPassword({
+    required String currentPassword,
+    required String newPassword,
+    required String confirmNewPassword,
+  }) async {
+    emit(AuthLoadingState());
+    final response = await _authRemoteDataSource.changePassword(
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      confirmNewPassword: confirmNewPassword,
+    );
+    response.fold(
+      (error) => emit(AuthErrorState(errorMessage: error.message)),
+      (value) => emit(AuthSuccessState()),
+    );
+  }
 }

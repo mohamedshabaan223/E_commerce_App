@@ -6,7 +6,7 @@ import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.d
 import 'package:ecommerce_app/feature/adresses/presentation/screens/addresses_list_screen.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
-import 'package:ecommerce_app/feature/profile/models/profile_item_model.dart';
+import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';

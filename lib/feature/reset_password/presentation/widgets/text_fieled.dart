@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormFilled extends StatelessWidget {
   final String text;
-
-  const new({super.key, required this.text});
+ 
+  const CustomTextFormFilled({super.key, required this.text, });
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Color(0xff1B1B1D)),
       child: TextFormField(
+       
         cursorColor: Color(0xffDAC49B),
         style: AppStyle.text14Semibold,
         decoration: InputDecoration(
