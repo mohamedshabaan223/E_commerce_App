@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class FormFieldWidget extends StatefulWidget {
@@ -7,6 +8,7 @@ class FormFieldWidget extends StatefulWidget {
   final IconData? suffixIcon;
   final bool isPassword;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const FormFieldWidget({
     super.key,
@@ -16,6 +18,7 @@ class FormFieldWidget extends StatefulWidget {
     this.suffixIcon,
     this.isPassword = false,
     this.controller,
+    this.validator,
   });
 
   @override
@@ -35,12 +38,14 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      validator: widget.validator,
       obscureText: isObscure,
       decoration: InputDecoration(
         labelText: widget.label,
+        labelStyle: AppStyle.text14Medium,
         hintText: widget.hintText,
-        prefixIcon:
-        widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
+
+        prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
         suffixIcon: widget.isPassword
             ? IconButton(
           onPressed: () {
@@ -48,9 +53,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
               isObscure = !isObscure;
             });
           },
-          icon: Icon(
-            isObscure ? Icons.visibility_off : Icons.visibility,
-          ),
+          icon: Icon(isObscure ? Icons.visibility_off : Icons.visibility),
         )
             : widget.suffixIcon == null
             ? null
