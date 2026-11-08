@@ -9,21 +9,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class VerifyEmail extends StatefulWidget {
   final String email;
 
-  const VerifyEmail({
-    super.key,
-    required this.email,
-  });
+  const VerifyEmail({super.key, required this.email});
 
   @override
   State<VerifyEmail> createState() => _VerifyEmailState();
 }
 
 class _VerifyEmailState extends State<VerifyEmail> {
-  final List<TextEditingController> otpControllers =
-  List.generate(6, (_) => TextEditingController());
+  final List<TextEditingController> otpControllers = List.generate(
+    6,
+    (_) => TextEditingController(),
+  );
 
-  final List<FocusNode> focusNodes =
-  List.generate(6, (_) => FocusNode());
+  final List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
 
   Timer? timer;
   int remainingSeconds = 30;
@@ -85,55 +83,46 @@ class _VerifyEmailState extends State<VerifyEmail> {
       return;
     }
 
-    await context.read<AuthCubit>().verifyEmail(
-      email: widget.email,
-      otp: otp,
-    );
+    await context.read<AuthCubit2>().verifyEmail(email: widget.email, otp: otp);
 
     if (!mounted) return;
 
-    final state = context.read<AuthCubit>().state;
+    final state = context.read<AuthCubit2>().state;
 
     if (state is AuthSuccess) {
       timer?.cancel();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(state.message)));
 
       Navigator.pushNamedAndRemoveUntil(
         context,
         ConstantRoute.Login,
-            (route) => false,
+        (route) => false,
       );
     } else if (state is AuthFailure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(state.message)));
     }
   }
 
   Future<void> resendCode() async {
     if (remainingSeconds > 0) return;
 
-    await context.read<AuthCubit>().resendOtp(
-      email: widget.email,
-    );
+    await context.read<AuthCubit2>().resendOtp(email: widget.email);
 
     if (!mounted) return;
 
-    final state = context.read<AuthCubit>().state;
+    final state = context.read<AuthCubit2>().state;
 
     if (state is AuthSuccess) {
       startTimer();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(state.message)));
     } else if (state is AuthFailure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(state.message)));
     }
   }
 
@@ -198,7 +187,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
                 6,
-                    (index) => SizedBox(
+                (index) => SizedBox(
                   width: 46,
                   height: 52,
                   child: TextField(
@@ -207,10 +196,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                     decoration: InputDecoration(
                       counterText: '',
                       filled: true,
@@ -232,7 +218,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               ),
             ),
             const SizedBox(height: 24),
-            BlocBuilder<AuthCubit, AuthState>(
+            BlocBuilder<AuthCubit2, AuthState>(
               builder: (context, state) {
                 final isLoading = state is AuthLoading;
 

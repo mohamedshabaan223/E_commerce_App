@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
@@ -112,7 +114,10 @@ class _OnboardingState extends State<Onboarding> {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          Login(),
+                          BlocProvider(
+                            create: (context) => AuthCubit(),
+                            child: Login(),
+                          ),
                     ),
                   );
                 }

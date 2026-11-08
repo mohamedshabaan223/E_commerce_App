@@ -3,12 +3,14 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/routing/constant_route.dart';
 import '../../reset_password/presentation/screens/forget_password.dart';
+import '../cubit/auth_cubit.dart';
 import '../widgets/authHeader.dart';
 import '../widgets/form_field.dart';
 
@@ -189,9 +191,16 @@ class _LoginState extends State<Login> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(
+                          Navigator.pushReplacement(
                             context,
-                            ConstantRoute.SignUp,
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      BlocProvider(
+                                        create: (context) => AuthCubit2(),
+                                        child: SignUp(),
+                                      ),
+                            ),
                           );
                         },
                         child: const Text(
