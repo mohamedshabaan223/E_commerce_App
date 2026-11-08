@@ -3,4 +3,6 @@ abstract class ApiConstatnt {
   static const String refreshTokenEndPoint = 'auth/refresh-token';
   static const String signInEndPoint = 'auth/login';
   static const String changePasswordEndPoint = 'auth/change-password';
+  static const String getCartEndPoint = 'cart';
+  static const String addToCartEndPoint = 'cart/items';
 }
