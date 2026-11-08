@@ -3,6 +3,8 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
+import 'package:ecommerce_app/feature/home/data/data_source/remote/home_remote_data_source.dart';
+import 'package:ecommerce_app/feature/home/presentation/cubits/product_cubit.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
@@ -11,17 +13,23 @@ import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.da
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
 import 'package:ecommerce_app/feature/splash/presentation/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class RouteGenrator {
   static Route getRoute(RouteSettings settings) {
     switch (settings.name) {
       case ConstantRoute.mainScreen:
-        return MaterialPageRoute(builder: (_) => MainScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => ProductCubit(HomeRemoteDataSource()),
+            child: const MainScreen(),
+          ),
+        );
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
-           case ConstantRoute.checkoutScreen:
+      case ConstantRoute.checkoutScreen:
         return MaterialPageRoute(builder: (_) => CheckoutScreen());
-           case ConstantRoute.orderDeatilsScreen:
+      case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
         return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());

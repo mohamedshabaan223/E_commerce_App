@@ -1,4 +1,10 @@
+import 'package:ecommerce_app/feature/admin/presentation/widgets/category_chip.dart';
+import 'package:ecommerce_app/feature/admin/presentation/widgets/custom_text_field.dart';
+import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
+import 'package:ecommerce_app/feature/home/presentation/cubits/product_cubit.dart';
+import 'package:ecommerce_app/feature/home/presentation/cubits/product_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -8,241 +14,354 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  String selectedCategory = 'Timepieces';
-
   static const Color backgroundColor = Color(0xFF121212);
   static const Color cardColor = Color(0xFF1B1B1D);
   static const Color goldColor = Color(0xFFC4B18B);
+  static const List<String> _categories = ['Timepieces', 'Leather Goods'];
+
+  String selectedCategory = _categories.first;
+
+  final _sellerIdController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _nameArabicController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _descriptionArabicController = TextEditingController();
+  final _colorController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _stockController = TextEditingController();
+  final _coverImageUrlController = TextEditingController();
+
+  @override
+  void dispose() {
+    _sellerIdController.dispose();
+    _nameController.dispose();
+    _nameArabicController.dispose();
+    _descriptionController.dispose();
+    _descriptionArabicController.dispose();
+    _colorController.dispose();
+    _priceController.dispose();
+    _stockController.dispose();
+    _coverImageUrlController.dispose();
+    super.dispose();
+  }
+
+  void _showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
+    );
+  }
+
+  void _submitProduct(BuildContext context) {
+    final name = _nameController.text.trim();
+    final nameArabic = _nameArabicController.text.trim();
+    final description = _descriptionController.text.trim();
+    final descriptionArabic = _descriptionArabicController.text.trim();
+    final sellerId = _sellerIdController.text.trim();
+    final color = _colorController.text.trim();
+    final price = double.tryParse(_priceController.text.trim());
+    final stock = int.tryParse(_stockController.text.trim());
+
+    String? error;
+    if (sellerId.isEmpty) {
+      error = 'Seller ID (UUID) is required by the API.';
+    } else if (name.isEmpty) {
+      error = 'Please enter product name (EN)';
+    } else if (nameArabic.isEmpty) {
+      error = 'Please enter Arabic product name';
+    } else if (description.isEmpty) {
+      error = 'Please enter product description';
+    } else if (price == null || price <= 0) {
+      error = 'Please enter a valid positive price';
+    } else if (stock == null || stock < 0) {
+      error = 'Please enter a valid stock quantity';
+    }
+
+    if (error != null) {
+      _showErrorSnackBar(context, error);
+      return;
+    }
+
+    final product = ProductModel(
+      sellerId: sellerId,
+      name: name,
+      description: description,
+      nameArabic: nameArabic,
+      descriptionArabic: descriptionArabic.isNotEmpty
+          ? descriptionArabic
+          : description,
+      coverPictureUrl: _coverImageUrlController.text.trim(),
+      price: price!,
+      stock: stock!,
+      weight: 0,
+      color: color.isNotEmpty ? color : 'Standard',
+      discountPercentage: 0,
+      categoryIds: [],
+      productPictureUrls: [],
+    );
+
+    context.read<ProductCubit>().addProduct(product);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: AppBar(
-        backgroundColor: cardColor,
-        elevation: 0,
-        title: const Text(
-          'Add Product',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(25),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 850),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Product Information',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return BlocListener<ProductCubit, ProductStates>(
+      listenWhen: (previous, current) =>
+          current is AddProductSuccess || current is AddProductFailure,
+      listener: (context, state) {
+        if (state is AddProductSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Product added successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          Navigator.maybePop(context);
+        } else if (state is AddProductFailure) {
+          _showErrorSnackBar(context, state.errorMessage);
+        }
+      },
+      child: Builder(
+        builder: (context) {
+          final bool isLoading =
+              context.watch<ProductCubit>().state is AddProductLoading;
+
+          return Scaffold(
+            backgroundColor: backgroundColor,
+            appBar: AppBar(
+              backgroundColor: cardColor,
+              elevation: 0,
+              title: const Text(
+                'Add Product',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-
-                const SizedBox(height: 25),
-
-                _buildLabel('Product Name (EN)'),
-                _buildTextField('Enter product name'),
-
-                const SizedBox(height: 20),
-
-                _buildLabel('Product Name (AR)'),
-                _buildTextField('Enter Arabic product name'),
-
-                const SizedBox(height: 20),
-
-                _buildLabel('Description (EN)'),
-                _buildTextField('Enter product description', maxLines: 4),
-
-                const SizedBox(height: 20),
-
-                _buildLabel('Price and Stock'),
-
-                Row(
-                  children: [
-                    Expanded(child: _buildTextField('Price', suffixText: '\$')),
-                    const SizedBox(width: 15),
-                    Expanded(
-                      child: _buildTextField('Stock', suffixText: 'Units'),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 25),
-
-                _buildLabel('Cover Image'),
-
-                Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: cardColor,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: goldColor.withValues(alpha: 0.4)),
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              ),
+            ),
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(25),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 850),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.cloud_upload_outlined,
-                        size: 38,
-                        color: goldColor,
+                      const Text(
+                        'Product Information',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 25),
+
+                      CustomTextField(
+                        label: 'Seller ID (UUID) *',
+                        hint: 'e.g. 123e4567-e89b-12d3-a456-426614174000',
+                        controller: _sellerIdController,
+                      ),
+                      const SizedBox(height: 20),
+
+                      CustomTextField(
+                        label: 'Product Name (EN) *',
+                        hint: 'Enter product name',
+                        controller: _nameController,
+                      ),
+                      const SizedBox(height: 20),
+
+                      CustomTextField(
+                        label: 'Product Name (AR) *',
+                        hint: 'Enter Arabic product name',
+                        controller: _nameArabicController,
+                      ),
+                      const SizedBox(height: 20),
+
+                      CustomTextField(
+                        label: 'Description (EN) *',
+                        hint: 'Enter product description',
+                        maxLines: 4,
+                        controller: _descriptionController,
+                      ),
+                      const SizedBox(height: 20),
+
+                      CustomTextField(
+                        label: 'Description (AR)',
+                        hint: 'Enter Arabic product description',
+                        maxLines: 4,
+                        controller: _descriptionArabicController,
+                      ),
+                      const SizedBox(height: 20),
+
+                      CustomTextField(
+                        label: 'Color',
+                        hint: 'e.g. Silver, Black',
+                        controller: _colorController,
+                      ),
+                      const SizedBox(height: 20),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Price *',
+                              hint: 'Price',
+                              suffixText: '\$',
+                              controller: _priceController,
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Stock *',
+                              hint: 'Stock',
+                              suffixText: 'Units',
+                              controller: _stockController,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 25),
+
+                      _buildCoverImageBox(),
+                      const SizedBox(height: 15),
+
+                      CustomTextField(
+                        label: 'Cover Image URL',
+                        hint: 'https://...',
+                        controller: _coverImageUrlController,
+                      ),
+                      const SizedBox(height: 25),
+
                       Text(
-                        'Upload Cover Image',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        'Product Category',
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      SizedBox(height: 5),
-                      Text(
-                        'PNG, JPG up to 5MB',
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 12,
+                        children: _categories
+                            .map(
+                              (category) => CategoryChip(
+                                label: category,
+                                isSelected: selectedCategory == category,
+                                onTap: () =>
+                                    setState(() => selectedCategory = category),
+                              ),
+                            )
+                            .toList(),
                       ),
+                      const SizedBox(height: 35),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: isLoading
+                                  ? null
+                                  : () => Navigator.maybePop(context),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                side: const BorderSide(color: Colors.white24),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
+                              ),
+                              child: const Text('Cancel'),
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: isLoading
+                                  ? null
+                                  : () => _submitProduct(context),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: goldColor,
+                                foregroundColor: Colors.black,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
+                              ),
+                              child: isLoading
+                                  ? const SizedBox(
+                                      width: 22,
+                                      height: 22,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  : const Text(
+                                      'Save Product',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),
-
-                const SizedBox(height: 25),
-
-                _buildLabel('Product Category'),
-
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    _buildCategoryChip('Timepieces'),
-                    _buildCategoryChip('Leather Goods'),
-                  ],
-                ),
-
-                const SizedBox(height: 35),
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.maybePop(context);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          side: const BorderSide(color: Colors.white24),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                        child: const Text('Cancel'),
-                      ),
-                    ),
-
-                    const SizedBox(width: 15),
-
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                'This is a UI preview. Product is not saved.',
-                              ),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: goldColor,
-                          foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                        child: const Text(
-                          'Save Product',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 30),
-              ],
+              ),
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildCoverImageBox() {
+    return ListenableBuilder(
+      listenable: _coverImageUrlController,
+      builder: (context, _) {
+        final url = _coverImageUrlController.text;
+
+        return Container(
+          width: double.infinity,
+          height: 150,
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: goldColor.withValues(alpha: 0.4)),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLabel(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(String hint, {int maxLines = 1, String? suffixText}) {
-    return TextField(
-      maxLines: maxLines,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey),
-        suffixText: suffixText,
-        suffixStyle: const TextStyle(color: goldColor),
-        filled: true,
-        fillColor: cardColor,
-        contentPadding: const EdgeInsets.all(15),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.white12),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: goldColor),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryChip(String category) {
-    final bool isSelected = selectedCategory == category;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedCategory = category;
-        });
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.cloud_upload_outlined,
+                size: 38,
+                color: goldColor,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                url.isNotEmpty ? 'Image URL set' : 'Upload Cover Image',
+                style: const TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              const SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  url.isNotEmpty ? url : 'PNG, JPG up to 5MB',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        );
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected ? goldColor : cardColor,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: isSelected ? goldColor : Colors.white24),
-        ),
-        child: Text(
-          category,
-          style: TextStyle(
-            color: isSelected ? Colors.black : Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
     );
   }
 }

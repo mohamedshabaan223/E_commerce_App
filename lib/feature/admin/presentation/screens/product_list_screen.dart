@@ -1,14 +1,17 @@
+import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
+import 'package:ecommerce_app/feature/home/presentation/cubits/product_cubit.dart';
+import 'package:ecommerce_app/feature/home/presentation/cubits/product_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:ecommerce_app/feature/admin/presentation/screens/add_product_screen.dart';
 import 'package:ecommerce_app/feature/admin/presentation/widgets/admin_product_card.dart';
 import 'package:ecommerce_app/feature/admin/presentation/widgets/delete_product.dart';
 
 class ProductListcreen extends StatefulWidget {
-  const ProductListcreen({
-    super.key,
-    required List<Map<String, dynamic>> products,
-  });
+  const ProductListcreen({super.key, required this.products});
+
+  final List<ProductModel> products;
 
   @override
   State<ProductListcreen> createState() => _ProductListcreenState();
@@ -17,33 +20,22 @@ class ProductListcreen extends StatefulWidget {
 class _ProductListcreenState extends State<ProductListcreen> {
   final TextEditingController _searchController = TextEditingController();
 
+  late List<ProductModel> _products;
   String _searchQuery = '';
 
-  final List<Map<String, dynamic>> _products = [
-    {
-      'title': 'Chronographe Noir 41mm',
-      'sku': 'PRD-8921',
-      'price': 1250.00,
-      'oldPrice': 1470.00,
-      'discountTag': '-15%',
-      'stockCount': 14,
-      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-vrmIJ0QjwcZgmqFJ9etFAVdKyR3idJZmaKVqtcSMyA&s=10',
-    },
-    {
-      'title': 'Signet Ring 18K Gold',
-      'sku': 'PRD-4410',
-      'price': 480.00,
-      'stockCount': 14,
-      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzo2eogdvWBSEKEwalJA2WCsqlhL_jsviQOdfqzDShaQ&s=10',
-    },
-    {
-      'title': 'Italian Leather Bifold',
-      'sku': 'PRD-3309',
-      'price': 320.00,
-      'stockCount': 14,
-      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeCp0B6kpp61lqLW30SCb4AhtPTEEq92pPXak9e0z_bw&s=10',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _products = List.of(widget.products);
+  }
+
+  @override
+  void didUpdateWidget(covariant ProductListcreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.products != widget.products) {
+      _products = List.of(widget.products);
+    }
+  }
 
   @override
   void dispose() {
@@ -51,41 +43,71 @@ class _ProductListcreenState extends State<ProductListcreen> {
     super.dispose();
   }
 
-  List<Map<String, dynamic>> get _filteredProducts {
+  List<ProductModel> _getFilteredProducts() {
     if (_searchQuery.isEmpty) return _products;
 
     return _products.where((product) {
-      final title = product['title'].toString().toLowerCase();
-      final sku = product['sku'].toString().toLowerCase();
-
+      final title = product.name.toLowerCase();
+      final sku = (product.id ?? '').toLowerCase();
       return title.contains(_searchQuery) || sku.contains(_searchQuery);
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 650;
+    return BlocConsumer<ProductCubit, ProductStates>(
+      listenWhen: (previous, current) =>
+          current is DeleteProductSuccess || current is DeleteProductFailure,
+      listener: (context, state) {
+        if (state is DeleteProductSuccess) {
+          setState(() {
+            _products.removeWhere((p) => p.id == state.deletedProductId);
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Product deleted successfully'),
+              backgroundColor: Color(0xFF1B1B1D),
+            ),
+          );
+        } else if (state is DeleteProductFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        final products = _getFilteredProducts();
+        final bool isDeleting = state is DeleteProductLoading;
 
-        return Padding(
-          padding: EdgeInsets.all(isMobile ? 16 : 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(isMobile),
-              const SizedBox(height: 28),
-              _buildSearchField(isMobile),
-              const SizedBox(height: 24),
-              Expanded(child: _buildProductsGrid()),
-            ],
-          ),
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < 650;
+
+            return Padding(
+              padding: EdgeInsets.all(isMobile ? 16 : 32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(isMobile, context),
+                  const SizedBox(height: 28),
+                  _buildSearchField(isMobile),
+                  const SizedBox(height: 24),
+                  Expanded(
+                    child: _buildProductsGrid(context, products, isDeleting),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
   }
 
-  Widget _buildHeader(bool isMobile) {
+  Widget _buildHeader(bool isMobile, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -102,7 +124,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
         ),
         const SizedBox(width: 12),
         ElevatedButton.icon(
-          onPressed: _navigateToAddProduct,
+          onPressed: () => _navigateToAddProduct(context),
           icon: const Icon(Icons.add, color: Colors.black, size: 20),
           label: Text(
             isMobile ? 'Add' : 'Add Product',
@@ -170,9 +192,11 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-  Widget _buildProductsGrid() {
-    final products = _filteredProducts;
-
+  Widget _buildProductsGrid(
+    BuildContext context,
+    List<ProductModel> products,
+    bool isDeleting,
+  ) {
     if (products.isEmpty) {
       return Center(
         child: Column(
@@ -203,11 +227,11 @@ class _ProductListcreenState extends State<ProductListcreen> {
       );
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return GridView.builder(
+    return Stack(
+      children: [
+        GridView.builder(
           itemCount: products.length,
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 520,
             mainAxisExtent: 120,
             crossAxisSpacing: 16,
@@ -217,49 +241,78 @@ class _ProductListcreenState extends State<ProductListcreen> {
             final product = products[index];
 
             return AdminProductCard(
-              title: product['title'],
-              sku: product['sku'],
-              price: product['price'],
-              oldPrice: product['oldPrice'],
-              discountTag: product['discountTag'],
-              stockCount: product['stockCount'],
-              imageUrl: product['imageUrl'],
-              onDelete: () => _showDeleteDialog(product),
+              title: product.name,
+              sku: product.id ?? 'N/A',
+              price: product.price,
+              oldPrice: null,
+              discountTag: product.discountPercentage > 0
+                  ? '-${product.discountPercentage}%'
+                  : null,
+              stockCount: product.stock,
+              imageUrl: product.coverPictureUrl,
+              onDelete: () => _showDeleteDialog(context, product),
               onEdit: () {},
             );
           },
-        );
-      },
+        ),
+        if (isDeleting)
+          Container(
+            color: Colors.black.withValues(alpha: 0.3),
+            child: const Center(
+              child: CircularProgressIndicator(color: Color(0xFFC4B18B)),
+            ),
+          ),
+      ],
     );
   }
 
-  void _navigateToAddProduct() {
+  void _navigateToAddProduct(BuildContext context) {
+    final cubit = context.read<ProductCubit>();
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const AddProductScreen()),
+      MaterialPageRoute(
+        builder: (_) =>
+            BlocProvider.value(value: cubit, child: const AddProductScreen()),
+      ),
     );
   }
 
-  void _showDeleteDialog(Map<String, dynamic> product) {
+  void _showDeleteDialog(BuildContext context, ProductModel product) {
+    // Safety rule: Do not delete the existing test product named Etsh
+    if (product.name.trim().toLowerCase() == 'etsh') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Safety rule: Deletion of test product "Etsh" is prohibited.',
+          ),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    if (product.id == null ||
+        product.id!.isEmpty ||
+        product.id!.startsWith('PRD-')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Cannot delete: this product has no valid API UUID.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
     showDialog(
       context: context,
       builder: (dialogContext) {
         return DeleteProductDialog(
-          productTitle: product['title'],
-          productSku: product['sku'],
+          productTitle: product.name,
+          productSku: product.id ?? 'N/A',
           onDeletePressed: () {
             Navigator.pop(dialogContext);
-
-            setState(() {
-              _products.remove(product);
-            });
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Product deleted successfully'),
-                backgroundColor: Color(0xFF1B1B1D),
-              ),
-            );
+            context.read<ProductCubit>().deleteProduct(product.id!);
           },
           onCancelPressed: () {
             Navigator.pop(dialogContext);
