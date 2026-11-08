@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/remote_data_source/auth_remote_data_source.dart';
+import '../../../data/data_source/auth_remote_data_source.dart';
 import 'forget_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {

@@ -50,4 +50,60 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
+
+  Future<Either<Failure, Response>> forgetPassword({
+    required String email,
+  }) async {
+    try {
+      final response = await dio.post(
+        "auth/forgot-password",
+        data: {"email": email},
+      );
+
+      return Right(response);
+    } catch (e) {
+      log('Forgot Password Error: $e');
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  // Verify OTP
+  Future<Either<Failure, Response>> verifyOtp({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final response = await dio.post(
+        "auth/validate-otp",
+        data: {"email": email, "otp": otp},
+      );
+
+      log('OTP STATUS: ${response.statusCode}');
+      log('OTP RESPONSE: ${response.data}');
+
+      return Right(response);
+    } catch (e) {
+      log('Verify OTP Error: $e');
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  // Reset Password
+  Future<Either<Failure, Response>> resetPassword({
+    required String email,
+    required String otp,
+    required String newPassword,
+  }) async {
+    try {
+      final response = await dio.post(
+        "auth/reset-password",
+        data: {"email": email, "otp": otp, "newPassword": newPassword},
+      );
+
+      return Right(response);
+    } catch (e) {
+      log('Reset Password Error: $e');
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
 }
