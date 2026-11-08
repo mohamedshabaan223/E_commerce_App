@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../presentation/cubit/auth_cubit.dart';
 import '../cubit/forget_password_cubit.dart';
 import '../cubit/forget_password_state.dart';
 import '../widgets/app_bar.dart';
@@ -45,8 +46,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => OtpCubit(),
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider(create: (context) => OtpCubit()),
+                      BlocProvider(create: (context) => AuthCubit2()),
+                    ],
                     child: Verification(email: emailController.text.trim()),
                   ),
                 ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_cubit.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_state.dart';
@@ -9,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../../core/utils/colors_manger.dart';
+import '../../../presentation/cubit/auth_cubit.dart';
+import '../../../presentation/cubit/auth_state.dart';
 import '../cubit/resetpassword_cubit.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/filled_button.dart';
@@ -24,10 +28,42 @@ class Verification extends StatefulWidget {
 
 class _VerificationState extends State<Verification> {
   final TextEditingController otpcontroller = TextEditingController();
+  int secondsRemaining = 30;
+  Timer? countdownTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startInitialTimer();
+  }
+
+  void _startInitialTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (secondsRemaining > 0) {
+        setState(() {
+          secondsRemaining--;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  void _restartTimer() {
+    countdownTimer?.cancel();
+
+    setState(() {
+      secondsRemaining = 30;
+    });
+
+    _startInitialTimer();
+  }
+
   @override
   void dispose() {
-    super.dispose();
+    countdownTimer?.cancel();
     otpcontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -105,12 +141,6 @@ class _VerificationState extends State<Verification> {
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
                             ],
-                            // onCompleted: (pin) {
-                            //   context.read<OtpCubit>().verifyOtp(
-                            //     email: widget.email,
-                            //     otp: pin,
-                            //   );
-                            // },
                           ),
                         ),
                         SizedBox(height: 50.h),
@@ -143,18 +173,50 @@ class _VerificationState extends State<Verification> {
                             },
                           ),
                         SizedBox(height: 20.h),
-                        Center(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.transparent,
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              "Resend code in 00:30",
-                              style: AppStyle.text12Medium.copyWith(
-                                color: ColorsManger.primaryColor,
-                              ),
-                            ),
+                        BlocListener<AuthCubit2, AuthState>(
+                          listener: (context, state) {
+                            if (state is AuthSuccess) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(state.message)),
+                              );
+
+                              _restartTimer();
+                            }
+
+                            if (state is AuthFailure) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(state.message)),
+                              );
+                            }
+                          },
+                          child: BlocBuilder<AuthCubit2, AuthState>(
+                            builder: (context, resendState) {
+                              final isLoading = resendState is AuthLoading;
+
+                              return Center(
+                                child: TextButton(
+                                  onPressed: secondsRemaining > 0 || isLoading
+                                      ? null
+                                      : () {
+                                          context.read<AuthCubit2>().resendOtp(
+                                            email: widget.email,
+                                          );
+                                        },
+                                  child: Text(
+                                    isLoading
+                                        ? "Sending..."
+                                        : secondsRemaining > 0
+                                        ? "Resend code in 00:${secondsRemaining.toString().padLeft(2, '0')}"
+                                        : "Resend OTP",
+                                    style: AppStyle.text12Medium.copyWith(
+                                      color: secondsRemaining > 0
+                                          ? Colors.grey
+                                          : ColorsManger.primaryColor,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],
