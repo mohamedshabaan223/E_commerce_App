@@ -52,7 +52,25 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 12.h),
-                const PromoBannerCarousel(),
+
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is HomeSuccess) {
+                      if (state.offers.isEmpty) return const SizedBox.shrink();
+                      return PromoBannerCarousel(offers: state.offers);
+                    }
+                    if (state is HomeFailure) return const SizedBox.shrink();
+                    return SizedBox(
+                      height: 200.h,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: ColorsManger.primaryColor,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
                 SizedBox(height: 12.h),
                 SectionHeader(title: 'Categories', onViewAll: () {}),
                 SizedBox(height: 12.h),

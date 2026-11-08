@@ -23,9 +23,12 @@ class PromoItem extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          imageUrl.startsWith('http')
-              ? Image.network(imageUrl, fit: BoxFit.cover)
-              : Image.asset(imageUrl, fit: BoxFit.cover),
+          Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (_, _, _) =>
+                const ColoredBox(color: ColorsManger.surface),
+          ),
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
