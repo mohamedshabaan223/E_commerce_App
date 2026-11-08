@@ -104,8 +104,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             SizedBox(height: 16.h),
             AddToCartButton(
-              totalPrice: '\$${ProductDetailsMock.unitPrice * _quantity}',
-              onPressed: () {},
+              //product id ------------------------>
+              totalPrice: '\$${ProductDetailsMock.unitPrice * _quantity}', productId: 1,
             ),
             SizedBox(height: 24.h),
             Divider(height: 1.h, thickness: 1.h, color: ColorsManger.border),

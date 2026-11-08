@@ -8,8 +8,12 @@ import 'package:ecommerce_app/feature/home/presentation/widgets/hot_deals.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/promo_banner.dart';
 import 'package:ecommerce_app/feature/search/presentation/screens/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/network/dio_factory.dart';
+import '../../../cart/Cubit/cart_cubit.dart';
+import '../../../cart/data/remote_data_sources/cart_remote_data_source.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -51,7 +55,10 @@ class HomeScreen extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        ProductDetailsScreen(),
+                    BlocProvider(
+                      create: (context) => CartCubit(CartRemoteDataSource(DioFactory().dio)),
+                      child:  ProductDetailsScreen(),
+                    ),
                   ),
                 );
               },
