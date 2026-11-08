@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/core/routing/constant_route.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
-import 'package:ecommerce_app/feature/auth/reset_password/presentation/screens/forget_password.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
@@ -12,6 +12,7 @@ import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.da
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
 import 'package:ecommerce_app/feature/splash/presentation/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class RouteGenrator {
   static Route getRoute(RouteSettings settings) {
@@ -23,14 +24,14 @@ abstract class RouteGenrator {
       case ConstantRoute.checkoutScreen:
         return MaterialPageRoute(builder: (_) => CheckoutScreen());
       case ConstantRoute.orderDeatilsScreen:
-      case ConstantRoute.checkoutScreen:
-        return MaterialPageRoute(builder: (_) => CheckoutScreen());
-      case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
         return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
       case ConstantRoute.Login:
-        return MaterialPageRoute(builder: (_) => const Login());
+        return MaterialPageRoute(
+          builder: (_) =>
+              BlocProvider(create: (context) => AuthCubit(), child: Login()),
+        );
       case ConstantRoute.SignUp:
         return MaterialPageRoute(builder: (_) => const SignUp());
       case ConstantRoute.VerifyEmail:
@@ -41,8 +42,6 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case ConstantRoute.onboarding:
         return MaterialPageRoute(builder: (_) => const Onboarding());
-      case ConstantRoute.forgetPassword:
-        return MaterialPageRoute(builder: (_) => const ForgetPassword());
       default:
         return MaterialPageRoute(
           builder: (_) =>

@@ -1,6 +1,6 @@
 // feature/profile/presentation/widgets/widgets/profile_menu_group.dart
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/profile/models/profile_item_model.dart';
+import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

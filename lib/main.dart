@@ -1,14 +1,20 @@
+import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/routing/route_genrator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final token = await SecureStorageCacheing().getAccessToken();
+  final bool isLoggedIn = token != null;
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -17,14 +23,13 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-
         theme: ThemeData(
           brightness: Brightness.dark,
 
           //fontFamily: 'DMSerifDisplay',
         ),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: ConstantRoute.splash,
+        initialRoute: isLoggedIn ? ConstantRoute.mainScreen : ConstantRoute.Login,
       ),
     );
   }

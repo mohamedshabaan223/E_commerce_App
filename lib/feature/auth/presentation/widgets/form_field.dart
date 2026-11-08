@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class FormFieldWidget extends StatefulWidget {
@@ -7,6 +7,8 @@ class FormFieldWidget extends StatefulWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final bool isPassword;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const FormFieldWidget({
     super.key,
@@ -15,6 +17,8 @@ class FormFieldWidget extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isPassword = false,
+    this.controller,
+    this.validator,
   });
 
   @override
@@ -33,12 +37,14 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
+      validator: widget.validator,
       obscureText: isObscure,
-      cursorColor: ColorsManger.primaryColor,
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: TextStyle(color: Color(0xffAAA59D)),
+        labelStyle: AppStyle.text14Medium,
         hintText: widget.hintText,
+
         prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
         suffixIcon: widget.isPassword
             ? IconButton(
