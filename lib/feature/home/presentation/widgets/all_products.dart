@@ -12,6 +12,7 @@ class AllProductsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      itemCount: products.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

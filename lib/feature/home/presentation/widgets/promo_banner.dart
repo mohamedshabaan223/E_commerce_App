@@ -9,13 +9,15 @@ class PromoBannerCarousel extends StatelessWidget {
   final List<OfferModel> offers;
   @override
   Widget build(BuildContext context) {
+    final shown = offers.take(5).toList();
+
     return SizedBox(
       height: 200.h,
       child: PageView.builder(
-        itemCount: offers.take(5).length,
+        itemCount: shown.length,
 
         itemBuilder: (_, i) {
-          final offer = offers[i];
+          final offer = shown[i];
           return PromoItem(
             imageUrl: offer.coverUrl,
             tag: 'SALE',
