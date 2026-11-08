@@ -1,5 +1,7 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerifyEmail extends StatelessWidget {
   const VerifyEmail({super.key});
@@ -13,6 +15,12 @@ class VerifyEmail extends StatelessWidget {
         foregroundColor: Colors.white,
         centerTitle: true,
         title: const Text('VERIFY EMAIL'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -51,9 +59,10 @@ class VerifyEmail extends StatelessWidget {
               children: List.generate(
                 6,
                 (index) => SizedBox(
-                  width: 46,
-                  height: 52,
+                  width: 40.h,
+                  height: 56.h,
                   child: TextField(
+                    cursorColor: ColorsManger.primaryColor,
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,

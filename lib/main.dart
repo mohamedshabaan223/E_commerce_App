@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.dark,
-          fontFamily: 'DMSerifDisplay',
+
+          //fontFamily: 'DMSerifDisplay',
         ),
         onGenerateRoute: RouteGenrator.getRoute,
         initialRoute: isLoggedIn ? ConstantRoute.mainScreen : ConstantRoute.Login,

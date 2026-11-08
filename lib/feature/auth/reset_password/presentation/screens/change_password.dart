@@ -69,7 +69,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                           children: [
                             FormFieldWidget(
                               controller: currentPassword,
-                              validator: ValidatorApp.validatePassword,
+                              validator: (pass) {
+                                return ValidatorApp.validatePassword(pass!);
+                              },
                               label: 'CURRENT PASSWORD',
                               hintText: 'CURRENT PASSWORD',
                               isPassword: true,
@@ -77,7 +79,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                             SizedBox(height: 20.h),
                             FormFieldWidget(
                               controller: newPassword,
-                              validator: ValidatorApp.validatePassword,
+                              validator: (pass) {
+                                return ValidatorApp.validatePassword(pass!);
+                              },
                               label: 'NEW PASSWORD',
                               hintText: 'NEW PASSWORD',
                               isPassword: true,
@@ -108,8 +112,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 } else if (state is AuthSuccessState) {
                                   Navigator.pop(context); // يقفل الـ dialog
                                   Fluttertoast.showToast(
-                                    msg:
-                                        "Password has been changed successfully.",
+                                    msg: "Password has been changed successfully.",
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,

@@ -10,10 +10,10 @@ import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dar
 import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';
-import 'package:ecommerce_app/feature/reset_password/presentation/screens/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../auth/reset_password/presentation/screens/change_password.dart';
 import 'about_us_screen.dart';
 import 'contact_us_screen.dart';
 import 'notifications_screen.dart';

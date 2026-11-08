@@ -3,12 +3,12 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
-import 'package:ecommerce_app/feature/reset_password/presentation/screens/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/routing/constant_route.dart';
+import '../../reset_password/presentation/screens/forget_password.dart';
 import '../widgets/authHeader.dart';
 import '../widgets/form_field.dart';
 
@@ -67,7 +67,9 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 16),
                   FormFieldWidget(
                     controller: password,
-                    validator: ValidatorApp.validatePassword,
+                    validator: (pass) {
+                      return ValidatorApp.validatePassword(pass!);
+                    },
                     label: 'Password',
                     hintText: '••••••••••••',
                     isPassword: true,
