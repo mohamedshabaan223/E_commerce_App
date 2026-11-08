@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/shared_widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/core/shared_widgets/section_header.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/home/presentation/viewmodels/home_cubit.dart';
 import 'package:ecommerce_app/feature/home/presentation/viewmodels/home_state.dart';
@@ -14,8 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecommerce_app/feature/home/data/repo/home_repo.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../product_details/presentation/screens/product_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -76,23 +75,55 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 12.h),
                 const CategoryChipsRow(),
                 SizedBox(height: 24.h),
-                SectionHeader(title: 'Hot Deals'),
-                SizedBox(height: 12.h),
-                const HotDealsList(),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is! HomeSuccess || state.hotDeals.isEmpty) {
+                      return const SizedBox.shrink();
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SectionHeader(title: 'Hot Deals'),
+                        SizedBox(height: 12.h),
+                        HotDealsList(products: state.hotDeals),
+                        SizedBox(height: 24.h),
+                      ],
+                    );
+                  },
+                ),
                 SizedBox(height: 24.h),
                 const SectionHeader(title: 'All Products'),
                 SizedBox(height: 12.h),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            ProductDetailsScreen(),
-                      ),
-                    );
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is! HomeSuccess) {
+                      return SizedBox(
+                        height: 120.h,
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: ColorsManger.primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    if (state.productsError != null) {
+                      return Text(
+                        state.productsError!,
+                        style: AppStyle.text12Regular.copyWith(
+                          color: ColorsManger.textSecondary,
+                        ),
+                      );
+                    }
+                    if (state.products.isEmpty) {
+                      return Text(
+                        'No products yet',
+                        style: AppStyle.text12Regular.copyWith(
+                          color: ColorsManger.textSecondary,
+                        ),
+                      );
+                    }
+                    return AllProductsGrid(products: state.products);
                   },
-                  child: const AllProductsGrid(),
                 ),
                 SizedBox(height: 80.h),
               ],
