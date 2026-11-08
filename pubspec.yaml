@@ -51,6 +51,7 @@ dependencies:
   bloc: ^9.2.1
 
   fluttertoast: ^10.0.2
+  pin_code_fields: ^10.1.1
   
 
   

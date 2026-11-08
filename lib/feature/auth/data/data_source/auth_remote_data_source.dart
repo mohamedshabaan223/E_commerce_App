@@ -8,6 +8,7 @@ import 'package:ecommerce_app/core/errors/failure.dart';
 import 'package:ecommerce_app/core/network/api_constatnt.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
+import 'package:ecommerce_app/feature/auth/data/models/register_request.dart';
 
 class AuthRemoteDataSource {
   final Dio dio = DioFactory().dio;
@@ -23,6 +24,18 @@ class AuthRemoteDataSource {
         accessToken: response.data['accessToken'],
         refreshToken: response.data['refreshToken'],
         expiresAt: DateTime.parse(response.data['expiresAtUtc']),
+      );
+      return Right(null);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, void>> signUp({required RegisterRequest request}) async {
+    try {
+       await dio.post(
+        ApiConstatnt.signUpEndPoint,
+        data: request.toJson(),
       );
       return Right(null);
     } catch (e) {
@@ -67,21 +80,18 @@ class AuthRemoteDataSource {
     }
   }
 
-  // Verify OTP
+
   Future<Either<Failure, Response>> verifyOtp({
     required String email,
     required String otp,
   }) async {
     try {
       final response = await dio.post(
-        "auth/validate-otp",
+        ApiConstatnt.verifiyEmailEndPoint,
         data: {"email": email, "otp": otp},
       );
-
-      log('OTP STATUS: ${response.statusCode}');
-      log('OTP RESPONSE: ${response.data}');
-
-      return Right(response);
+      final Response  result = response.data;
+      return Right(result);
     } catch (e) {
       log('Verify OTP Error: $e');
       return Left(ErrorHandler.handle(e).failure);
@@ -105,5 +115,17 @@ class AuthRemoteDataSource {
       log('Reset Password Error: $e');
       return Left(ErrorHandler.handle(e).failure);
     }
+  }
+  
+
+  Future<void> resendOtp({
+    required String email,
+  }) async {
+    await dio.post(
+      '/api/auth/resend-otp',
+      data: {
+        'email': email,
+      },
+    );
   }
 }

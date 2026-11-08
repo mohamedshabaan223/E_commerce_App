@@ -91,12 +91,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             index: 2,
                             text: "Confirm Password",
                             controller: confirmPasswordController,
-                            validator: (pass) {
-                              return ValidatorApp.confirmPassword(
-                                pass!,
-                                newPasswordController.text,
-                              );
-                            },
+                            validator: ValidatorApp.validatePassword
                           ),
 
                           SizedBox(height: 38.h),

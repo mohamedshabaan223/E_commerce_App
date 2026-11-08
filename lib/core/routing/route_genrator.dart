@@ -39,10 +39,18 @@ abstract class RouteGenrator {
               BlocProvider(create: (context) => AuthCubit(), child: Login()),
         );
       case ConstantRoute.SignUp:
-        return MaterialPageRoute(builder: (_) => const SignUp());
+        return MaterialPageRoute(
+          builder: (_) =>
+              BlocProvider(create: (context) => AuthCubit(), child: SignUp()),
+        );
       case ConstantRoute.VerifyEmail:
         final email = settings.arguments as String;
-        return MaterialPageRoute(builder: (_) =>  VerifyEmail(email:email),);
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(),
+            child: VerifyEmail(email: email),
+          ),
+        );
       case ConstantRoute.Logout:
         return MaterialPageRoute(builder: (_) => const Logout());
       case ConstantRoute.splash:

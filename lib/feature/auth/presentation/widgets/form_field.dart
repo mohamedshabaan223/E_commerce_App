@@ -17,8 +17,8 @@ class FormFieldWidget extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isPassword = false,
-    this.controller,
-    this.validator,
+    this.controller, this.validator,
+    
   });
 
   @override

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_cubit.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_state.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/screens/reset_password.dart';
@@ -11,8 +13,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../../core/utils/colors_manger.dart';
-import '../../../presentation/cubit/auth_cubit.dart';
-import '../../../presentation/cubit/auth_state.dart';
 import '../cubit/resetpassword_cubit.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/filled_button.dart';
@@ -173,32 +173,31 @@ class _VerificationState extends State<Verification> {
                             },
                           ),
                         SizedBox(height: 20.h),
-                        BlocListener<AuthCubit2, AuthState>(
+                        BlocListener<AuthCubit, AuthState>(
                           listener: (context, state) {
-                            if (state is AuthSuccess) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(state.message)),
-                              );
+                            if (state is AuthSuccessState) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text('')));
 
                               _restartTimer();
                             }
 
-                            if (state is AuthFailure) {
+                            if (state is AuthErrorState) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(state.message)),
+                                SnackBar(content: Text(state.errorMessage)),
                               );
                             }
                           },
-                          child: BlocBuilder<AuthCubit2, AuthState>(
+                          child: BlocBuilder<AuthCubit, AuthState>(
                             builder: (context, resendState) {
-                              final isLoading = resendState is AuthLoading;
+                              final isLoading = resendState is AuthLoadingState;
 
                               return Center(
                                 child: TextButton(
                                   onPressed: secondsRemaining > 0 || isLoading
                                       ? null
                                       : () {
-                                          context.read<AuthCubit2>().resendOtp(
+                                          context.read<AuthCubit>().resendOtp(
                                             email: widget.email,
                                           );
                                         },
