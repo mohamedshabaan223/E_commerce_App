@@ -29,9 +29,7 @@ class MyApp extends StatelessWidget {
           //fontFamily: 'DMSerifDisplay',
         ),
         onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: isLoggedIn
-            ? ConstantRoute.mainScreen
-            : ConstantRoute.splash,
+        initialRoute: isLoggedIn ? ConstantRoute.splash : ConstantRoute.splash,
       ),
     );
   }

@@ -32,8 +32,10 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManger.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: ColorsManger.backgroundColor,
         title: Row(
           children: [
             Text(
@@ -61,7 +63,7 @@ class _OnboardingState extends State<Onboarding> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
         child: Column(
-          mainAxisAlignment: .start,
+          mainAxisAlignment: .spaceAround,
           children: [
             Container(
               decoration: BoxDecoration(
@@ -74,16 +76,19 @@ class _OnboardingState extends State<Onboarding> {
                 child: Image.asset(images[currentPage], fit: BoxFit.cover),
               ),
             ),
-            SizedBox(height: 100),
-            Text(text[currentPage], style: AppStyle.text22Medium),
-            SizedBox(height: 10),
-            Text(
-              text2[currentPage],
-              style: AppStyle.text14Regular.copyWith(
-                color: ColorsManger.primaryColor,
-              ),
+            // SizedBox(height: 100),
+            Column(
+              children: [
+                Text(text[currentPage], style: AppStyle.text22Medium),
+                SizedBox(height: 10),
+                Text(
+                  text2[currentPage],
+                  style: AppStyle.text14Regular.copyWith(
+                    color: ColorsManger.primaryColor,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 100),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
