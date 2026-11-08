@@ -73,7 +73,37 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 12.h),
                 SectionHeader(title: 'Categories', onViewAll: () {}),
                 SizedBox(height: 12.h),
-                const CategoryChipsRow(),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is! HomeSuccess) {
+                      return SizedBox(
+                        height: 100.h,
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: ColorsManger.primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    if (state.categoriesError != null) {
+                      return Text(
+                        state.categoriesError!,
+                        style: AppStyle.text12Regular.copyWith(
+                          color: ColorsManger.textSecondary,
+                        ),
+                      );
+                    }
+                    if (state.categories.isEmpty) {
+                      return Text(
+                        'No categories yet',
+                        style: AppStyle.text12Regular.copyWith(
+                          color: ColorsManger.textSecondary,
+                        ),
+                      );
+                    }
+                    return CategoryChipsRow(categories: state.categories);
+                  },
+                ),
                 SizedBox(height: 24.h),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
@@ -91,7 +121,6 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(height: 24.h),
                 const SectionHeader(title: 'All Products'),
                 SizedBox(height: 12.h),
                 BlocBuilder<HomeCubit, HomeState>(

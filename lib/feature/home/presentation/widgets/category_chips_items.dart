@@ -28,7 +28,12 @@ class CategoryChipItem extends StatelessWidget {
           padding: EdgeInsets.all(7.r),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.r),
-            child: Image.asset(imageUrl, fit: BoxFit.cover),
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (_, _, _) =>
+                  const ColoredBox(color: ColorsManger.surface),
+            ),
           ),
         ),
         SizedBox(height: 6.h),
