@@ -1,9 +1,10 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
-import 'package:ecommerce_app/feature/reset_password/presentation/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});

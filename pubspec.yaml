@@ -46,8 +46,13 @@ dependencies:
   flutter_secure_storage: ^11.2.0
   dartz: ^0.10.1
   flutter_bloc: ^9.1.1
+
   equatable: ^3.0.0
   bloc: ^9.2.1
+
+  fluttertoast: ^10.0.2
+  
+
   
 
 
