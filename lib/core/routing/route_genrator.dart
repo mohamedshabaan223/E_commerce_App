@@ -30,7 +30,8 @@ abstract class RouteGenrator {
       case ConstantRoute.SignUp:
         return MaterialPageRoute(builder: (_) => const SignUp());
       case ConstantRoute.VerifyEmail:
-        return MaterialPageRoute(builder: (_) => const VerifyEmail());
+        final email = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) =>  VerifyEmail(email:email),);
       case ConstantRoute.Logout:
         return MaterialPageRoute(builder: (_) => const Logout());
       case ConstantRoute.splash:

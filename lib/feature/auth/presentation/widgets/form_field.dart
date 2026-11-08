@@ -6,6 +6,7 @@ class FormFieldWidget extends StatefulWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final bool isPassword;
+  final TextEditingController? controller;
 
   const FormFieldWidget({
     super.key,
@@ -14,6 +15,7 @@ class FormFieldWidget extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isPassword = false,
+    this.controller,
   });
 
   @override
@@ -32,21 +34,22 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       obscureText: isObscure,
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hintText,
-        prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
-        suffixIcon: widget.isPassword ? IconButton(
+        prefixIcon:
+        widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
+        suffixIcon: widget.isPassword
+            ? IconButton(
           onPressed: () {
             setState(() {
               isObscure = !isObscure;
             });
           },
           icon: Icon(
-            isObscure
-                ? Icons.visibility_off
-                : Icons.visibility,
+            isObscure ? Icons.visibility_off : Icons.visibility,
           ),
         )
             : widget.suffixIcon == null
