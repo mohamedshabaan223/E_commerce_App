@@ -62,7 +62,7 @@ class _SignUpState extends State<SignUp> {
       return;
     }
 
-    await context.read<AuthCubit>().register(
+    await context.read<AuthCubit2>().register(
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -71,18 +71,13 @@ class _SignUpState extends State<SignUp> {
 
     if (!mounted) return;
 
-    final state = context.read<AuthCubit>().state;
+    final state = context.read<AuthCubit2>().state;
 
     if (state is AuthSuccess) {
-      Navigator.pushNamed(
-        context,
-        ConstantRoute.VerifyEmail,
-        arguments: email,
-      );
+      Navigator.pushNamed(context, ConstantRoute.VerifyEmail, arguments: email);
     } else if (state is AuthFailure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(state.message)));
     }
   }
 
@@ -159,16 +154,13 @@ class _SignUpState extends State<SignUp> {
                     const Expanded(
                       child: Text(
                         'I agree to the Terms of Service and Privacy Policy',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                BlocBuilder<AuthCubit, AuthState>(
+                BlocBuilder<AuthCubit2, AuthState>(
                   builder: (context, state) {
                     final isLoading = state is AuthLoading;
 

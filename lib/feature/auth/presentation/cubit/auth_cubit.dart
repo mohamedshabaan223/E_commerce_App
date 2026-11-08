@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../data/auth_remote.dart';
 import 'auth_state.dart';
 
-class AuthCubit extends Cubit<AuthState> {
-  final AuthRemote authRemote;
+class AuthCubit2 extends Cubit<AuthState> {
+  final AuthRemote authRemote = AuthRemote();
 
-  AuthCubit(this.authRemote) : super(AuthInitial());
+  AuthCubit2() : super(AuthInitial());
 
   String getErrorMessage(DioException e) {
     final data = e.response?.data;
@@ -44,17 +45,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> verifyEmail({
-    required String email,
-    required String otp,
-  }) async {
+  Future<void> verifyEmail({required String email, required String otp}) async {
     emit(AuthLoading());
 
     try {
-      await authRemote.verifyEmail(
-        email: email,
-        otp: otp,
-      );
+      await authRemote.verifyEmail(email: email, otp: otp);
 
       emit(AuthSuccess('Email verified successfully'));
     } on DioException catch (e) {
@@ -64,9 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> resendOtp({
-    required String email,
-  }) async {
+  Future<void> resendOtp({required String email}) async {
     emit(AuthLoading());
 
     try {
