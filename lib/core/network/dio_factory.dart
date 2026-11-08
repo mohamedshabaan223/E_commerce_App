@@ -8,7 +8,6 @@ class DioFactory {
   DioFactory._();
   static final _instanse = DioFactory._();
   factory DioFactory() => _instanse;
-
   final _storage = SecureStorageCacheing();
   late final Dio dio = _setupDio();
 
