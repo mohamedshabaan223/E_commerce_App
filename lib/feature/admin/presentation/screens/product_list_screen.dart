@@ -1,13 +1,7 @@
-<<<<<<< HEAD
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_states.dart';
-=======
-import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:flutter/material.dart';
-
-import 'package:ecommerce_app/feature/admin/presentation/screens/add_product_screen.dart';
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
 import 'package:ecommerce_app/feature/admin/presentation/widgets/admin_product_card.dart';
 import 'package:ecommerce_app/feature/admin/presentation/widgets/delete_product.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +33,9 @@ class _ProductListcreenState extends State<ProductListcreen> {
   }
 
   List<ProductModel> _getFilteredProducts() {
-    if (_searchQuery.isEmpty) return widget.products;
+    if (_searchQuery.isEmpty) {
+      return widget.products;
+    }
 
     return widget.products.where((product) {
       final title = product.name.toLowerCase();
@@ -62,7 +58,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
             );
           });
 
-<<<<<<< HEAD
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Product deleted successfully'),
@@ -102,26 +97,12 @@ class _ProductListcreenState extends State<ProductListcreen> {
               ),
             );
           },
-=======
-        return Padding(
-          padding: EdgeInsets.all(isMobile ? 16 : 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(context, isMobile),
-              const SizedBox(height: 28),
-              _buildSearchField(context, isMobile),
-              const SizedBox(height: 24),
-              Expanded(child: _buildProductsGrid(context)),
-            ],
-          ),
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
         );
       },
     );
   }
 
-  Widget _buildHeader(BuildContext context, bool isMobile) {
+  Widget _buildHeader(bool isMobile) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -138,17 +119,12 @@ class _ProductListcreenState extends State<ProductListcreen> {
         ),
         const SizedBox(width: 12),
         ElevatedButton.icon(
-<<<<<<< HEAD
           onPressed: widget.onAddPressed,
-          icon: const Icon(Icons.add, color: Colors.black, size: 20),
-=======
-          onPressed: () => _navigateToAddProduct(context),
           icon: Icon(
             Icons.add,
             color: context.appColors.adminBlackColor,
             size: 20,
           ),
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
           label: Text(
             isMobile ? 'Add' : 'Add Product',
             style: TextStyle(
@@ -171,11 +147,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-<<<<<<< HEAD
   Widget _buildSearchField() {
-=======
-  Widget _buildSearchField(BuildContext context, bool isMobile) {
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     return TextField(
       controller: _searchController,
       onChanged: (value) {
@@ -236,17 +208,11 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-<<<<<<< HEAD
   Widget _buildProductsGrid(
     BuildContext context,
     List<ProductModel> products,
     bool isDeleting,
   ) {
-=======
-  Widget _buildProductsGrid(BuildContext context) {
-    final products = _filteredProducts;
-
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     if (products.isEmpty) {
       return Center(
         child: Column(
@@ -298,7 +264,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
             final product = products[index];
 
             return AdminProductCard(
-<<<<<<< HEAD
               title: product.name,
               sku: product.id ?? 'N/A',
               price: product.price,
@@ -308,15 +273,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
                   : null,
               stockCount: product.stock,
               imageUrl: product.coverPictureUrl,
-=======
-              title: product['title'],
-              sku: product['sku'],
-              price: product['price'],
-              oldPrice: product['oldPrice'],
-              discountTag: product['discountTag'],
-              stockCount: product['stockCount'],
-              imageUrl: product['imageUrl'],
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
               onDelete: () => _showDeleteDialog(context, product),
               onEdit: () {},
             );
@@ -333,7 +289,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-<<<<<<< HEAD
   void _showDeleteDialog(BuildContext context, ProductModel product) {
     // Safety rule: Do not delete the existing test product named Etsh.
     if (product.name.trim().toLowerCase() == 'etsh') {
@@ -360,16 +315,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
       return;
     }
 
-=======
-  void _navigateToAddProduct(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddProductScreen()),
-    );
-  }
-
-  void _showDeleteDialog(BuildContext context, Map<String, dynamic> product) {
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     showDialog(
       context: context,
       builder: (dialogContext) {
@@ -379,20 +324,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
           onDeletePressed: () {
             Navigator.pop(dialogContext);
 
-<<<<<<< HEAD
             context.read<ProductCubit>().deleteProduct(product.id!);
-=======
-            setState(() {
-              _products.remove(product);
-            });
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Product deleted successfully'),
-                backgroundColor: context.appColors.adminCardColor,
-              ),
-            );
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
           },
           onCancelPressed: () {
             Navigator.pop(dialogContext);

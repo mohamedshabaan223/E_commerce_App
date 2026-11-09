@@ -1,10 +1,7 @@
-<<<<<<< HEAD
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/remote/admin_remote_data_source.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
-=======
-import 'package:ecommerce_app/core/utils/colors_manger.dart';
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,11 +21,6 @@ class _AdminScreensState extends State<AdminScreens> {
   // المنتجات التي تمت إضافتها من شاشة Admin فقط
   final List<ProductModel> _products = [];
 
-<<<<<<< HEAD
-  static const Color backgroundColor = Color(0xFF121212);
-  static const Color sidebarColor = Color(0xFF1B1B1D);
-  static const Color goldColor = Color(0xFFC4B18B);
-
   void _goTo(int index) {
     setState(() {
       _currentIndex = index;
@@ -42,8 +34,6 @@ class _AdminScreensState extends State<AdminScreens> {
     });
   }
 
-=======
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -52,10 +42,8 @@ class _AdminScreensState extends State<AdminScreens> {
         builder: (context, constraints) {
           final bool isMobile = constraints.maxWidth < 650;
 
-<<<<<<< HEAD
           final pages = <Widget>[
             ProductListcreen(products: _products, onAddPressed: () => _goTo(1)),
-
             AddProductScreen(
               onProductAdded: _addProduct,
               onFinished: () => _goTo(0),
@@ -63,21 +51,23 @@ class _AdminScreensState extends State<AdminScreens> {
           ];
 
           return Scaffold(
-            backgroundColor: backgroundColor,
+            backgroundColor: context.appColors.adminBackgroundColor,
             drawer: isMobile
                 ? Drawer(
-                    backgroundColor: sidebarColor,
+                    backgroundColor: context.appColors.adminCardColor,
                     child: _buildSidebar(isMobile),
                   )
                 : null,
             appBar: isMobile
                 ? AppBar(
-                    backgroundColor: sidebarColor,
-                    iconTheme: const IconThemeData(color: goldColor),
-                    title: const Text(
+                    backgroundColor: context.appColors.adminCardColor,
+                    iconTheme: IconThemeData(
+                      color: context.appColors.adminGoldColor,
+                    ),
+                    title: Text(
                       'LUXE Admin',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: context.appColors.adminForegroundColor,
                         fontFamily: 'Serif',
                       ),
                     ),
@@ -99,53 +89,13 @@ class _AdminScreensState extends State<AdminScreens> {
   }
 
   Widget _buildSidebar(bool isMobile) {
-=======
-        return Scaffold(
-          backgroundColor: context.appColors.adminBackgroundColor,
-          drawer: isMobile
-              ? Drawer(
-                  backgroundColor: context.appColors.adminCardColor,
-                  child: _buildSidebar(context),
-                )
-              : null,
-          appBar: isMobile
-              ? AppBar(
-                  backgroundColor: context.appColors.adminCardColor,
-                  iconTheme: IconThemeData(
-                    color: context.appColors.adminGoldColor,
-                  ),
-                  title: Text(
-                    'LUXE Admin',
-                    style: TextStyle(
-                      color: context.appColors.adminForegroundColor,
-                      fontFamily: 'Serif',
-                    ),
-                  ),
-                )
-              : null,
-          body: Row(
-            children: [
-              if (!isMobile)
-                SizedBox(width: 250, child: _buildSidebar(context)),
-              Expanded(
-                child: IndexedStack(index: _currentIndex, children: _pages),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildSidebar(BuildContext context) {
->>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     return Container(
       color: context.appColors.adminCardColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Row(
               children: [
                 Icon(
@@ -153,7 +103,7 @@ class _AdminScreensState extends State<AdminScreens> {
                   color: context.appColors.adminGoldColor,
                   size: 28,
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Text(
                   'LUXE',
                   style: TextStyle(
@@ -168,7 +118,7 @@ class _AdminScreensState extends State<AdminScreens> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(
               'ADMIN PANEL',
               style: TextStyle(
@@ -203,7 +153,7 @@ class _AdminScreensState extends State<AdminScreens> {
           Divider(color: context.appColors.adminBorderColor),
 
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 CircleAvatar(
@@ -215,7 +165,7 @@ class _AdminScreensState extends State<AdminScreens> {
                     size: 20,
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
