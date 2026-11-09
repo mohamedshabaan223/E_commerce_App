@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/core/shared_widgets/custom_app_bar.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_button.dart';
-import 'package:ecommerce_app/feature/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
