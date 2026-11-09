@@ -55,10 +55,11 @@ class HomeScreen extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                    BlocProvider(
-                      create: (context) => CartCubit(CartRemoteDataSource(DioFactory().dio)),
-                      child:  ProductDetailsScreen(),
-                    ),
+                        BlocProvider(
+                          create: (context) =>
+                              CartCubit(CartRemoteDataSource(DioFactory().dio)),
+                          child: ProductDetailsScreen(),
+                        ),
                   ),
                 );
               },

@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget {
   final void Function()? onPressed;
 
   const new({super.key, required this.title, this.onPressed});
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,

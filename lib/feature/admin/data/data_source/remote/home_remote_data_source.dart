@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'package:ecommerce_app/core/network/api_constatnt.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
-import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
+import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 
 class HomeRemoteDataSource {
   final Dio dio = DioFactory().dio;

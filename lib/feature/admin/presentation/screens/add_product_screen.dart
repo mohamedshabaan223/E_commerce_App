@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/feature/admin/presentation/widgets/category_chip.dart';
 import 'package:ecommerce_app/feature/admin/presentation/widgets/custom_text_field.dart';
-import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
-import 'package:ecommerce_app/feature/home/presentation/cubits/product_cubit.dart';
-import 'package:ecommerce_app/feature/home/presentation/cubits/product_states.dart';
+import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
+import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
+import 'package:ecommerce_app/feature/admin/presentation/cubits/product_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

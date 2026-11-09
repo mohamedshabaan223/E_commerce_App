@@ -21,5 +21,4 @@ abstract class ConstantRoute {
   static const String onboarding = '/onboarding.dart';
   static const String emptyCartScreen = '/empty_cart_screen.dart';
   static const String cartScreen = '/cart_screen.dart';
-
 }

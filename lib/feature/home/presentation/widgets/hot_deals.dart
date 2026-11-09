@@ -12,7 +12,7 @@ class HotDealsList extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: 2,
-        separatorBuilder: (_, __) => SizedBox(width: 12.w),
+        separatorBuilder: (_, _) => SizedBox(width: 12.w),
         itemBuilder: (_, i) => SizedBox(
           width: 165.w,
           child: ProductCard(
