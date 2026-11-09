@@ -21,47 +21,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
-      appBar: const HomeAppBar(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 12.h),
-            CustomSearchBar(
-              readOnly: true,
-              onTap: () => Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (_) => const SearchScreen())),
-            ),
-            SizedBox(height: 12.h),
-            const PromoBannerCarousel(),
-            SizedBox(height: 12.h),
-            SectionHeader(title: 'Categories', onViewAll: () {}),
-            SizedBox(height: 12.h),
-            const CategoryChipsRow(),
-            SizedBox(height: 24.h),
-            SectionHeader(title: 'Hot Deals'),
-            SizedBox(height: 12.h),
-            const HotDealsList(),
-            SizedBox(height: 24.h),
-            const SectionHeader(title: 'All Products'),
-            SizedBox(height: 12.h),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        BlocProvider(
-                          create: (context) =>
-                              CartCubit(CartRemoteDataSource(DioFactory().dio)),
-                          child: ProductDetailsScreen(),
-                        ),
-
     return BlocProvider(
       create: (_) => HomeCubit(HomeRepo())..load(),
       child: BlocListener<HomeCubit, HomeState>(
@@ -89,7 +48,6 @@ class HomeScreen extends StatelessWidget {
                   readOnly: true,
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const SearchScreen()),
- 
                   ),
                 ),
                 SizedBox(height: 12.h),
@@ -209,6 +167,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  };
-}}
-
+  }
+}
