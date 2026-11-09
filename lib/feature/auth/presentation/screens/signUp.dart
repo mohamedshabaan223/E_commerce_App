@@ -96,7 +96,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 16),
                   FormFieldWidget(
-                    validator: ValidatorApp.validatePassword,
+                    validator: (pass) {
+                      return ValidatorApp.validatePassword(pass!);
+                    },
                     label: 'Password',
                     hintText: '••••••••••••',
                     isPassword: true,
@@ -138,19 +140,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           );
-                        }
-                        // if (state is AuthLoadingState) {
-                        //   showDialog(
-                        //     context: context,
-                        //     barrierDismissible: false,
-                        //     builder: (_) => const Center(
-                        //       child: CircularProgressIndicator(
-                        //         color: ColorsManger.primaryColor,
-                        //       ),
-                        //     ),
-                        //   );
-                        // }
-                        else if (state is AuthSuccessState) {
+                        } else if (state is AuthSuccessState) {
                           Navigator.pop(context);
                           Fluttertoast.showToast(
                             msg: ApiConstatnt.registerResponseMessage,

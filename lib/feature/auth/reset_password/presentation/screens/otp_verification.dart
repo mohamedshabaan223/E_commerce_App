@@ -105,9 +105,9 @@ class _VerificationState extends State<Verification> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0,
-                      vertical: 50,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 25.0.w,
+                      vertical: 50.h,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,20 +121,20 @@ class _VerificationState extends State<Verification> {
                           child: Pinput(
                             controller: otpcontroller,
                             cursor: Container(
-                              width: 2.h,
+                              width: 2.w,
                               height: 20.h,
                               color: Color(0xffDAC49B),
                             ),
                             length: 6,
                             defaultPinTheme: PinTheme(
-                              width: 55.h,
+                              width: 55.w,
                               height: 55.h,
                               textStyle: AppStyle.text22Semibold.copyWith(
                                 color: ColorsManger.white,
                               ),
                               decoration: BoxDecoration(
                                 color: Color(0xff1D1C20),
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.r),
                               ),
                             ),
                             keyboardType: TextInputType.number,
@@ -176,8 +176,11 @@ class _VerificationState extends State<Verification> {
                         BlocListener<AuthCubit, AuthState>(
                           listener: (context, state) {
                             if (state is AuthSuccessState) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(content: Text('')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('OTP sent successfully!'),
+                                ),
+                              );
 
                               _restartTimer();
                             }
