@@ -14,6 +14,9 @@ import 'package:ecommerce_app/feature/product_details/presentation/widgets/produ
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/quantity_selector.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/review_tile.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/reviews_header.dart';
+import 'package:ecommerce_app/core/network/dio_factory.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/cart_cubit.dart';
+import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,9 +46,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          ProductDetailsCubit(ProductDetailsRepo())..load(widget.productId),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) =>
+              ProductDetailsCubit(ProductDetailsRepo())..load(widget.productId),
+        ),
+        BlocProvider(
+          create: (_) => CartCubit(CartRemoteDataSource(DioFactory().dio)),
+        ),
+      ],
       child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
         builder: (context, state) {
           return Scaffold(
