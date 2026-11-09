@@ -14,19 +14,22 @@ class LuxeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorsManger.darkBackground,
+      backgroundColor: context.appColors.darkBackground,
       elevation: 0,
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new_rounded,
-            color: ColorsManger.darkTextPrimary, size: 20.sp),
+        icon: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: context.appColors.darkTextPrimary,
+          size: 20.sp,
+        ),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: Text(
         title,
         style: AppStyle.text20Semibold.copyWith(
-          color: ColorsManger.darkTextPrimary,
+          color: context.appColors.darkTextPrimary,
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddressCard {
   static Widget addressCardDesign({
+    required BuildContext context,
     required IconData? icon,
     required String city,
     required String state,
@@ -15,32 +16,31 @@ class AddressCard {
     return Container(
       padding: EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-        color: ColorsManger.cartBadgeBg,
+        color: context.appColors.cartBadgeBg,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
-        padding:  EdgeInsets.all(15),
+        padding: EdgeInsets.all(15),
         child: Column(
-
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(icon, color: ColorsManger.white, size: 15),
+                Icon(icon, color: context.appColors.white, size: 15),
                 Row(
                   children: [
                     Container(
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: ColorsManger.border,
+                        color: context.appColors.border,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(
                         Icons.edit_outlined,
-                        color: ColorsManger.white,
+                        color: context.appColors.white,
                         size: 15,
                       ),
                     ),
@@ -49,12 +49,12 @@ class AddressCard {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: ColorsManger.border,
+                        color: context.appColors.border,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(
                         Icons.delete,
-                        color: ColorsManger.white,
+                        color: context.appColors.white,
                         size: 15,
                       ),
                     ),
@@ -66,7 +66,7 @@ class AddressCard {
 
             RichText(
               text: TextSpan(
-                style: TextStyle(color: ColorsManger.white, fontSize: 24),
+                style: TextStyle(color: context.appColors.white, fontSize: 24),
                 children: [
                   TextSpan(
                     text: city,
@@ -81,7 +81,7 @@ class AddressCard {
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
-                      color: ColorsManger.textSecondary,
+                      color: context.appColors.textSecondary,
                     ),
                   ),
                 ],
@@ -94,7 +94,7 @@ class AddressCard {
                 Text(
                   street,
                   style: TextStyle(
-                    color: ColorsManger.white,
+                    color: context.appColors.white,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -103,13 +103,13 @@ class AddressCard {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: ColorsManger.border,
+                    color: context.appColors.border,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
                     suite,
                     style: TextStyle(
-                      color: ColorsManger.primaryColor,
+                      color: context.appColors.primaryColor,
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -122,14 +122,14 @@ class AddressCard {
               children: [
                 Icon(
                   Icons.phone_outlined,
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                   size: 13,
                 ),
                 SizedBox(width: 10),
                 Text(
                   phone,
                   style: TextStyle(
-                    color: ColorsManger.white,
+                    color: context.appColors.white,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),
@@ -142,14 +142,14 @@ class AddressCard {
               children: [
                 Icon(
                   Icons.sticky_note_2_outlined,
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                   size: 13,
                 ),
                 SizedBox(width: 10),
                 Text(
                   notes,
                   style: TextStyle(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),

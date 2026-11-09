@@ -25,12 +25,12 @@ class IconBox extends StatelessWidget {
       width: size.w,
       height: size.h,
       decoration: BoxDecoration(
-        color: ColorsManger.darkIconBox,
+        color: context.appColors.darkIconBox,
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Icon(
         icon,
-        color: color ?? ColorsManger.darkGold,
+        color: color ?? context.appColors.darkGold,
         size: iconSize.sp,
       ),
     );

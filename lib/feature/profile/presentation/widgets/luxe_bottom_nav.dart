@@ -30,9 +30,9 @@ class LuxeBottomNav extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
-          color: ColorsManger.darkCard,
+          color: context.appColors.darkCard,
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: ColorsManger.darkDivider),
+          border: Border.all(color: context.appColors.darkDivider),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,8 +70,9 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        selected ? ColorsManger.darkGold : ColorsManger.darkTextSecondary;
+    final color = selected
+        ? context.appColors.darkGold
+        : context.appColors.darkTextSecondary;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -85,12 +86,14 @@ class _NavItem extends StatelessWidget {
                 right: -8.w,
                 child: Container(
                   padding: EdgeInsets.all(4.r),
-                  decoration: const BoxDecoration(
-                      color: ColorsManger.darkGold, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: context.appColors.darkGold,
+                    shape: BoxShape.circle,
+                  ),
                   child: Text(
                     '$badge',
                     style: AppStyle.text9Bold.copyWith(
-                      color: ColorsManger.darkOnGold,
+                      color: context.appColors.darkOnGold,
                     ),
                   ),
                 ),

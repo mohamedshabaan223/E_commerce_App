@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_states.dart';
+=======
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:flutter/material.dart';
+
+import 'package:ecommerce_app/feature/admin/presentation/screens/add_product_screen.dart';
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
 import 'package:ecommerce_app/feature/admin/presentation/widgets/admin_product_card.dart';
 import 'package:ecommerce_app/feature/admin/presentation/widgets/delete_product.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +62,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
             );
           });
 
+<<<<<<< HEAD
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Product deleted successfully'),
@@ -94,12 +102,26 @@ class _ProductListcreenState extends State<ProductListcreen> {
               ),
             );
           },
+=======
+        return Padding(
+          padding: EdgeInsets.all(isMobile ? 16 : 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(context, isMobile),
+              const SizedBox(height: 28),
+              _buildSearchField(context, isMobile),
+              const SizedBox(height: 24),
+              Expanded(child: _buildProductsGrid(context)),
+            ],
+          ),
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
         );
       },
     );
   }
 
-  Widget _buildHeader(bool isMobile) {
+  Widget _buildHeader(BuildContext context, bool isMobile) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -107,7 +129,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
           child: Text(
             'Products Overview',
             style: TextStyle(
-              color: Colors.white,
+              color: context.appColors.adminForegroundColor,
               fontSize: isMobile ? 20 : 26,
               fontWeight: FontWeight.bold,
               fontFamily: 'Serif',
@@ -116,17 +138,26 @@ class _ProductListcreenState extends State<ProductListcreen> {
         ),
         const SizedBox(width: 12),
         ElevatedButton.icon(
+<<<<<<< HEAD
           onPressed: widget.onAddPressed,
           icon: const Icon(Icons.add, color: Colors.black, size: 20),
+=======
+          onPressed: () => _navigateToAddProduct(context),
+          icon: Icon(
+            Icons.add,
+            color: context.appColors.adminBlackColor,
+            size: 20,
+          ),
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
           label: Text(
             isMobile ? 'Add' : 'Add Product',
-            style: const TextStyle(
-              color: Colors.black,
+            style: TextStyle(
+              color: context.appColors.adminBlackColor,
               fontWeight: FontWeight.bold,
             ),
           ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFC4B18B),
+            backgroundColor: context.appColors.adminGoldColor,
             padding: EdgeInsets.symmetric(
               horizontal: isMobile ? 12 : 20,
               vertical: 16,
@@ -140,7 +171,11 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildSearchField() {
+=======
+  Widget _buildSearchField(BuildContext context, bool isMobile) {
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     return TextField(
       controller: _searchController,
       onChanged: (value) {
@@ -148,11 +183,20 @@ class _ProductListcreenState extends State<ProductListcreen> {
           _searchQuery = value.trim().toLowerCase();
         });
       },
-      style: const TextStyle(color: Colors.white, fontSize: 14),
+      style: TextStyle(
+        color: context.appColors.adminForegroundColor,
+        fontSize: 14,
+      ),
       decoration: InputDecoration(
         hintText: 'Search products by name or SKU...',
-        hintStyle: TextStyle(color: Colors.grey[600], fontSize: 13),
-        prefixIcon: Icon(Icons.search, color: Colors.grey[500]),
+        hintStyle: TextStyle(
+          color: context.appColors.adminMutedColor,
+          fontSize: 13,
+        ),
+        prefixIcon: Icon(
+          Icons.search,
+          color: context.appColors.adminInactiveColor,
+        ),
         suffixIcon: _searchQuery.isNotEmpty
             ? IconButton(
                 onPressed: () {
@@ -161,11 +205,14 @@ class _ProductListcreenState extends State<ProductListcreen> {
                     _searchQuery = '';
                   });
                 },
-                icon: const Icon(Icons.close, color: Colors.grey),
+                icon: Icon(
+                  Icons.close,
+                  color: context.appColors.adminMutedColor,
+                ),
               )
             : null,
         filled: true,
-        fillColor: const Color(0xFF1B1B1D),
+        fillColor: context.appColors.adminCardColor,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
@@ -180,30 +227,43 @@ class _ProductListcreenState extends State<ProductListcreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFFC4B18B), width: 1),
+          borderSide: BorderSide(
+            color: context.appColors.adminGoldColor,
+            width: 1,
+          ),
         ),
       ),
     );
   }
 
+<<<<<<< HEAD
   Widget _buildProductsGrid(
     BuildContext context,
     List<ProductModel> products,
     bool isDeleting,
   ) {
+=======
+  Widget _buildProductsGrid(BuildContext context) {
+    final products = _filteredProducts;
+
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     if (products.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.inventory_2_outlined, size: 60, color: Colors.grey[700]),
+            Icon(
+              Icons.inventory_2_outlined,
+              size: 60,
+              color: context.appColors.adminVeryMutedColor,
+            ),
             const SizedBox(height: 16),
             Text(
               _searchQuery.isEmpty
                   ? 'No products available'
                   : 'No products found',
               style: TextStyle(
-                color: Colors.grey[400],
+                color: context.appColors.adminLabelColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
@@ -213,7 +273,10 @@ class _ProductListcreenState extends State<ProductListcreen> {
               _searchQuery.isEmpty
                   ? 'Add your first product to get started.'
                   : 'Try searching with another name or SKU.',
-              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+              style: TextStyle(
+                color: context.appColors.adminMutedColor,
+                fontSize: 12,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
@@ -235,6 +298,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
             final product = products[index];
 
             return AdminProductCard(
+<<<<<<< HEAD
               title: product.name,
               sku: product.id ?? 'N/A',
               price: product.price,
@@ -244,6 +308,15 @@ class _ProductListcreenState extends State<ProductListcreen> {
                   : null,
               stockCount: product.stock,
               imageUrl: product.coverPictureUrl,
+=======
+              title: product['title'],
+              sku: product['sku'],
+              price: product['price'],
+              oldPrice: product['oldPrice'],
+              discountTag: product['discountTag'],
+              stockCount: product['stockCount'],
+              imageUrl: product['imageUrl'],
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
               onDelete: () => _showDeleteDialog(context, product),
               onEdit: () {},
             );
@@ -260,6 +333,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
+<<<<<<< HEAD
   void _showDeleteDialog(BuildContext context, ProductModel product) {
     // Safety rule: Do not delete the existing test product named Etsh.
     if (product.name.trim().toLowerCase() == 'etsh') {
@@ -286,6 +360,16 @@ class _ProductListcreenState extends State<ProductListcreen> {
       return;
     }
 
+=======
+  void _navigateToAddProduct(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddProductScreen()),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context, Map<String, dynamic> product) {
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
     showDialog(
       context: context,
       builder: (dialogContext) {
@@ -295,7 +379,20 @@ class _ProductListcreenState extends State<ProductListcreen> {
           onDeletePressed: () {
             Navigator.pop(dialogContext);
 
+<<<<<<< HEAD
             context.read<ProductCubit>().deleteProduct(product.id!);
+=======
+            setState(() {
+              _products.remove(product);
+            });
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Product deleted successfully'),
+                backgroundColor: context.appColors.adminCardColor,
+              ),
+            );
+>>>>>>> 6de6b43fb018c0f72229f58434ede84e7cceb93c
           },
           onCancelPressed: () {
             Navigator.pop(dialogContext);

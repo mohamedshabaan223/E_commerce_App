@@ -21,7 +21,7 @@ class RatingStars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final effectiveSize = starSize ?? 14.r;
-    final effectiveColor = color ?? ColorsManger.primaryColor;
+    final effectiveColor = color ?? context.appColors.primaryColor;
     final effectiveSpacing = spacing ?? 2.w;
 
     return Row(
@@ -46,9 +46,7 @@ class RatingStars extends StatelessWidget {
         }
 
         return Padding(
-          padding: EdgeInsets.only(
-            right: index < 4 ? effectiveSpacing : 0,
-          ),
+          padding: EdgeInsets.only(right: index < 4 ? effectiveSpacing : 0),
           child: star,
         );
       }),

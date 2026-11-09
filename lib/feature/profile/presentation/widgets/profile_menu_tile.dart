@@ -15,8 +15,9 @@ class ProfileMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor =
-        item.isDanger ? ColorsManger.darkDanger : ColorsManger.darkTextPrimary;
+    final textColor = item.isDanger
+        ? context.appColors.darkDanger
+        : context.appColors.darkTextPrimary;
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -26,8 +27,8 @@ class ProfileMenuTile extends StatelessWidget {
             IconBox(
               icon: item.icon,
               color: item.isDanger
-                  ? ColorsManger.darkDanger
-                  : ColorsManger.darkGold,
+                  ? context.appColors.darkDanger
+                  : context.appColors.darkGold,
             ),
             SizedBox(width: 16.w),
             Expanded(
@@ -41,19 +42,22 @@ class ProfileMenuTile extends StatelessWidget {
                 margin: EdgeInsets.only(right: 8.w),
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                  color: ColorsManger.darkIconBox,
+                  color: context.appColors.darkIconBox,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Text(
                   item.badge!,
                   style: AppStyle.text10Semibold.copyWith(
-                    color: ColorsManger.darkGold,
+                    color: context.appColors.darkGold,
                     letterSpacing: 0.8,
                   ),
                 ),
               ),
-            Icon(Icons.chevron_right_rounded,
-                color: ColorsManger.darkTextMuted, size: 22.sp),
+            Icon(
+              Icons.chevron_right_rounded,
+              color: context.appColors.darkTextMuted,
+              size: 22.sp,
+            ),
           ],
         ),
       ),

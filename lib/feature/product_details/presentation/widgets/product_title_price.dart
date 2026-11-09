@@ -38,7 +38,7 @@ class ProductTitlePrice extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: AppStyle.text22Medium.copyWith(
                   fontSize: 24.sp,
-                  color: ColorsManger.textPrimary,
+                  color: context.appColors.textPrimary,
                   height: 1.15,
                 ),
               ),
@@ -55,7 +55,7 @@ class ProductTitlePrice extends StatelessWidget {
                       Text(
                         oldPrice!,
                         style: AppStyle.text12Regular.copyWith(
-                          color: ColorsManger.textSecondary,
+                          color: context.appColors.textSecondary,
                           decoration: TextDecoration.lineThrough,
                         ),
                       ),
@@ -63,7 +63,7 @@ class ProductTitlePrice extends StatelessWidget {
                     Text(
                       price,
                       style: AppStyle.text22Medium.copyWith(
-                        color: ColorsManger.primaryColor,
+                        color: context.appColors.primaryColor,
                       ),
                     ),
                   ],
@@ -84,14 +84,14 @@ class ProductTitlePrice extends StatelessWidget {
             Text(
               rating.toStringAsFixed(1),
               style: AppStyle.text14Semibold.copyWith(
-                color: ColorsManger.textPrimary,
+                color: context.appColors.textPrimary,
               ),
             ),
             SizedBox(width: 4.w),
             Text(
               '($reviewsCount reviews)',
               style: AppStyle.text14Regular.copyWith(
-                color: ColorsManger.textSecondary,
+                color: context.appColors.textSecondary,
               ),
             ),
           ],

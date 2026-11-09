@@ -11,40 +11,43 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.darkBackground,
+      backgroundColor: context.appColors.darkBackground,
       appBar: const LuxeAppBar(title: 'Privacy Policy'),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
         children: [
           const _PolicySection(
             title: 'Information we collect',
-            text: 'We collect personal details such as your name, email '
+            text:
+                'We collect personal details such as your name, email '
                 'address, and shipping address when you create an account '
                 'or place an order. We also collect basic browsing and '
                 'device data to optimize your shopping experience.',
           ),
           const _PolicySection(
             title: 'How we use your data',
-            text: 'Your information is used strictly to process orders, '
+            text:
+                'Your information is used strictly to process orders, '
                 'facilitate secure deliveries, and send essential '
                 'transaction notices. We never sell your personal data or '
                 'share it with unauthorized third parties.',
           ),
           const _PolicySection(
             title: 'Contact us',
-            text: 'If you have any questions or inquiries regarding your '
+            text:
+                'If you have any questions or inquiries regarding your '
                 'privacy, our support team is always available to assist. '
                 'Please write to us directly at ',
             link: 'support@luxe-store.com',
             trailing: '.',
           ),
           SizedBox(height: 8.h),
-          const Divider(color: ColorsManger.darkDivider, thickness: 1),
+          Divider(color: context.appColors.darkDivider, thickness: 1),
           SizedBox(height: 12.h),
           Text(
             'LAST UPDATED: OCTOBER 2026',
             style: AppStyle.text11Semibold.copyWith(
-              color: ColorsManger.darkTextMuted,
+              color: context.appColors.darkTextMuted,
               letterSpacing: 1,
             ),
           ),
@@ -70,7 +73,7 @@ class _PolicySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bodyStyle = AppStyle.text16Regular.copyWith(
-      color: ColorsManger.darkTextBody,
+      color: context.appColors.darkTextBody,
       height: 1.5,
     );
     return Padding(
@@ -81,20 +84,25 @@ class _PolicySection extends StatelessWidget {
           Text(
             title,
             style: AppStyle.text20Semibold.copyWith(
-              color: ColorsManger.darkTextPrimary,
+              color: context.appColors.darkTextPrimary,
             ),
           ),
           SizedBox(height: 8.h),
           Text.rich(
-            TextSpan(style: bodyStyle, children: [
-              TextSpan(text: text),
-              if (link != null)
-                TextSpan(
+            TextSpan(
+              style: bodyStyle,
+              children: [
+                TextSpan(text: text),
+                if (link != null)
+                  TextSpan(
                     text: link,
-                    style:
-                        bodyStyle.copyWith(color: ColorsManger.darkGold)),
-              if (trailing != null) TextSpan(text: trailing),
-            ]),
+                    style: bodyStyle.copyWith(
+                      color: context.appColors.darkGold,
+                    ),
+                  ),
+                if (trailing != null) TextSpan(text: trailing),
+              ],
+            ),
           ),
         ],
       ),

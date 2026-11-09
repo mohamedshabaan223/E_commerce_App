@@ -33,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
     return BlocProvider(
       create: (_) => CartCubit(CartRemoteDataSource(DioFactory().dio)),
       child: Scaffold(
-        backgroundColor: ColorsManger.backgroundColor,
+        backgroundColor: context.appColors.backgroundColor,
         body: IndexedStack(index: _currentIndex, children: _screens),
         bottomNavigationBar: BottomNavBar(
           currentIndex: _currentIndex,

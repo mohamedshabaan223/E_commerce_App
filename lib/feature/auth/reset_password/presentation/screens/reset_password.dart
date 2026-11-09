@@ -63,9 +63,9 @@ class _ResetPasswordState extends State<ResetPassword> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0,
-                      vertical: 50,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 25.0.w,
+                      vertical: 50.h,
                     ),
                     child: Form(
                       key: mykey,

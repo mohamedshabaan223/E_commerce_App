@@ -38,7 +38,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       create: (_) => AuthCubit(),
       child: Builder(
         builder: (context) => Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           body: Form(
             key: formKey,
             child: Column(
@@ -53,10 +53,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Theme(
-                        data: ThemeData.dark().copyWith(
+                        data: Theme.of(context).copyWith(
                           inputDecorationTheme: InputDecorationTheme(
                             filled: true,
-                            fillColor: const Color(0xFF26262A),
+                            fillColor: context.appColors.forTheme(
+                              const Color(0xFF26262A),
+                              ColorsManger.lightSurfaceVariant,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide.none,
@@ -95,9 +98,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   showDialog(
                                     context: context,
                                     barrierDismissible: false,
-                                    builder: (_) => const Center(
+                                    builder: (_) => Center(
                                       child: CircularProgressIndicator(
-                                        color: ColorsManger.primaryColor,
+                                        color: context.appColors.primaryColor,
                                       ),
                                     ),
                                   );
@@ -108,8 +111,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
-                                    backgroundColor: ColorsManger.primaryColor,
-                                    textColor: Colors.white,
+                                    backgroundColor:
+                                        context.appColors.primaryColor,
+                                    textColor: context.appColors.forTheme(
+                                      Colors.white,
+                                      ColorsManger.lightTextPrimary,
+                                    ),
                                     fontSize: 16.0,
                                   );
                                 } else if (state is AuthErrorState) {
@@ -120,7 +127,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
                                     backgroundColor: Colors.red,
-                                    textColor: Colors.white,
+                                    textColor: context.appColors.forTheme(
+                                      Colors.white,
+                                      ColorsManger.lightTextPrimary,
+                                    ),
                                     fontSize: 16.0,
                                   );
                                 }

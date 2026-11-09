@@ -24,7 +24,9 @@ class OrderTimelineTile extends StatelessWidget {
       isFirst: isFirst,
       isLast: isLast,
       beforeLineStyle: LineStyle(
-        color: isCompleted ? ColorsManger.primaryColor : ColorsManger.darkGrey,
+        color: isCompleted
+            ? context.appColors.primaryColor
+            : context.appColors.darkGrey,
         thickness: 2,
       ),
       indicatorStyle: IndicatorStyle(
@@ -34,8 +36,8 @@ class OrderTimelineTile extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isCompleted
-                ? ColorsManger.primaryColor
-                : ColorsManger.darkGrey,
+                ? context.appColors.primaryColor
+                : context.appColors.darkGrey,
           ),
           child: Center(
             child: isCompleted
@@ -45,7 +47,9 @@ class OrderTimelineTile extends StatelessWidget {
                     height: 10,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isCurrent ? Colors.black : ColorsManger.darkGrey,
+                      color: isCurrent
+                          ? Colors.black
+                          : context.appColors.darkGrey,
                     ),
                   ),
           ),
@@ -61,8 +65,11 @@ class OrderTimelineTile extends StatelessWidget {
               title,
               style: TextStyle(
                 color: isCompleted || isCurrent
-                    ? Colors.white
-                    : ColorsManger.passwordColor,
+                    ? context.appColors.forTheme(
+                        Colors.white,
+                        ColorsManger.lightTextPrimary,
+                      )
+                    : context.appColors.passwordColor,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),

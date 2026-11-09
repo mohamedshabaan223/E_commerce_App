@@ -16,7 +16,7 @@ class SectionHeader extends StatelessWidget {
         Text(
           title,
           style: AppStyle.text18Medium.copyWith(
-            color: ColorsManger.textPrimary,
+            color: context.appColors.textPrimary,
           ),
         ),
         if (onViewAll != null)
@@ -25,7 +25,7 @@ class SectionHeader extends StatelessWidget {
             child: Text(
               'View All',
               style: AppStyle.text12Medium.copyWith(
-                color: ColorsManger.primaryColor,
+                color: context.appColors.primaryColor,
               ),
             ),
           ),

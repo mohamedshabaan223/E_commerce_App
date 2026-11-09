@@ -28,72 +28,80 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             Text(
               "STATE / PROVINCE",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Customtextfield.newTextField(
+              context: context,
               hint: 'e.g. New York, Île-de-France',
               icon: Icons.flag,
             ),
             Text(
               "CITY",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Customtextfield.newTextField(
+              context: context,
               hint: 'e.g. Manhattan, Paris',
               icon: Icons.apartment,
             ),
             Text(
               "STREET ADDRESS",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Customtextfield.newTextField(
+              context: context,
               hint: 'e.g. 740 Park Avenue',
               icon: Icons.home,
             ),
             Text(
               "APARTMENT, SUITE, UNIT",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Customtextfield.newTextField(
+              context: context,
               hint: 'e.g. Penthouse B, Suite 1204',
               icon: Icons.apartment_sharp,
             ),
             Text(
               "PHONE NUMBER",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Customtextfield.newTextField(
+              context: context,
               hint: '+1 (555) 000-0000',
               icon: Icons.phone,
             ),
             Text(
               "DELIVERY NOTES (OPTIONAL)",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Customtextfield.newTextField(hint: 'Notes (optional)'),
+            Customtextfield.newTextField(
+              context: context,
+              hint: 'Notes (optional)',
+            ),
             SizedBox(height: 5),
             CartButton.cartButtonDesign(
               context: context,

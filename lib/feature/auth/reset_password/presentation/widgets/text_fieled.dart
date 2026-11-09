@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormFilled extends StatelessWidget {
   final String text;
@@ -21,23 +22,23 @@ class CustomTextFormFilled extends StatelessWidget {
           hintText: text,
           errorStyle: TextStyle(color: ColorsManger.darkDanger),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(color: ColorsManger.darkDanger),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(color: ColorsManger.darkDanger),
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(color: Color(0xff1B1B1D)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(color: Color(0xff1B1B1D)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(color: Color(0xff1B1B1D)),
           ),
         ),
@@ -78,7 +79,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             color: ColorsManger.textSecondary,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 10.h),
         TextFormField(
           autovalidateMode: widget.index == 1
               ? AutovalidateMode.onUserInteraction
@@ -97,23 +98,23 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             errorStyle: TextStyle(color: ColorsManger.darkDanger),
 
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: ColorsManger.darkDanger),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: ColorsManger.darkDanger),
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: Color(0xff1D1C20)),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: Color(0xff1D1C20)),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: Color(0xff1D1C20)),
             ),
             suffixIcon: IconButton(

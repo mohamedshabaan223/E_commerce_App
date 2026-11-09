@@ -12,17 +12,17 @@ class ContactUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final valueStyle = AppStyle.text15Regular.copyWith(
-      color: ColorsManger.darkTextPrimary,
+      color: context.appColors.darkTextPrimary,
     );
     final dayStyle = AppStyle.text15Medium.copyWith(
-      color: ColorsManger.darkTextPrimary,
+      color: context.appColors.darkTextPrimary,
     );
     final hoursStyle = AppStyle.text14Regular.copyWith(
-      color: ColorsManger.darkTextSecondary,
+      color: context.appColors.darkTextSecondary,
     );
 
     return Scaffold(
-      backgroundColor: ColorsManger.darkBackground,
+      backgroundColor: context.appColors.darkBackground,
       appBar: const LuxeAppBar(title: 'Contact Us'),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 20.h),

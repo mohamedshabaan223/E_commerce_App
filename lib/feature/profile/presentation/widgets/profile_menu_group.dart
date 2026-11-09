@@ -16,7 +16,7 @@ class ProfileMenuGroup extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: ColorsManger.darkCard,
+        color: context.appColors.darkCard,
         borderRadius: BorderRadius.circular(14.r),
       ),
       clipBehavior: Clip.antiAlias,
@@ -28,14 +28,16 @@ class ProfileMenuGroup extends StatelessWidget {
               onTap: items[i].destination == null
                   ? null
                   : () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => items[i].destination!),
-                      ),
+                      context,
+                      MaterialPageRoute(builder: (_) => items[i].destination!),
+                    ),
             ),
             if (i != items.length - 1)
-              const Divider(
-                  height: 1, thickness: 1, color: ColorsManger.darkDivider),
+              Divider(
+                height: 1,
+                thickness: 1,
+                color: context.appColors.darkDivider,
+              ),
           ],
         ],
       ),

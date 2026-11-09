@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItem {
   static Widget cartItemDesign({
+    required BuildContext context,
     required String image,
     required String name,
     required double price,
@@ -13,7 +14,7 @@ class CartItem {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-        color: ColorsManger.cartBadgeBg,
+        color: context.appColors.cartBadgeBg,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -44,7 +45,7 @@ class CartItem {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: ColorsManger.white,
+                          color: context.appColors.white,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -54,7 +55,7 @@ class CartItem {
                       onPressed: () {},
                       icon: Icon(
                         Icons.delete,
-                        color: ColorsManger.passwordColor,
+                        color: context.appColors.passwordColor,
                         size: 15,
                       ),
                       padding: EdgeInsets.zero,
@@ -69,14 +70,17 @@ class CartItem {
                 Text(
                   '\$$price',
                   style: TextStyle(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2A2A2A),
+                    color: context.appColors.forTheme(
+                      const Color(0xFF2A2A2A),
+                      ColorsManger.lightSurfaceVariant,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -90,7 +94,7 @@ class CartItem {
                         onTap: () {},
                         child: Icon(
                           Icons.remove,
-                          color: ColorsManger.white,
+                          color: context.appColors.white,
                           size: 20,
                         ),
                       ),
@@ -99,7 +103,10 @@ class CartItem {
                         child: Text(
                           '1',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: context.appColors.forTheme(
+                              Colors.white,
+                              ColorsManger.lightTextPrimary,
+                            ),
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),
@@ -109,7 +116,7 @@ class CartItem {
                         onTap: () {},
                         child: Icon(
                           Icons.add,
-                          color: ColorsManger.white,
+                          color: context.appColors.white,
                           size: 20,
                         ),
                       ),

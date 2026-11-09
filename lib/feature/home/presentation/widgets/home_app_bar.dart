@@ -14,7 +14,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorsManger.headerBackground,
+      backgroundColor: context.appColors.headerBackground,
       elevation: 0,
       scrolledUnderElevation: 0,
       leadingWidth: 56.w,
@@ -32,7 +32,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         "LUXE ",
         style: AppStyle.text18Semibold.copyWith(
-          color: ColorsManger.primaryColor,
+          color: context.appColors.primaryColor,
           letterSpacing: 2,
         ),
       ),
@@ -46,8 +46,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 'assets/icons/icon_bell.svg',
                 width: 24.r,
                 height: 24.r,
-                colorFilter: const ColorFilter.mode(
-                  ColorsManger.primaryColor,
+                colorFilter: ColorFilter.mode(
+                  context.appColors.primaryColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -58,10 +58,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   width: 8.r,
                   height: 8.r,
                   decoration: BoxDecoration(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: ColorsManger.backgroundColor,
+                      color: context.appColors.backgroundColor,
                       width: 1.5,
                     ),
                   ),

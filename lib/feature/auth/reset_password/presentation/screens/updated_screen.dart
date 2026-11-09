@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/routing/constant_route.dart';
 import '../widgets/filled_button.dart';
 
 class Updated extends StatelessWidget {
@@ -15,7 +15,7 @@ class Updated extends StatelessWidget {
       backgroundColor: ColorsManger.backgroundColor,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -34,7 +34,7 @@ class Updated extends StatelessWidget {
                       blurRadius: 20,
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Icon(
                   Icons.check_circle,
@@ -47,7 +47,7 @@ class Updated extends StatelessWidget {
                 children: [
                   Text(
                     "Password updated",
-                    style: AppStyle.text22Semibold.copyWith(
+                    style: AppStyle.text24Semibold.copyWith(
                       color: ColorsManger.white,
                     ),
                   ),
@@ -68,15 +68,9 @@ class Updated extends StatelessWidget {
                   CustomFilledButton(
                     text: "Back to Login",
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacementNamed(
                         context,
-                        PageRouteBuilder(
-                          pageBuilder: (
-                            context,
-                            animation,
-                            secondaryAnimation,
-                          ) => Login(),
-                        ),
+                        ConstantRoute.Login,
                       );
                     },
                   ),

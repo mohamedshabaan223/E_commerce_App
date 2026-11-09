@@ -27,13 +27,13 @@ class ReviewsHeader extends StatelessWidget {
               Text(
                 rating.toStringAsFixed(1),
                 style: AppStyle.text18Medium.copyWith(
-                  color: ColorsManger.textPrimary,
+                  color: context.appColors.textPrimary,
                 ),
               ),
               SizedBox(width: 6.w),
               Icon(
                 Icons.star_border,
-                color: ColorsManger.primaryColor,
+                color: context.appColors.primaryColor,
                 size: 16.sp,
               ),
               SizedBox(width: 6.w),
@@ -43,7 +43,7 @@ class ReviewsHeader extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppStyle.text12Regular.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               ),
@@ -58,7 +58,7 @@ class ReviewsHeader extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(color: ColorsManger.primaryColor),
+              border: Border.all(color: context.appColors.primaryColor),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -66,13 +66,13 @@ class ReviewsHeader extends StatelessWidget {
                 Icon(
                   Icons.edit_outlined,
                   size: 14.sp,
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                 ),
                 SizedBox(width: 6.w),
                 Text(
                   'WRITE A REVIEW',
                   style: AppStyle.text10Semibold.copyWith(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                     letterSpacing: 0.8,
                   ),
                 ),

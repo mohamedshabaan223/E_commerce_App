@@ -52,3 +52,120 @@ abstract class ColorsManger {
   static const Color lightDivider = Color(0xffE3DDD0);
   static const Color lightDanger = Color(0xffC94B4B);
 }
+
+extension AppColorsContext on BuildContext {
+  AppColors get appColors =>
+      AppColors(Theme.of(this).brightness == Brightness.dark);
+}
+
+class AppColors {
+  const AppColors(this.isDarkMode);
+
+  final bool isDarkMode;
+
+  Color forTheme(Color darkColor, Color lightColor) =>
+      isDarkMode ? darkColor : lightColor;
+
+  Color get primaryColor =>
+      isDarkMode ? ColorsManger.primaryColor : ColorsManger.lightPrimary;
+  Color get backgroundColor =>
+      isDarkMode ? ColorsManger.backgroundColor : ColorsManger.lightBackground;
+  Color get white =>
+      isDarkMode ? ColorsManger.white : ColorsManger.lightTextPrimary;
+  Color get black =>
+      isDarkMode ? ColorsManger.black : ColorsManger.lightTextPrimary;
+  Color get brown =>
+      isDarkMode ? ColorsManger.brown : ColorsManger.lightTextSecondary;
+  Color get textPrimary =>
+      isDarkMode ? ColorsManger.textPrimary : ColorsManger.lightTextPrimary;
+  Color get surface =>
+      isDarkMode ? ColorsManger.surface : ColorsManger.lightSurface;
+  Color get cardSurface =>
+      isDarkMode ? const Color(0xff1B1B1D) : ColorsManger.lightSurface;
+  Color get border =>
+      isDarkMode ? ColorsManger.border : ColorsManger.lightBorder;
+  Color get navInactive =>
+      isDarkMode ? ColorsManger.navInactive : ColorsManger.lightNavInactive;
+  Color get textSecondary =>
+      isDarkMode ? ColorsManger.textSecondary : ColorsManger.lightTextSecondary;
+  Color get navBorder =>
+      isDarkMode ? ColorsManger.navBorder : ColorsManger.lightNavBorder;
+  Color get navBackground =>
+      isDarkMode ? ColorsManger.navBackground : ColorsManger.lightNavBackground;
+  Color get modalBackdrop => ColorsManger.modalBackdrop;
+  Color get surfaceVariant => isDarkMode
+      ? ColorsManger.surfaceVariant
+      : ColorsManger.lightSurfaceVariant;
+  Color get headerBackground =>
+      isDarkMode ? ColorsManger.headerBackground : ColorsManger.lightBackground;
+  Color get categoryCard =>
+      isDarkMode ? ColorsManger.categoryCard : ColorsManger.lightCategoryCard;
+  Color get cartBadgeBg =>
+      isDarkMode ? ColorsManger.cartBadgeBg : ColorsManger.lightSurfaceVariant;
+  Color get dealsBadgeBg =>
+      isDarkMode ? ColorsManger.dealsBadgeBg : ColorsManger.lightSurfaceVariant;
+  Color get passwordColor =>
+      isDarkMode ? ColorsManger.passwordColor : ColorsManger.lightTextSecondary;
+  Color get foreground =>
+      isDarkMode ? ColorsManger.foreground : ColorsManger.lightTextPrimary;
+  Color get cartButtonFg =>
+      isDarkMode ? ColorsManger.cartButtonFg : ColorsManger.lightTextPrimary;
+  Color get darkGrey =>
+      isDarkMode ? ColorsManger.darkGrey : ColorsManger.lightSurfaceVariant;
+  Color get darkBackground =>
+      isDarkMode ? ColorsManger.darkBackground : ColorsManger.lightBackground;
+  Color get darkCard =>
+      isDarkMode ? ColorsManger.darkCard : ColorsManger.lightSurface;
+  Color get darkIconBox =>
+      isDarkMode ? ColorsManger.darkIconBox : ColorsManger.lightIconBox;
+  Color get darkGold =>
+      isDarkMode ? ColorsManger.darkGold : ColorsManger.lightPrimary;
+  Color get darkGoldGlow => isDarkMode
+      ? ColorsManger.darkGoldGlow
+      : ColorsManger.lightPrimary.withValues(alpha: 0.6);
+  Color get darkOnGold =>
+      isDarkMode ? ColorsManger.darkOnGold : ColorsManger.lightTextPrimary;
+  Color get darkTextPrimary =>
+      isDarkMode ? ColorsManger.darkTextPrimary : ColorsManger.lightTextPrimary;
+  Color get darkTextBody =>
+      isDarkMode ? ColorsManger.darkTextBody : ColorsManger.lightTextSecondary;
+  Color get darkTextSecondary => isDarkMode
+      ? ColorsManger.darkTextSecondary
+      : ColorsManger.lightTextSecondary;
+  Color get darkTextMuted =>
+      isDarkMode ? ColorsManger.darkTextMuted : ColorsManger.lightNavInactive;
+  Color get darkDanger =>
+      isDarkMode ? ColorsManger.darkDanger : ColorsManger.lightDanger;
+  Color get darkDivider =>
+      isDarkMode ? ColorsManger.darkDivider : ColorsManger.lightDivider;
+  Color get adminBackgroundColor =>
+      isDarkMode ? const Color(0xFF121212) : ColorsManger.lightBackground;
+  Color get adminCardColor =>
+      isDarkMode ? const Color(0xFF1B1B1D) : ColorsManger.lightSurface;
+  Color get adminGoldColor =>
+      isDarkMode ? const Color(0xFFC4B18B) : ColorsManger.lightPrimary;
+  Color get adminForegroundColor =>
+      isDarkMode ? Colors.white : ColorsManger.lightTextPrimary;
+  Color get adminBlackColor =>
+      isDarkMode ? Colors.black : ColorsManger.lightTextPrimary;
+  Color get adminLabelColor =>
+      isDarkMode ? Colors.grey.shade400 : ColorsManger.lightTextSecondary;
+  Color get adminGreyColor =>
+      isDarkMode ? Colors.grey : ColorsManger.lightTextSecondary;
+  Color get adminMutedColor =>
+      isDarkMode ? Colors.grey.shade600 : ColorsManger.lightTextSecondary;
+  Color get adminVeryMutedColor =>
+      isDarkMode ? Colors.grey.shade700 : ColorsManger.lightNavInactive;
+  Color get adminInactiveColor =>
+      isDarkMode ? Colors.grey.shade500 : ColorsManger.lightNavInactive;
+  Color get adminPlaceholderColor =>
+      isDarkMode ? const Color(0xFF303030) : ColorsManger.lightSurfaceVariant;
+  Color get adminBorderColor =>
+      isDarkMode ? Colors.white12 : ColorsManger.lightBorder;
+  Color get adminStrongBorderColor =>
+      isDarkMode ? Colors.white24 : ColorsManger.lightBorder;
+  Color get adminDangerColor =>
+      isDarkMode ? Colors.redAccent : ColorsManger.lightDanger;
+  Color get adminDangerBackgroundColor =>
+      isDarkMode ? const Color(0xFF990000) : ColorsManger.lightDanger;
+}

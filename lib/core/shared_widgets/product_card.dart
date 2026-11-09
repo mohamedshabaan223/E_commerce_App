@@ -34,9 +34,9 @@ class ProductCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: ColorsManger.border, width: 1),
+        border: Border.all(color: context.appColors.border, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,13 +79,13 @@ class ProductCard extends StatelessWidget {
                         vertical: 3.h,
                       ),
                       decoration: BoxDecoration(
-                        color: ColorsManger.dealsBadgeBg,
+                        color: context.appColors.dealsBadgeBg,
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: Text(
                         badge,
                         style: TextStyle(
-                          color: ColorsManger.primaryColor,
+                          color: context.appColors.primaryColor,
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -99,12 +99,16 @@ class ProductCard extends StatelessWidget {
           if (rating != null)
             Row(
               children: [
-                Icon(Icons.star, size: 12.sp, color: ColorsManger.primaryColor),
+                Icon(
+                  Icons.star,
+                  size: 12.sp,
+                  color: context.appColors.primaryColor,
+                ),
                 SizedBox(width: 3.w),
                 Text(
                   '$rating (${reviewsCount ?? 0})',
                   style: TextStyle(
-                    color: ColorsManger.textPrimary,
+                    color: context.appColors.textPrimary,
                     fontSize: 11.sp,
                   ),
                 ),
@@ -116,7 +120,7 @@ class ProductCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              color: ColorsManger.textPrimary,
+              color: context.appColors.textPrimary,
               fontSize: 14.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -127,7 +131,7 @@ class ProductCard extends StatelessWidget {
               Text(
                 price,
                 style: AppStyle.text18Semibold.copyWith(
-                  color: ColorsManger.textPrimary,
+                  color: context.appColors.textPrimary,
                 ),
               ),
               if (oldPrice != null) ...[
@@ -135,7 +139,7 @@ class ProductCard extends StatelessWidget {
                 Text(
                   oldPrice!,
                   style: TextStyle(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                     fontSize: 11.sp,
                     decoration: TextDecoration.lineThrough,
                   ),

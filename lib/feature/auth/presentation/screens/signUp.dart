@@ -140,19 +140,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           );
-                        }
-                        // if (state is AuthLoadingState) {
-                        //   showDialog(
-                        //     context: context,
-                        //     barrierDismissible: false,
-                        //     builder: (_) => const Center(
-                        //       child: CircularProgressIndicator(
-                        //         color: ColorsManger.primaryColor,
-                        //       ),
-                        //     ),
-                        //   );
-                        // }
-                        else if (state is AuthSuccessState) {
+                        } else if (state is AuthSuccessState) {
                           Navigator.pop(context);
                           Fluttertoast.showToast(
                             msg: ApiConstatnt.registerResponseMessage,

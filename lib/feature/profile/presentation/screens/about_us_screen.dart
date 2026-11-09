@@ -11,7 +11,7 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.darkBackground,
+      backgroundColor: context.appColors.darkBackground,
       appBar: const LuxeAppBar(title: 'About Us'),
       body: Center(
         child: Padding(
@@ -24,19 +24,20 @@ class AboutUsScreen extends StatelessWidget {
                 height: 112.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: ColorsManger.darkCard,
+                  color: context.appColors.darkCard,
                   borderRadius: BorderRadius.circular(24.r),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black54,
-                        blurRadius: 16.r,
-                        offset: Offset(0, 6.h)),
+                      color: Colors.black54,
+                      blurRadius: 16.r,
+                      offset: Offset(0, 6.h),
+                    ),
                   ],
                 ),
                 child: Text(
                   'L',
                   style: AppStyle.text40Semibold.copyWith(
-                    color: ColorsManger.darkGold,
+                    color: context.appColors.darkGold,
                   ),
                 ),
               ),
@@ -44,14 +45,17 @@ class AboutUsScreen extends StatelessWidget {
               Text(
                 'L U X E',
                 style: AppStyle.text18Semibold.copyWith(
-                  color: ColorsManger.darkTextPrimary,
+                  color: context.appColors.darkTextPrimary,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 4,
                 ),
               ),
               SizedBox(height: 10.h),
               Container(
-                  width: 24.w, height: 2.h, color: ColorsManger.darkGold),
+                width: 24.w,
+                height: 2.h,
+                color: context.appColors.darkGold,
+              ),
               SizedBox(height: 24.h),
               Text(
                 'LUXE is an accessories store offering watches, rings, '
@@ -59,7 +63,7 @@ class AboutUsScreen extends StatelessWidget {
                 'prices with fast delivery.',
                 textAlign: TextAlign.center,
                 style: AppStyle.text16Regular.copyWith(
-                  color: ColorsManger.darkTextBody,
+                  color: context.appColors.darkTextBody,
                   height: 1.6,
                 ),
               ),

@@ -1,8 +1,7 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/utils/colors_manger.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: .center,
@@ -37,11 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 104,
               height: 104,
               decoration: BoxDecoration(
-                color: Color(0xff1B1B1D),
+                color: context.appColors.cardSurface,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xffB6A17A).withValues(alpha: .05),
+                    color: context.appColors.primaryColor.withValues(
+                      alpha: .05,
+                    ),
                     blurRadius: 20,
                   ),
                 ],
