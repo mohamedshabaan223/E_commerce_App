@@ -28,6 +28,7 @@ dependencies:
   equatable: ^3.0.0
   bloc: ^9.2.1
   fluttertoast: ^10.0.2
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:
