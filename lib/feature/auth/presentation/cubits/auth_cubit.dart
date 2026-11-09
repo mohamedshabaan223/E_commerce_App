@@ -26,6 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
       (value) => emit(AuthSuccessState()),
     );
   }
+
   Future<void> resendOtp({required String email}) async {
     emit(AuthLoadingState());
     try {
@@ -33,19 +34,24 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccessState());
     } on DioException catch (e) {
       emit(AuthErrorState(errorMessage: e.toString()));
-    } 
+    }
   }
 
   Future<void> verifyEmail({required String email, required String otp}) async {
     emit(AuthLoadingState());
 
-    final response = await _authRemoteDataSource.verifyOtp(
+    final response = await _authRemoteDataSource.verifyEmail(
       email: email,
       otp: otp,
     );
+
     response.fold(
-      (error) => emit(AuthErrorState(errorMessage: error.message)),
-      (val) => emit(AuthSuccessState()),
+      (error) {
+        emit(AuthErrorState(errorMessage: error.message));
+      },
+      (value) {
+        emit(AuthSuccessState());
+      },
     );
   }
 

@@ -1,9 +1,12 @@
-
-
 import 'dart:async';
 
+import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/auth/presentation/widgets/custom_otp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubits/auth_cubit.dart';
+import '../cubits/auth_state.dart';
 
 class VerifyEmail extends StatefulWidget {
   final String email;
@@ -15,13 +18,7 @@ class VerifyEmail extends StatefulWidget {
 }
 
 class _VerifyEmailState extends State<VerifyEmail> {
-  final List<TextEditingController> otpControllers = List.generate(
-    6,
-    (_) => TextEditingController(),
-  );
-
-  final List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
-
+  final TextEditingController otpcontroller = TextEditingController();
   Timer? timer;
   int remainingSeconds = 30;
 
@@ -39,6 +36,11 @@ class _VerifyEmailState extends State<VerifyEmail> {
     });
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+
       if (remainingSeconds > 0) {
         setState(() {
           remainingSeconds--;
@@ -47,10 +49,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
         timer.cancel();
       }
     });
-  }
-
-  String get otp {
-    return otpControllers.map((controller) => controller.text).join();
   }
 
   String get formattedTime {
@@ -74,18 +72,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
     return '${name[0]}***@${parts[1]}';
   }
 
-  
   @override
   void dispose() {
     timer?.cancel();
-
-    for (final controller in otpControllers) {
-      controller.dispose();
-    }
-
-    for (final node in focusNodes) {
-      node.dispose();
-    }
+    otpcontroller.dispose();
 
     super.dispose();
   }
@@ -98,7 +88,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
         backgroundColor: const Color(0xFF141416),
         foregroundColor: Colors.white,
         centerTitle: true,
-        title: const Text('VERIFY EMAIL'),
+        title: Text(
+          'VERIFY EMAIL',
+          style: AppStyle.text20Semibold.copyWith(letterSpacing: 2),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -118,13 +111,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'VERIFY EMAIL',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppStyle.text18Semibold.copyWith(letterSpacing: 2),
             ),
             const SizedBox(height: 8),
             Text(
@@ -132,13 +121,49 @@ class _VerifyEmailState extends State<VerifyEmail> {
               style: const TextStyle(color: Colors.white70),
             ),
             const SizedBox(height: 28),
-            CustomOtp(),
+            CustomOtp(controller: otpcontroller),
             const SizedBox(height: 24),
             SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: (){},
+              width: double.infinity,
+              height: 48,
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthSuccessState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Email verified successfully!'),
+                      ),
+                    );
+                  }
+                  if (state is AuthErrorState) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                  }
+                },
+                builder: (context, state) {
+                  return ElevatedButton(
+                    onPressed: state is AuthLoadingState
+                        ? null
+                        : () {
+                            final otp = otpcontroller.text.trim();
+
+                            if (!RegExp(r'^\d{6}$').hasMatch(otp)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Please enter a valid 6-digit OTP',
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            context.read<AuthCubit>().verifyEmail(
+                              email: widget.email,
+                              otp: otp,
+                            );
+                          },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFC2A878),
                       foregroundColor: Colors.black,
@@ -146,9 +171,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child:  const Text('VERIFY'),
-                  ),
-                ),
+                    child: state is AuthLoadingState
+                        ? const CircularProgressIndicator(color: Colors.black)
+                        : const Text('VERIFY'),
+                  );
+                },
+              ),
+            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -161,7 +190,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 ),
                 if (remainingSeconds == 0)
                   TextButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: const Text(
                       'Resend OTP',
                       style: TextStyle(color: Color(0xFFC2A878)),

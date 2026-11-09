@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../data/models/register_request.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -19,12 +21,13 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool agreed = false;
+  bool isLoadingDialogOpen = false;
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -53,151 +56,179 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                const AuthHeader(
-                  title: 'Create Account',
-                  subtitle: 'Create your account to start shopping',
-                ),
-                const SizedBox(height: 32),
-                Row(
-                  children: [
-                    Expanded(
-                      child: FormFieldWidget(
-                        label: 'First Name',
-                        hintText: 'Alexander',
-                        controller: firstNameController,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: FormFieldWidget(
-                        label: 'Last Name',
-                        hintText: 'Vance',
-                        controller: lastNameController,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                FormFieldWidget(
-                  validator: ValidatorApp.validateEmail,
-                  label: 'Email',
-                  hintText: 'alexander.vance@example.com',
-                  controller: emailController,
-                ),
-                const SizedBox(height: 16),
-                FormFieldWidget(
-                  validator: ValidatorApp.validatePassword,
-                  label: 'Password',
-                  hintText: '••••••••••••',
-                  isPassword: true,
-                  controller: passwordController,
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: agreed,
-                      activeColor: const Color(0xFFC2A878),
-                      onChanged: (v) {
-                        setState(() {
-                          agreed = v ?? false;
-                        });
-                      },
-                    ),
-                    const Expanded(
-                      child: Text(
-                        'I agree to the Terms of Service and Privacy Policy',
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: BlocListener<AuthCubit, AuthState>(
-                    listener: (context, state) {
-                      if (state is AuthLoadingState) {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (_) => const Center(
-                            child: CircularProgressIndicator(
-                              color: ColorsManger.primaryColor,
-                            ),
-                          ),
-                        );
-                      } else if (state is AuthSuccessState) {
-                        Navigator.pop(context);
-                        Fluttertoast.showToast(
-                          msg: ApiConstatnt.registerResponseMessage,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: ColorsManger.primaryColor,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
-                        Navigator.pushReplacementNamed(
-                          context,
-                          ConstantRoute.VerifyEmail,
-                         
-                        );
-                      } else if (state is AuthErrorState) {
-                        Navigator.pop(context);
-                        Fluttertoast.showToast(
-                          msg: state.errorMessage,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
-                      } else {
-                        SizedBox.shrink();
-                      }
-                    },
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffB6A17A),
-                        foregroundColor: const Color(0xff3C2E11),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  const AuthHeader(
+                    title: 'Create Account',
+                    subtitle: 'Create your account to start shopping',
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FormFieldWidget(
+                          label: 'First Name',
+                          hintText: 'Alexander',
+                          controller: firstNameController,
+                          validator: ValidatorApp.validateName,
                         ),
                       ),
-                      child: Text('Create Account'),
-                    ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: FormFieldWidget(
+                          label: 'Last Name',
+                          hintText: 'Vance',
+                          controller: lastNameController,
+                          validator: ValidatorApp.validateName,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have an account? ',
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          ConstantRoute.Login,
-                        );
+                  const SizedBox(height: 16),
+                  FormFieldWidget(
+                    validator: ValidatorApp.validateEmail,
+                    label: 'Email',
+                    hintText: 'alexander.vance@example.com',
+                    controller: emailController,
+                  ),
+                  const SizedBox(height: 16),
+                  FormFieldWidget(
+                    validator: ValidatorApp.validatePassword,
+                    label: 'Password',
+                    hintText: '••••••••••••',
+                    isPassword: true,
+                    controller: passwordController,
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: agreed,
+                        activeColor: const Color(0xFFC2A878),
+                        onChanged: (v) {
+                          setState(() {
+                            agreed = v ?? false;
+                          });
+                        },
+                      ),
+                      const Expanded(
+                        child: Text(
+                          'I agree to the Terms of Service and Privacy Policy',
+                          style: TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: BlocListener<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthLoadingState) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const Center(
+                              child: CircularProgressIndicator(
+                                color: ColorsManger.primaryColor,
+                              ),
+                            ),
+                          );
+                        }
+                        // if (state is AuthLoadingState) {
+                        //   showDialog(
+                        //     context: context,
+                        //     barrierDismissible: false,
+                        //     builder: (_) => const Center(
+                        //       child: CircularProgressIndicator(
+                        //         color: ColorsManger.primaryColor,
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
+                        else if (state is AuthSuccessState) {
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                            msg: ApiConstatnt.registerResponseMessage,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: ColorsManger.primaryColor,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                          Navigator.pushReplacementNamed(
+                            context,
+                            ConstantRoute.VerifyEmail,
+                            arguments: emailController.text.trim(),
+                          );
+                        } else if (state is AuthErrorState) {
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                            msg: state.errorMessage,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        } else {
+                          SizedBox.shrink();
+                        }
                       },
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(color: Color(0xFFC2A878)),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().signUp(
+                              RegisterRequest(
+                                firstName: firstNameController.text.trim(),
+                                lastName: lastNameController.text.trim(),
+                                email: emailController.text.trim(),
+                                password: passwordController.text,
+                              ),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffB6A17A),
+                          foregroundColor: const Color(0xff3C2E11),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text('Create Account'),
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            ConstantRoute.Login,
+                          );
+                        },
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Color(0xFFC2A878)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
