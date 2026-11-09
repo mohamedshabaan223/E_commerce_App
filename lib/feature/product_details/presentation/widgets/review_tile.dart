@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/shared_widgets/rating_stars.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/product_details/presentation/models/review_model.dart';
+import 'package:ecommerce_app/feature/product_details/data/models/review_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

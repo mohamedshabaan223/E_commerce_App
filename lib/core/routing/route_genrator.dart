@@ -32,7 +32,10 @@ abstract class RouteGenrator {
       case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
-        return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
+        return MaterialPageRoute(
+          builder: (_) =>
+              ProductDetailsScreen(productId: settings.arguments as String),
+        );
       case ConstantRoute.Login:
         return MaterialPageRoute(
           builder: (_) =>

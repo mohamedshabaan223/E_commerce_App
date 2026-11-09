@@ -39,7 +39,7 @@ class ProductThumbnailsRow extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.r),
-                child: Image.asset(image, fit: BoxFit.cover),
+                child: Image.network(image, fit: BoxFit.cover),
               ),
             ),
           ),

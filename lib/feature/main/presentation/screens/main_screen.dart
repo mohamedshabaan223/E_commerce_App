@@ -4,6 +4,10 @@ import 'package:ecommerce_app/feature/cart/presentation/screens/cart_screen.dart
 import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce_app/feature/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/feature/profile/presentation/screens/profile_screen.dart';
+import 'package:ecommerce_app/core/network/dio_factory.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/cart_cubit.dart';
+import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -26,12 +30,15 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
-      body: IndexedStack(index: _currentIndex, children: _screens),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
+    return BlocProvider(
+      create: (_) => CartCubit(CartRemoteDataSource(DioFactory().dio)),
+      child: Scaffold(
+        backgroundColor: ColorsManger.backgroundColor,
+        body: IndexedStack(index: _currentIndex, children: _screens),
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: _currentIndex,
+          onTap: (i) => setState(() => _currentIndex = i),
+        ),
       ),
     );
   }
