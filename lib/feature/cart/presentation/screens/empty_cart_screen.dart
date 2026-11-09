@@ -12,7 +12,7 @@ class EmptyCartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       appBar: CustomAppBar(title: 'Cart'),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -22,19 +22,19 @@ class EmptyCartScreen extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: ColorsManger.primaryColor,
+                color: context.appColors.primaryColor,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  color: ColorsManger.categoryCard,
+                  color: context.appColors.categoryCard,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
                 margin: EdgeInsets.all(8),
                 padding: EdgeInsets.all(15),
                 child: Icon(
                   Icons.shopping_bag_outlined,
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                   size: 29,
                 ),
               ),
@@ -42,7 +42,7 @@ class EmptyCartScreen extends StatelessWidget {
             Text(
               "Your cart is empty",
               style: TextStyle(
-                color: ColorsManger.white,
+                color: context.appColors.white,
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
               ),
@@ -51,7 +51,7 @@ class EmptyCartScreen extends StatelessWidget {
               "Looks like you haven't added any items to "
               "your cart yet.",
               style: TextStyle(
-                color: ColorsManger.passwordColor,
+                color: context.appColors.passwordColor,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
               ),

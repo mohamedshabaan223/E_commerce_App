@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -20,16 +21,13 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const goldColor = Color(0xFFC4B18B);
-    const cardColor = Color(0xFF1B1B1D);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
           style: TextStyle(
-            color: Colors.grey[400],
+            color: context.appColors.adminLabelColor,
             fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
@@ -40,14 +38,23 @@ class CustomTextField extends StatelessWidget {
         TextField(
           controller: controller,
           maxLines: maxLines,
-          style: const TextStyle(color: Colors.white, fontSize: 14),
+          style: TextStyle(
+            color: context.appColors.adminForegroundColor,
+            fontSize: 14,
+          ),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+            hintStyle: TextStyle(
+              color: context.appColors.adminMutedColor,
+              fontSize: 14,
+            ),
             suffixText: suffixText,
-            suffixStyle: TextStyle(color: goldColor, fontSize: 12),
+            suffixStyle: TextStyle(
+              color: context.appColors.adminGoldColor,
+              fontSize: 12,
+            ),
             filled: true,
-            fillColor: cardColor,
+            fillColor: context.appColors.adminCardColor,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 14,
               vertical: 14,
@@ -59,12 +66,17 @@ class CustomTextField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
-                color: errorText != null ? Colors.redAccent : Colors.white12,
+                color: errorText != null
+                    ? context.appColors.adminDangerColor
+                    : context.appColors.adminBorderColor,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: goldColor, width: 1.2),
+              borderSide: BorderSide(
+                color: context.appColors.adminGoldColor,
+                width: 1.2,
+              ),
             ),
           ),
         ),
@@ -73,7 +85,10 @@ class CustomTextField extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             errorText!,
-            style: const TextStyle(color: Colors.redAccent, fontSize: 11),
+            style: TextStyle(
+              color: context.appColors.adminDangerColor,
+              fontSize: 11,
+            ),
           ),
         ],
       ],

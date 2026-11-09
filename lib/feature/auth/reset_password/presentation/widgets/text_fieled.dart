@@ -11,11 +11,14 @@ class CustomTextFormFilled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Color(0xff1B1B1D)),
+      decoration: BoxDecoration(color: context.appColors.cardSurface),
       child: TextFormField(
         validator: validator,
         controller: controller,
-        cursorColor: Color(0xffDAC49B),
+        cursorColor: context.appColors.forTheme(
+          const Color(0xffDAC49B),
+          ColorsManger.lightPrimary,
+        ),
         style: AppStyle.text14Semibold,
         decoration: InputDecoration(
           hintText: text,
@@ -30,15 +33,15 @@ class CustomTextFormFilled extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Color(0xff1B1B1D)),
+            borderSide: BorderSide(color: context.appColors.cardSurface),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Color(0xff1B1B1D)),
+            borderSide: BorderSide(color: context.appColors.cardSurface),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Color(0xff1B1B1D)),
+            borderSide: BorderSide(color: context.appColors.cardSurface),
           ),
         ),
       ),
@@ -75,7 +78,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
         Text(
           widget.text,
           style: AppStyle.text12Medium.copyWith(
-            color: ColorsManger.textSecondary,
+            color: context.appColors.textSecondary,
           ),
         ),
         SizedBox(height: 10),
@@ -85,15 +88,15 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
               : null,
           validator: widget.validator,
           controller: widget.controller,
-          cursorColor: ColorsManger.primaryColor,
+          cursorColor: context.appColors.primaryColor,
           obscureText: isobsecure,
           style: AppStyle.text14Semibold.copyWith(
-            color: ColorsManger.passwordColor,
+            color: context.appColors.passwordColor,
             letterSpacing: 2,
           ),
           decoration: InputDecoration(
             filled: true,
-            fillColor: ColorsManger.surface,
+            fillColor: context.appColors.surface,
             errorStyle: TextStyle(color: Colors.red),
 
             focusedErrorBorder: OutlineInputBorder(
@@ -106,15 +109,15 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xff1D1C20)),
+              borderSide: BorderSide(color: context.appColors.surface),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xff1D1C20)),
+              borderSide: BorderSide(color: context.appColors.surface),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xff1D1C20)),
+              borderSide: BorderSide(color: context.appColors.surface),
             ),
             suffixIcon: IconButton(
               onPressed: () {
@@ -126,7 +129,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
                 isobsecure
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                color: ColorsManger.passwordColor,
+                color: context.appColors.passwordColor,
               ),
             ),
           ),

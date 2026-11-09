@@ -38,7 +38,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      barrierColor: ColorsManger.modalBackdrop,
+      barrierColor: context.appColors.modalBackdrop,
       isScrollControlled: true,
       builder: (_) => const AddReviewSheet(),
     );
@@ -59,7 +59,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: ColorsManger.backgroundColor,
+            backgroundColor: context.appColors.backgroundColor,
             appBar: _buildAppBar(
               state is ProductDetailsSuccess ? state.product.name : '',
             ),
@@ -72,14 +72,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   AppBar _buildAppBar(String title) {
     return AppBar(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       elevation: 0,
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
         icon: Icon(
           Icons.arrow_back_ios_new,
-          color: ColorsManger.primaryColor,
+          color: context.appColors.primaryColor,
           size: 20.sp,
         ),
         onPressed: () => Navigator.maybePop(context),
@@ -87,12 +87,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       title: Text(
         title,
         style: AppStyle.text18Semibold.copyWith(
-          color: ColorsManger.textPrimary,
+          color: context.appColors.textPrimary,
         ),
       ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.h),
-        child: Divider(height: 1.h, thickness: 1.h, color: ColorsManger.border),
+        child: Divider(
+          height: 1.h,
+          thickness: 1.h,
+          color: context.appColors.border,
+        ),
       ),
     );
   }
@@ -103,14 +107,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Text(
           state.message,
           style: AppStyle.text14Regular.copyWith(
-            color: ColorsManger.textSecondary,
+            color: context.appColors.textSecondary,
           ),
         ),
       );
     }
     if (state is! ProductDetailsSuccess) {
-      return const Center(
-        child: CircularProgressIndicator(color: ColorsManger.primaryColor),
+      return Center(
+        child: CircularProgressIndicator(color: context.appColors.primaryColor),
       );
     }
 
@@ -166,7 +170,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             productId: product.id,
           ),
           SizedBox(height: 24.h),
-          Divider(height: 1.h, thickness: 1.h, color: ColorsManger.border),
+          Divider(height: 1.h, thickness: 1.h, color: context.appColors.border),
           SizedBox(height: 16.h),
           ReviewsHeader(
             rating: product.rating,

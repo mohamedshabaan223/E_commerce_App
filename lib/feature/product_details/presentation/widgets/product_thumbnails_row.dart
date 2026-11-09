@@ -28,12 +28,12 @@ class ProductThumbnailsRow extends StatelessWidget {
               height: 56.r,
               padding: EdgeInsets.all(6.r),
               decoration: BoxDecoration(
-                color: ColorsManger.surface,
+                color: context.appColors.surface,
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: index == selectedIndex
-                      ? ColorsManger.primaryColor
-                      : ColorsManger.border,
+                      ? context.appColors.primaryColor
+                      : context.appColors.border,
                   width: index == selectedIndex ? 1.5 : 1,
                 ),
               ),

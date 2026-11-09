@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class AdminProductCard extends StatelessWidget {
@@ -31,9 +32,11 @@ class AdminProductCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF1B1B1D),
+        color: context.appColors.adminCardColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        border: Border.all(
+          color: context.appColors.adminForegroundColor.withValues(alpha: 0.05),
+        ),
       ),
       child: Row(
         children: [
@@ -48,8 +51,11 @@ class AdminProductCard extends StatelessWidget {
                 return Container(
                   width: 70,
                   height: 70,
-                  color: Colors.grey[850],
-                  child: const Icon(Icons.image_outlined, color: Colors.grey),
+                  color: context.appColors.adminPlaceholderColor,
+                  child: Icon(
+                    Icons.image_outlined,
+                    color: context.appColors.adminGreyColor,
+                  ),
                 );
               },
             ),
@@ -68,8 +74,8 @@ class AdminProductCard extends StatelessWidget {
                         title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: context.appColors.adminForegroundColor,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -79,7 +85,7 @@ class AdminProductCard extends StatelessWidget {
                     IconButton(
                       onPressed: onEdit,
                       icon: const Icon(Icons.edit_outlined),
-                      color: Colors.grey,
+                      color: context.appColors.adminGreyColor,
                       iconSize: 18,
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
@@ -90,7 +96,7 @@ class AdminProductCard extends StatelessWidget {
                     IconButton(
                       onPressed: onDelete,
                       icon: const Icon(Icons.delete_outline),
-                      color: Colors.redAccent,
+                      color: context.appColors.adminDangerColor,
                       iconSize: 18,
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
@@ -102,7 +108,10 @@ class AdminProductCard extends StatelessWidget {
 
                 Text(
                   sku,
-                  style: TextStyle(color: Colors.grey[600], fontSize: 10),
+                  style: TextStyle(
+                    color: context.appColors.adminMutedColor,
+                    fontSize: 10,
+                  ),
                 ),
 
                 const SizedBox(height: 10),
@@ -111,8 +120,8 @@ class AdminProductCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$${price.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        color: Color(0xFFC4B18B),
+                      style: TextStyle(
+                        color: context.appColors.adminGoldColor,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
@@ -122,8 +131,8 @@ class AdminProductCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         '\$${oldPrice!.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: context.appColors.adminGreyColor,
                           fontSize: 11,
                           decoration: TextDecoration.lineThrough,
                         ),
@@ -150,8 +159,8 @@ class AdminProductCard extends StatelessWidget {
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           color: isOutOfStock
-                              ? Colors.redAccent
-                              : Colors.grey[400],
+                              ? context.appColors.adminDangerColor
+                              : context.appColors.adminLabelColor,
                           fontSize: 10,
                         ),
                       ),

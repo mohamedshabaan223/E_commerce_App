@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/auth/presentation/widgets/custom_otp.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,10 +84,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF141416),
+      backgroundColor: context.appColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF141416),
-        foregroundColor: Colors.white,
+        backgroundColor: context.appColors.backgroundColor,
+        foregroundColor: context.appColors.forTheme(
+          Colors.white,
+          ColorsManger.lightTextPrimary,
+        ),
         centerTitle: true,
         title: Text(
           'VERIFY EMAIL',
@@ -102,12 +106,18 @@ class _VerifyEmailState extends State<VerifyEmail> {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: const Color(0xFF26262A),
+                color: context.appColors.forTheme(
+                  const Color(0xFF26262A),
+                  ColorsManger.lightSurfaceVariant,
+                ),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.mark_email_read_outlined,
-                color: Colors.white70,
+                color: context.appColors.forTheme(
+                  Colors.white70,
+                  ColorsManger.lightTextSecondary,
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -118,7 +128,12 @@ class _VerifyEmailState extends State<VerifyEmail> {
             const SizedBox(height: 8),
             Text(
               'We sent a code to $maskedEmail',
-              style: const TextStyle(color: Colors.white70),
+              style: TextStyle(
+                color: context.appColors.forTheme(
+                  Colors.white70,
+                  ColorsManger.lightTextSecondary,
+                ),
+              ),
             ),
             const SizedBox(height: 28),
             CustomOtp(controller: otpcontroller),
@@ -165,14 +180,19 @@ class _VerifyEmailState extends State<VerifyEmail> {
                             );
                           },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFC2A878),
-                      foregroundColor: Colors.black,
+                      backgroundColor: context.appColors.forTheme(
+                        const Color(0xFFC2A878),
+                        ColorsManger.lightPrimary,
+                      ),
+                      foregroundColor: context.appColors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: state is AuthLoadingState
-                        ? const CircularProgressIndicator(color: Colors.black)
+                        ? CircularProgressIndicator(
+                            color: context.appColors.black,
+                          )
                         : const Text('VERIFY'),
                   );
                 },
@@ -186,14 +206,24 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   remainingSeconds > 0
                       ? 'Resend code in $formattedTime'
                       : 'Didn\'t receive the code? ',
-                  style: const TextStyle(color: Colors.white70),
+                  style: TextStyle(
+                    color: context.appColors.forTheme(
+                      Colors.white70,
+                      ColorsManger.lightTextSecondary,
+                    ),
+                  ),
                 ),
                 if (remainingSeconds == 0)
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Resend OTP',
-                      style: TextStyle(color: Color(0xFFC2A878)),
+                      style: TextStyle(
+                        color: context.appColors.forTheme(
+                          const Color(0xFFC2A878),
+                          ColorsManger.lightPrimary,
+                        ),
+                      ),
                     ),
                   ),
               ],

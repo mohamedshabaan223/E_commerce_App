@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class DeleteProductDialog extends StatelessWidget {
@@ -16,11 +17,8 @@ class DeleteProductDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const cardColor = Color(0xFF1B1B1D);
-    const backgroundColor = Color(0xFF121212);
-
     return Dialog(
-      backgroundColor: cardColor,
+      backgroundColor: context.appColors.adminCardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 420),
@@ -29,18 +27,18 @@ class DeleteProductDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons.delete_outline,
-                color: Colors.redAccent,
+                color: context.appColors.adminDangerColor,
                 size: 40,
               ),
 
               const SizedBox(height: 16),
 
-              const Text(
+              Text(
                 'Delete Product?',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: context.appColors.adminForegroundColor,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -53,7 +51,7 @@ class DeleteProductDialog extends StatelessWidget {
                 'This action cannot be undone.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.grey[400],
+                  color: context.appColors.adminLabelColor,
                   fontSize: 13,
                   height: 1.5,
                 ),
@@ -65,7 +63,7 @@ class DeleteProductDialog extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: backgroundColor,
+                  color: context.appColors.adminBackgroundColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
@@ -73,8 +71,8 @@ class DeleteProductDialog extends StatelessWidget {
                   children: [
                     Text(
                       productTitle,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: context.appColors.adminForegroundColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -83,7 +81,10 @@ class DeleteProductDialog extends StatelessWidget {
 
                     Text(
                       productSku,
-                      style: TextStyle(color: Colors.grey[600], fontSize: 11),
+                      style: TextStyle(
+                        color: context.appColors.adminMutedColor,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
@@ -97,8 +98,9 @@ class DeleteProductDialog extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: onDeletePressed,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF990000),
-                    foregroundColor: Colors.white,
+                    backgroundColor:
+                        context.appColors.adminDangerBackgroundColor,
+                    foregroundColor: context.appColors.adminForegroundColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -118,14 +120,16 @@ class DeleteProductDialog extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: onCancelPressed,
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.white24),
+                    side: BorderSide(
+                      color: context.appColors.adminStrongBorderColor,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   child: Text(
                     'Cancel',
-                    style: TextStyle(color: Colors.grey[300]),
+                    style: TextStyle(color: context.appColors.adminLabelColor),
                   ),
                 ),
               ),

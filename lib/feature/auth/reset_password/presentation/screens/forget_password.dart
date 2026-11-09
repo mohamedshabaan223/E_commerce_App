@@ -36,7 +36,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return BlocProvider(
       create: (context) => ForgotPasswordCubit(),
       child: Scaffold(
-        backgroundColor: ColorsManger.backgroundColor,
+        backgroundColor: context.appColors.backgroundColor,
         body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
           listener: (context, state) {
             if (state is ForgotPasswordSuccess) {
@@ -89,7 +89,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           width: double.infinity,
                           height: 200.h,
                           decoration: BoxDecoration(
-                            color: Color(0xff1D1C20),
+                            color: context.appColors.surface,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
@@ -101,7 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                 Text(
                                   "EMAIL",
                                   style: AppStyle.text12Medium.copyWith(
-                                    color: ColorsManger.white,
+                                    color: context.appColors.white,
                                   ),
                                 ),
                                 Form(
@@ -113,9 +113,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                   ),
                                 ),
                                 if (state is ForgotPasswordLoading)
-                                  const Center(
+                                  Center(
                                     child: CircularProgressIndicator(
-                                      color: ColorsManger.primaryColor,
+                                      color: context.appColors.primaryColor,
                                     ),
                                   )
                                 else

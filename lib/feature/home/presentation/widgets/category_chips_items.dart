@@ -26,9 +26,9 @@ class CategoryChipItem extends StatelessWidget {
             width: 72.r,
             height: 72.r,
             decoration: BoxDecoration(
-              color: ColorsManger.categoryCard,
+              color: context.appColors.categoryCard,
               borderRadius: BorderRadius.circular(16.r),
-              border: Border.all(color: ColorsManger.border, width: 1),
+              border: Border.all(color: context.appColors.border, width: 1),
             ),
             padding: EdgeInsets.all(7.r),
             child: ClipRRect(
@@ -37,7 +37,7 @@ class CategoryChipItem extends StatelessWidget {
                 imageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (_, _, _) =>
-                    const ColoredBox(color: ColorsManger.surface),
+                    ColoredBox(color: context.appColors.surface),
               ),
             ),
           ),
@@ -45,7 +45,7 @@ class CategoryChipItem extends StatelessWidget {
           Text(
             name,
             style: AppStyle.text12Medium.copyWith(
-              color: ColorsManger.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
         ],

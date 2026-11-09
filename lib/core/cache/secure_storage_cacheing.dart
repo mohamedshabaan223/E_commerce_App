@@ -32,6 +32,22 @@ class SecureStorageCacheing {
     return expiresAt != null ? DateTime.parse(expiresAt) : null;
   }
 
+  Future<void> saveThemeMode(bool isDarkMode) async {
+    await _storage.write(
+      key: SecureKeys.themeMode,
+      value: isDarkMode ? 'dark' : 'light',
+    );
+  }
+
+  Future<bool?> getIsDarkMode() async {
+    final themeMode = await _storage.read(key: SecureKeys.themeMode);
+    return switch (themeMode) {
+      'dark' => true,
+      'light' => false,
+      _ => null,
+    };
+  }
+
   Future<void> clearCache() async {
     await _storage.delete(key: SecureKeys.accessToken);
     await _storage.delete(key: SecureKeys.refreshToken);

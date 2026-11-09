@@ -17,13 +17,15 @@ class OrderScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
           icon: Icon(
             Icons.arrow_back_ios_new_outlined,
-            color: ColorsManger.white,
+            color: context.appColors.white,
           ),
         ),
         centerTitle: true,
         title: Text(
           'My Orders',
-          style: AppStyle.text18Semibold.copyWith(color: ColorsManger.white),
+          style: AppStyle.text18Semibold.copyWith(
+            color: context.appColors.white,
+          ),
         ),
       ),
       body: Padding(
@@ -39,13 +41,13 @@ class OrderScreen extends StatelessWidget {
                       Text(
                         'My Orders',
                         style: AppStyle.text22Medium.copyWith(
-                          color: ColorsManger.white,
+                          color: context.appColors.white,
                         ),
                       ),
                       Text(
                         '3 orders',
                         style: AppStyle.text12Medium.copyWith(
-                          color: ColorsManger.white,
+                          color: context.appColors.white,
                         ),
                       ),
                     ],

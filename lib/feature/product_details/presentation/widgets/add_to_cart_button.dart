@@ -48,7 +48,7 @@ class AddToCartButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: state is AddToCartLoadingState
                   ? Colors.grey
-                  : ColorsManger.primaryColor,
+                  : context.appColors.primaryColor,
               borderRadius: BorderRadius.circular(14.r),
               boxShadow: [
                 if (state is AddToCartLoadingState)
@@ -65,7 +65,7 @@ class AddToCartButton extends StatelessWidget {
                     height: 24.h,
                     width: 24.h,
                     child: CircularProgressIndicator(
-                      color: ColorsManger.backgroundColor,
+                      color: context.appColors.backgroundColor,
                       strokeWidth: 2.5,
                     ),
                   )
@@ -74,14 +74,14 @@ class AddToCartButton extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.shopping_bag_outlined,
-                        color: ColorsManger.backgroundColor,
+                        color: context.appColors.backgroundColor,
                         size: 20.sp,
                       ),
                       SizedBox(width: 8.w),
                       Text(
                         'ADD TO CART — $totalPrice',
                         style: AppStyle.text14Semibold.copyWith(
-                          color: ColorsManger.backgroundColor,
+                          color: context.appColors.backgroundColor,
                           letterSpacing: 0.8,
                         ),
                       ),

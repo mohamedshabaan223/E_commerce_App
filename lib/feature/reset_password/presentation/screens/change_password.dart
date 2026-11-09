@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
 
@@ -39,7 +38,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       create: (_) => AuthCubit(),
       child: Builder(
         builder: (context) => Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           body: Form(
             key: formKey,
             child: Column(
@@ -54,10 +53,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Theme(
-                        data: ThemeData.dark().copyWith(
+                        data: Theme.of(context).copyWith(
                           inputDecorationTheme: InputDecorationTheme(
                             filled: true,
-                            fillColor: const Color(0xFF26262A),
+                            fillColor: context.appColors.forTheme(
+                              const Color(0xFF26262A),
+                              ColorsManger.lightSurfaceVariant,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide.none,
@@ -68,7 +70,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           children: [
                             FormFieldWidget(
                               controller: currentPassword,
-                              validator:ValidatorApp.validatePassword ,
+                              validator: ValidatorApp.validatePassword,
                               label: 'CURRENT PASSWORD',
                               hintText: 'CURRENT PASSWORD',
                               isPassword: true,
@@ -84,7 +86,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             SizedBox(height: 20.h),
                             FormFieldWidget(
                               controller: confirmPassword,
-                              validator:ValidatorApp.validatePassword,
+                              validator: ValidatorApp.validatePassword,
                               label: 'CONFIRM PASSWORD',
                               hintText: 'CONFIRM PASSWORD',
                               isPassword: true,
@@ -96,33 +98,39 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   showDialog(
                                     context: context,
                                     barrierDismissible: false,
-                                    builder: (_) => const Center(
+                                    builder: (_) => Center(
                                       child: CircularProgressIndicator(
-                                        color: ColorsManger.primaryColor,
+                                        color: context.appColors.primaryColor,
                                       ),
                                     ),
                                   );
                                 } else if (state is AuthSuccessState) {
-                                  Navigator.pop(context); 
+                                  Navigator.pop(context);
                                   Fluttertoast.showToast(
-                                    msg:
-                                        "Password has been changed successfully.",
+                                    msg: "Password has been changed successfully.",
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
-                                    backgroundColor: ColorsManger.primaryColor,
-                                    textColor: Colors.white,
+                                    backgroundColor:
+                                        context.appColors.primaryColor,
+                                    textColor: context.appColors.forTheme(
+                                      Colors.white,
+                                      ColorsManger.lightTextPrimary,
+                                    ),
                                     fontSize: 16.0,
                                   );
                                 } else if (state is AuthErrorState) {
-                                  Navigator.pop(context); 
+                                  Navigator.pop(context);
                                   Fluttertoast.showToast(
                                     msg: state.errorMessage,
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
                                     backgroundColor: Colors.red,
-                                    textColor: Colors.white,
+                                    textColor: context.appColors.forTheme(
+                                      Colors.white,
+                                      ColorsManger.lightTextPrimary,
+                                    ),
                                     fontSize: 16.0,
                                   );
                                 }

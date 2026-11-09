@@ -30,26 +30,23 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
-
         if (state is GetCartLoadingState) {
-          return  Scaffold(
-            backgroundColor: ColorsManger.backgroundColor,
+          return Scaffold(
+            backgroundColor: context.appColors.backgroundColor,
             appBar: CustomAppBar(title: 'Cart'),
             body: Center(
-              child: CircularProgressIndicator(color: ColorsManger.primaryColor),
+              child: CircularProgressIndicator(
+                color: context.appColors.primaryColor,
+              ),
             ),
           );
         }
 
         if (state is GetCartFailureState) {
           return Scaffold(
-            backgroundColor: ColorsManger.backgroundColor,
-            appBar:  CustomAppBar(title: 'Cart'),
-            body: Center(
-              child: Text(
-                state.errorMessage,
-              ),
-            ),
+            backgroundColor: context.appColors.backgroundColor,
+            appBar: CustomAppBar(title: 'Cart'),
+            body: Center(child: Text(state.errorMessage)),
           );
         }
         if (state is GetCartSuccessState) {
@@ -60,7 +57,7 @@ class _CartScreenState extends State<CartScreen> {
           }
 
           return Scaffold(
-            backgroundColor: ColorsManger.backgroundColor,
+            backgroundColor: context.appColors.backgroundColor,
             appBar: const CustomAppBar(title: 'Cart'),
             body: Padding(
               padding: const EdgeInsets.all(20),
@@ -75,7 +72,7 @@ class _CartScreenState extends State<CartScreen> {
                           fontFamily: 'DMSerifDisplay',
                           fontSize: 22.sp,
                           fontWeight: FontWeight.w500,
-                          color: ColorsManger.white,
+                          color: context.appColors.white,
                         ),
                       ),
                       const Spacer(),
@@ -84,7 +81,7 @@ class _CartScreenState extends State<CartScreen> {
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
-                          color: ColorsManger.passwordColor,
+                          color: context.appColors.passwordColor,
                         ),
                       ),
                     ],
@@ -96,10 +93,10 @@ class _CartScreenState extends State<CartScreen> {
                       itemBuilder: (context, index) {
                         final item = cartItems[index];
                         return CartItem.cartItemDesign(
-
+                          context: context,
                           image: item['productCoverUrl'] ?? '',
                           name: item['productName'] ?? '',
-                          price: item['totalPrice'] .toDouble(),
+                          price: item['totalPrice'].toDouble(),
                         );
                       },
                     ),
@@ -110,12 +107,15 @@ class _CartScreenState extends State<CartScreen> {
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF1E1E1E),
+                            color: context.appColors.forTheme(
+                              const Color(0xFF1E1E1E),
+                              ColorsManger.lightSurfaceVariant,
+                            ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: TextField(
-                            style: const TextStyle(color: ColorsManger.white),
+                            style: TextStyle(color: context.appColors.white),
                             decoration: InputDecoration(
                               hintText: 'Enter coupon code',
                               hintStyle: TextStyle(
@@ -133,7 +133,10 @@ class _CartScreenState extends State<CartScreen> {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2A2A2A),
+                            backgroundColor: context.appColors.forTheme(
+                              const Color(0xFF2A2A2A),
+                              ColorsManger.lightSurfaceVariant,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -142,7 +145,7 @@ class _CartScreenState extends State<CartScreen> {
                           child: Text(
                             'Apply',
                             style: TextStyle(
-                              color: ColorsManger.primaryColor,
+                              color: context.appColors.primaryColor,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -162,9 +165,7 @@ class _CartScreenState extends State<CartScreen> {
           );
         }
 
-        return const Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
-        );
+        return Scaffold(backgroundColor: context.appColors.backgroundColor);
       },
     );
   }

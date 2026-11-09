@@ -12,7 +12,7 @@ class OrderItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: Color(0xff1F1F21),
+        color: context.appColors.categoryCard,
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(
@@ -26,13 +26,13 @@ class OrderItem extends StatelessWidget {
                     Text(
                       '#LX-84920',
                       style: AppStyle.text14Semibold.copyWith(
-                        color: ColorsManger.white,
+                        color: context.appColors.white,
                       ),
                     ),
                     Text(
                       'Oct 24, 2024',
                       style: AppStyle.text12Regular.copyWith(
-                        color: ColorsManger.white,
+                        color: context.appColors.white,
                       ),
                     ),
                   ],
@@ -51,13 +51,13 @@ class OrderItem extends StatelessWidget {
                   Text(
                     'PAYMENT',
                     style: AppStyle.text10Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   Text(
                     'Cash',
                     style: AppStyle.text14Regular.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                 ],
@@ -68,13 +68,13 @@ class OrderItem extends StatelessWidget {
                   Text(
                     'TOTAL',
                     style: AppStyle.text10Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   Text(
                     '\$180.00',
                     style: AppStyle.text14Regular.copyWith(
-                      color: ColorsManger.primaryColor,
+                      color: context.appColors.primaryColor,
                     ),
                   ),
                 ],

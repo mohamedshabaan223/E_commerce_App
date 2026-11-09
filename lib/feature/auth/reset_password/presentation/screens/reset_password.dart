@@ -50,7 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -91,14 +91,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                             index: 2,
                             text: "Confirm Password",
                             controller: confirmPasswordController,
-                            validator: ValidatorApp.validatePassword
+                            validator: ValidatorApp.validatePassword,
                           ),
 
                           SizedBox(height: 38.h),
                           if (state is ResetPasswordLoading)
-                            const Center(
+                            Center(
                               child: CircularProgressIndicator(
-                                color: ColorsManger.primaryColor,
+                                color: context.appColors.primaryColor,
                               ),
                             )
                           else

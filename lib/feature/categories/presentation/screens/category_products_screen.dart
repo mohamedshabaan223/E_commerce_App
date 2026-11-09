@@ -19,16 +19,16 @@ class CategoryProductsScreen extends StatelessWidget {
       create: (_) =>
           CategoryProductsCubit(CategoriesRepo())..load(categoryName),
       child: Scaffold(
-        backgroundColor: ColorsManger.backgroundColor,
+        backgroundColor: context.appColors.backgroundColor,
         appBar: AppBar(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: true,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: ColorsManger.primaryColor,
+              color: context.appColors.primaryColor,
               size: 20.sp,
             ),
             onPressed: () => Navigator.maybePop(context),
@@ -36,7 +36,7 @@ class CategoryProductsScreen extends StatelessWidget {
           title: Text(
             categoryName,
             style: AppStyle.text18Semibold.copyWith(
-              color: ColorsManger.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
         ),
@@ -47,15 +47,15 @@ class CategoryProductsScreen extends StatelessWidget {
                 child: Text(
                   state.message,
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               );
             }
             if (state is! CategoryProductsSuccess) {
-              return const Center(
+              return Center(
                 child: CircularProgressIndicator(
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                 ),
               );
             }
@@ -64,7 +64,7 @@ class CategoryProductsScreen extends StatelessWidget {
                 child: Text(
                   'No products yet',
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               );

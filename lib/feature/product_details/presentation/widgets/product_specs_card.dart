@@ -14,9 +14,9 @@ class ProductSpecsCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: ColorsManger.border),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Column(
         children: [
@@ -30,7 +30,7 @@ class ProductSpecsCard extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -41,7 +41,7 @@ class ProductSpecsCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.end,
                     style: AppStyle.text14Semibold.copyWith(
-                      color: ColorsManger.textPrimary,
+                      color: context.appColors.textPrimary,
                     ),
                   ),
                 ),

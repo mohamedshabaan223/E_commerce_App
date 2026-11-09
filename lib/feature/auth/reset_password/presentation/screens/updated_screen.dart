@@ -12,7 +12,7 @@ class Updated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -23,14 +23,21 @@ class Updated extends StatelessWidget {
                 width: 70.h,
                 height: 70.h,
                 decoration: BoxDecoration(
-                  color: Color(0xff1D1C20),
+                  color: context.appColors.surface,
                   border: Border.all(
-                    color: Color(0xff242226).withValues(alpha: .40),
+                    color: context.appColors
+                        .forTheme(
+                          const Color(0xff242226),
+                          ColorsManger.lightBorder,
+                        )
+                        .withValues(alpha: .40),
                     strokeAlign: 1,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: ColorsManger.primaryColor.withValues(alpha: .10),
+                      color: context.appColors.primaryColor.withValues(
+                        alpha: .10,
+                      ),
                       blurRadius: 20,
                     ),
                   ],
@@ -38,7 +45,7 @@ class Updated extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.check_circle,
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                   size: 25.h,
                 ),
               ),
@@ -48,20 +55,20 @@ class Updated extends StatelessWidget {
                   Text(
                     "Password updated",
                     style: AppStyle.text22Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   SizedBox(height: 5.h),
                   Text(
                     "Your password has been changed",
                     style: AppStyle.text14Regular.copyWith(
-                      color: ColorsManger.passwordColor,
+                      color: context.appColors.passwordColor,
                     ),
                   ),
                   Text(
                     "successfully.",
                     style: AppStyle.text14Regular.copyWith(
-                      color: ColorsManger.passwordColor,
+                      color: context.appColors.passwordColor,
                     ),
                   ),
                   SizedBox(height: 45.h),

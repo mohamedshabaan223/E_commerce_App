@@ -14,14 +14,14 @@ class ProductDescriptionCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: ColorsManger.border),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Text(
         description,
         style: AppStyle.text14Regular.copyWith(
-          color: ColorsManger.textSecondary,
+          color: context.appColors.textSecondary,
           height: 1.45,
         ),
       ),

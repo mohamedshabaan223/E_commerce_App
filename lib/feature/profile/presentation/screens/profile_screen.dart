@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/core/theme/theme_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
 import 'package:ecommerce_app/feature/adresses/presentation/screens/addresses_list_screen.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
@@ -11,6 +12,7 @@ import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart
 import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../auth/reset_password/presentation/screens/change_password.dart';
@@ -27,9 +29,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // Local state only: the Switch updates itself, it does not change the app theme.
-  bool _isDarkMode = true;
-
   final List<ProfileItemModel> _orders = const [
     ProfileItemModel(
       title: 'My Orders',
@@ -95,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.darkBackground,
+      backgroundColor: context.appColors.darkBackground,
       appBar: const LuxeAppBar(title: 'Profile'),
 
       body: SingleChildScrollView(
@@ -103,23 +102,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           children: [
             SizedBox(height: 8.h),
-            _buildAvatar(),
+            _buildAvatar(context),
             SizedBox(height: 16.h),
             Text(
               'Alexander Kane',
               style: AppStyle.text24Semibold.copyWith(
-                color: ColorsManger.darkTextPrimary,
+                color: context.appColors.darkTextPrimary,
               ),
             ),
             SizedBox(height: 4.h),
             Text(
               'alexander.kane@example.com',
               style: AppStyle.text14Regular.copyWith(
-                color: ColorsManger.darkTextSecondary,
+                color: context.appColors.darkTextSecondary,
               ),
             ),
             SizedBox(height: 24.h),
-            _buildDarkModeCard(),
+            _buildDarkModeCard(context),
             ProfileMenuGroup(items: _orders),
             ProfileMenuGroup(items: _account),
             ProfileMenuGroup(items: _info),
@@ -131,28 +130,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildAvatar() {
+  Widget _buildAvatar(BuildContext context) {
     return Container(
       width: 80.w,
       height: 80.h,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: ColorsManger.darkGold,
+        color: context.appColors.darkGold,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Text(
         'AK',
-        style: AppStyle.text20Semibold.copyWith(color: ColorsManger.darkOnGold),
+        style: AppStyle.text20Semibold.copyWith(
+          color: context.appColors.darkOnGold,
+        ),
       ),
     );
   }
 
-  Widget _buildDarkModeCard() {
+  Widget _buildDarkModeCard(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
-        color: ColorsManger.darkCard,
+        color: context.appColors.darkCard,
         borderRadius: BorderRadius.circular(14.r),
       ),
       child: Row(
@@ -163,17 +164,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Text(
               'Dark Mode',
               style: AppStyle.text16Medium.copyWith(
-                color: ColorsManger.darkTextPrimary,
+                color: context.appColors.darkTextPrimary,
               ),
             ),
           ),
           Switch(
-            value: _isDarkMode,
-            onChanged: (value) => setState(() => _isDarkMode = value),
-            activeThumbColor: ColorsManger.darkGold,
-            activeTrackColor: ColorsManger.darkIconBox,
-            inactiveThumbColor: ColorsManger.darkTextSecondary,
-            inactiveTrackColor: ColorsManger.darkIconBox,
+            value: context.watch<ThemeCubit>().state == ThemeMode.dark,
+            onChanged: context.read<ThemeCubit>().setDarkMode,
+            activeThumbColor: context.appColors.darkGold,
+            activeTrackColor: context.appColors.darkIconBox,
+            inactiveThumbColor: context.appColors.darkTextSecondary,
+            inactiveTrackColor: context.appColors.darkIconBox,
             trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
           ),
         ],

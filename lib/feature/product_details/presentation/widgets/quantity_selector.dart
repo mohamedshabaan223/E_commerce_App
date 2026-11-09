@@ -19,9 +19,9 @@ class QuantitySelector extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: ColorsManger.border),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,7 +29,7 @@ class QuantitySelector extends StatelessWidget {
           Text(
             'QUANTITY',
             style: AppStyle.text12Medium.copyWith(
-              color: ColorsManger.textSecondary,
+              color: context.appColors.textSecondary,
               letterSpacing: 1.2,
             ),
           ),
@@ -45,7 +45,7 @@ class QuantitySelector extends StatelessWidget {
                 child: Text(
                   '$quantity',
                   style: AppStyle.text14Semibold.copyWith(
-                    color: ColorsManger.textPrimary,
+                    color: context.appColors.textPrimary,
                   ),
                 ),
               ),
@@ -76,10 +76,10 @@ class _QuantityButton extends StatelessWidget {
         width: 36.r,
         height: 36.r,
         decoration: BoxDecoration(
-          color: ColorsManger.surfaceVariant,
+          color: context.appColors.surfaceVariant,
           borderRadius: BorderRadius.circular(8.r),
         ),
-        child: Icon(icon, size: 16.sp, color: ColorsManger.textPrimary),
+        child: Icon(icon, size: 16.sp, color: context.appColors.textPrimary),
       ),
     );
   }

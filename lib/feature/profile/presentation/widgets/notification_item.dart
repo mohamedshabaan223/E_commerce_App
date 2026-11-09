@@ -14,8 +14,9 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final unread = !notification.isRead;
-    final baseColor =
-        unread ? ColorsManger.darkTextPrimary : ColorsManger.darkTextMuted;
+    final baseColor = unread
+        ? context.appColors.darkTextPrimary
+        : context.appColors.darkTextMuted;
     final base = AppStyle.text15Regular.copyWith(color: baseColor, height: 1.4);
 
     return GestureDetector(
@@ -24,7 +25,7 @@ class NotificationItem extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
         decoration: BoxDecoration(
-          color: ColorsManger.darkCard,
+          color: context.appColors.darkCard,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Stack(
@@ -37,12 +38,13 @@ class NotificationItem extends StatelessWidget {
                   width: 8.w,
                   height: 8.h,
                   decoration: BoxDecoration(
-                    color: ColorsManger.darkGold,
+                    color: context.appColors.darkGold,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                          color: ColorsManger.darkGoldGlow,
-                          blurRadius: 8.r),
+                        color: context.appColors.darkGoldGlow,
+                        blurRadius: 8.r,
+                      ),
                     ],
                   ),
                 ),
@@ -56,8 +58,8 @@ class NotificationItem extends StatelessWidget {
                     notification.time,
                     style: AppStyle.text12Regular.copyWith(
                       color: unread
-                          ? ColorsManger.darkTextSecondary
-                          : ColorsManger.darkTextMuted,
+                          ? context.appColors.darkTextSecondary
+                          : context.appColors.darkTextMuted,
                     ),
                   ),
                 ),
@@ -65,22 +67,25 @@ class NotificationItem extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 52.w),
                   child: Text.rich(
-                    TextSpan(style: base, children: [
-                      TextSpan(text: notification.prefix),
-                      if (notification.highlight != null)
-                        TextSpan(
-                          text: notification.highlight,
-                          style: base.copyWith(
-                            color: notification.highlightIsGold
-                                ? ColorsManger.darkGold
-                                : ColorsManger.darkTextPrimary,
-                            fontWeight: notification.highlightIsGold
-                                ? FontWeight.w400
-                                : FontWeight.w700,
+                    TextSpan(
+                      style: base,
+                      children: [
+                        TextSpan(text: notification.prefix),
+                        if (notification.highlight != null)
+                          TextSpan(
+                            text: notification.highlight,
+                            style: base.copyWith(
+                              color: notification.highlightIsGold
+                                  ? context.appColors.darkGold
+                                  : context.appColors.darkTextPrimary,
+                              fontWeight: notification.highlightIsGold
+                                  ? FontWeight.w400
+                                  : FontWeight.w700,
+                            ),
                           ),
-                        ),
-                      TextSpan(text: notification.suffix),
-                    ]),
+                        TextSpan(text: notification.suffix),
+                      ],
+                    ),
                   ),
                 ),
               ],

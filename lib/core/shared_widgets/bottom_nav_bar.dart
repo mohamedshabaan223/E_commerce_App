@@ -35,9 +35,9 @@ class BottomNavBar extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 16.h),
         child: Container(
           decoration: BoxDecoration(
-            color: ColorsManger.navBackground,
+            color: context.appColors.navBackground,
             borderRadius: BorderRadius.circular(34.r),
-            border: Border.all(color: ColorsManger.navBorder),
+            border: Border.all(color: context.appColors.navBorder),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.5),
@@ -53,8 +53,8 @@ class BottomNavBar extends StatelessWidget {
               final isSelected = index == currentIndex;
               final item = _items[index];
               final iconColor = isSelected
-                  ? ColorsManger.primaryColor
-                  : ColorsManger.navInactive;
+                  ? context.appColors.primaryColor
+                  : context.appColors.navInactive;
               return GestureDetector(
                 onTap: () => onTap(index),
                 behavior: HitTestBehavior.opaque,
@@ -63,7 +63,7 @@ class BottomNavBar extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 4.h),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? ColorsManger.navBackground
+                        ? context.appColors.navBackground
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(24.r),
                   ),
@@ -89,15 +89,15 @@ class BottomNavBar extends StatelessWidget {
                               child: Container(
                                 width: 16.r,
                                 height: 16.r,
-                                decoration: const BoxDecoration(
-                                  color: ColorsManger.primaryColor,
+                                decoration: BoxDecoration(
+                                  color: context.appColors.primaryColor,
                                   shape: BoxShape.circle,
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
                                   '2',
                                   style: TextStyle(
-                                    color: ColorsManger.cartBadgeBg,
+                                    color: context.appColors.cartBadgeBg,
                                     fontSize: 10.sp,
                                     fontWeight: FontWeight.w700,
                                     height: 1,

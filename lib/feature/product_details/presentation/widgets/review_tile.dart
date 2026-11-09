@@ -16,9 +16,9 @@ class ReviewTile extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: ColorsManger.border),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,15 +28,15 @@ class ReviewTile extends StatelessWidget {
               Container(
                 width: 36.r,
                 height: 36.r,
-                decoration: const BoxDecoration(
-                  color: ColorsManger.dealsBadgeBg,
+                decoration: BoxDecoration(
+                  color: context.appColors.dealsBadgeBg,
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   review.initials,
                   style: AppStyle.text10Semibold.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               ),
@@ -50,7 +50,7 @@ class ReviewTile extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppStyle.text14Semibold.copyWith(
-                        color: ColorsManger.textPrimary,
+                        color: context.appColors.textPrimary,
                       ),
                     ),
                     SizedBox(height: 2.h),
@@ -59,7 +59,7 @@ class ReviewTile extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppStyle.text12Regular.copyWith(
-                        color: ColorsManger.textSecondary,
+                        color: context.appColors.textSecondary,
                       ),
                     ),
                   ],
@@ -72,7 +72,7 @@ class ReviewTile extends StatelessWidget {
           Text(
             review.comment,
             style: AppStyle.text12Regular.copyWith(
-              color: ColorsManger.textSecondary,
+              color: context.appColors.textSecondary,
               height: 1.45,
             ),
           ),

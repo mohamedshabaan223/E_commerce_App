@@ -14,14 +14,16 @@ class OrderDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Order Details',
-          style: AppStyle.text18Semibold.copyWith(color: ColorsManger.white),
+          style: AppStyle.text18Semibold.copyWith(
+            color: context.appColors.white,
+          ),
         ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, color: ColorsManger.white),
+          icon: Icon(Icons.arrow_back_ios, color: context.appColors.white),
         ),
       ),
       body: Padding(
@@ -34,7 +36,7 @@ class OrderDetailsScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 36.h),
               decoration: BoxDecoration(
-                color: const Color(0xFF1B1B1D),
+                color: context.appColors.cardSurface,
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Column(

@@ -13,7 +13,7 @@ class DiscountBadge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
       decoration: BoxDecoration(
-        color: ColorsManger.dealsBadgeBg,
+        color: context.appColors.dealsBadgeBg,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Text(
@@ -21,7 +21,7 @@ class DiscountBadge extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: AppStyle.text10Semibold.copyWith(
-          color: ColorsManger.primaryColor,
+          color: context.appColors.primaryColor,
         ),
       ),
     );

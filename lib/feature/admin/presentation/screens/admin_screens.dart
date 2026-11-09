@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 import 'add_product_screen.dart';
@@ -18,10 +19,6 @@ class _AdminScreensState extends State<AdminScreens> {
     AddProductScreen(),
   ];
 
-  static const Color backgroundColor = Color(0xFF121212);
-  static const Color sidebarColor = Color(0xFF1B1B1D);
-  static const Color goldColor = Color(0xFFC4B18B);
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -29,23 +26,32 @@ class _AdminScreensState extends State<AdminScreens> {
         final bool isMobile = constraints.maxWidth < 650;
 
         return Scaffold(
-          backgroundColor: backgroundColor,
+          backgroundColor: context.appColors.adminBackgroundColor,
           drawer: isMobile
-              ? Drawer(backgroundColor: sidebarColor, child: _buildSidebar())
+              ? Drawer(
+                  backgroundColor: context.appColors.adminCardColor,
+                  child: _buildSidebar(context),
+                )
               : null,
           appBar: isMobile
               ? AppBar(
-                  backgroundColor: sidebarColor,
-                  iconTheme: const IconThemeData(color: goldColor),
-                  title: const Text(
+                  backgroundColor: context.appColors.adminCardColor,
+                  iconTheme: IconThemeData(
+                    color: context.appColors.adminGoldColor,
+                  ),
+                  title: Text(
                     'LUXE Admin',
-                    style: TextStyle(color: Colors.white, fontFamily: 'Serif'),
+                    style: TextStyle(
+                      color: context.appColors.adminForegroundColor,
+                      fontFamily: 'Serif',
+                    ),
                   ),
                 )
               : null,
           body: Row(
             children: [
-              if (!isMobile) SizedBox(width: 250, child: _buildSidebar()),
+              if (!isMobile)
+                SizedBox(width: 250, child: _buildSidebar(context)),
               Expanded(
                 child: IndexedStack(index: _currentIndex, children: _pages),
               ),
@@ -56,22 +62,26 @@ class _AdminScreensState extends State<AdminScreens> {
     );
   }
 
-  Widget _buildSidebar() {
+  Widget _buildSidebar(BuildContext context) {
     return Container(
-      color: sidebarColor,
+      color: context.appColors.adminCardColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(24),
             child: Row(
               children: [
-                Icon(Icons.diamond_outlined, color: goldColor, size: 28),
+                Icon(
+                  Icons.diamond_outlined,
+                  color: context.appColors.adminGoldColor,
+                  size: 28,
+                ),
                 SizedBox(width: 12),
                 Text(
                   'LUXE',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: context.appColors.adminForegroundColor,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Serif',
@@ -81,28 +91,30 @@ class _AdminScreensState extends State<AdminScreens> {
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Text(
               'ADMIN PANEL',
               style: TextStyle(
-                color: Colors.grey,
+                color: context.appColors.adminGreyColor,
                 fontSize: 10,
                 letterSpacing: 2,
               ),
             ),
           ),
           const SizedBox(height: 20),
-          const Divider(color: Colors.white12),
+          Divider(color: context.appColors.adminBorderColor),
           const SizedBox(height: 12),
 
           _buildSidebarItem(
+            context: context,
             icon: Icons.inventory_2_outlined,
             label: 'Products',
             index: 0,
           ),
 
           _buildSidebarItem(
+            context: context,
             icon: Icons.add_box_outlined,
             label: 'Add Product',
             index: 1,
@@ -110,16 +122,20 @@ class _AdminScreensState extends State<AdminScreens> {
 
           const Spacer(),
 
-          const Divider(color: Colors.white12),
+          Divider(color: context.appColors.adminBorderColor),
 
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(20),
             child: Row(
               children: [
                 CircleAvatar(
                   radius: 18,
-                  backgroundColor: goldColor,
-                  child: Icon(Icons.person, color: Colors.black, size: 20),
+                  backgroundColor: context.appColors.adminGoldColor,
+                  child: Icon(
+                    Icons.person,
+                    color: context.appColors.adminBlackColor,
+                    size: 20,
+                  ),
                 ),
                 SizedBox(width: 12),
                 Column(
@@ -128,14 +144,17 @@ class _AdminScreensState extends State<AdminScreens> {
                     Text(
                       'Administrator',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: context.appColors.adminForegroundColor,
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       'Store Manager',
-                      style: TextStyle(color: Colors.grey, fontSize: 10),
+                      style: TextStyle(
+                        color: context.appColors.adminGreyColor,
+                        fontSize: 10,
+                      ),
                     ),
                   ],
                 ),
@@ -148,6 +167,7 @@ class _AdminScreensState extends State<AdminScreens> {
   }
 
   Widget _buildSidebarItem({
+    required BuildContext context,
     required IconData icon,
     required String label,
     required int index,
@@ -159,12 +179,21 @@ class _AdminScreensState extends State<AdminScreens> {
       child: ListTile(
         selected: isSelected,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        selectedTileColor: goldColor.withValues(alpha: 0.12),
-        leading: Icon(icon, color: isSelected ? goldColor : Colors.grey[500]),
+        selectedTileColor: context.appColors.adminGoldColor.withValues(
+          alpha: 0.12,
+        ),
+        leading: Icon(
+          icon,
+          color: isSelected
+              ? context.appColors.adminGoldColor
+              : context.appColors.adminInactiveColor,
+        ),
         title: Text(
           label,
           style: TextStyle(
-            color: isSelected ? goldColor : Colors.grey[400],
+            color: isSelected
+                ? context.appColors.adminGoldColor
+                : context.appColors.adminLabelColor,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             fontSize: 14,
           ),

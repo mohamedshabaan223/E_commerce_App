@@ -6,13 +6,13 @@ import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_cubit.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_state.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/screens/reset_password.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../../../core/utils/colors_manger.dart';
 import '../cubit/resetpassword_cubit.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/filled_button.dart';
@@ -69,7 +69,7 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       body: BlocConsumer<OtpCubit, OtpState>(
         listener: (context, state) {
           if (state is OtpSuccess) {
@@ -123,17 +123,20 @@ class _VerificationState extends State<Verification> {
                             cursor: Container(
                               width: 2.h,
                               height: 20.h,
-                              color: Color(0xffDAC49B),
+                              color: context.appColors.forTheme(
+                                const Color(0xffDAC49B),
+                                ColorsManger.lightPrimary,
+                              ),
                             ),
                             length: 6,
                             defaultPinTheme: PinTheme(
                               width: 55.h,
                               height: 55.h,
                               textStyle: AppStyle.text22Semibold.copyWith(
-                                color: ColorsManger.white,
+                                color: context.appColors.white,
                               ),
                               decoration: BoxDecoration(
-                                color: Color(0xff1D1C20),
+                                color: context.appColors.surface,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
@@ -145,9 +148,9 @@ class _VerificationState extends State<Verification> {
                         ),
                         SizedBox(height: 50.h),
                         if (state is OtpLoading)
-                          const Center(
+                          Center(
                             child: CircularProgressIndicator(
-                              color: ColorsManger.primaryColor,
+                              color: context.appColors.primaryColor,
                             ),
                           )
                         else
@@ -210,7 +213,7 @@ class _VerificationState extends State<Verification> {
                                     style: AppStyle.text12Medium.copyWith(
                                       color: secondsRemaining > 0
                                           ? Colors.grey
-                                          : ColorsManger.primaryColor,
+                                          : context.appColors.primaryColor,
                                     ),
                                   ),
                                 ),

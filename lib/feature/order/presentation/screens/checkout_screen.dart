@@ -25,12 +25,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       appBar: AppBar(
         title: Text(
           'Checkout',
-          style: AppStyle.text18Semibold.copyWith(color: ColorsManger.white),
+          style: AppStyle.text18Semibold.copyWith(
+            color: context.appColors.white,
+          ),
         ),
         centerTitle: true,
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_ios, color: ColorsManger.white),)
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios, color: context.appColors.white),
+        ),
       ),
       body: CustomScrollView(
         slivers: [
@@ -44,7 +49,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   Text(
                     'Delivery Address',
                     style: AppStyle.text14Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   SizedBox(height: 12.h),
@@ -52,7 +57,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   SizedBox(height: 10.h),
                   CustomElevetedbutton(
                     onPressed: () {},
-                    backgroundColor: Color(0xff1B1B1D),
+                    backgroundColor: context.appColors.cardSurface,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -61,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         Text(
                           'Add new address',
                           style: AppStyle.text14Medium.copyWith(
-                            color: Color(0xffB6A17A),
+                            color: context.appColors.primaryColor,
                           ),
                         ),
                       ],
@@ -71,7 +76,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   Text(
                     'Payment Method',
                     style: AppStyle.text14Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   SizedBox(height: 12.h),
@@ -85,8 +90,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       label: 'Card',
                       icon: Icons.payment,
                       icoColor: paymentTypeMethods == PaymentTypeMethods.card
-                          ? ColorsManger.primaryColor
-                          : ColorsManger.white,
+                          ? context.appColors.primaryColor
+                          : context.appColors.white,
                       iconPath: paymentTypeMethods == PaymentTypeMethods.card
                           ? ImagesManger.radioIndicator
                           : ImagesManger.unselectedIcon,
@@ -104,8 +109,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       label: 'Cash',
                       icon: Icons.payments_outlined,
                       icoColor: paymentTypeMethods == PaymentTypeMethods.cash
-                          ? ColorsManger.primaryColor
-                          : ColorsManger.white,
+                          ? context.appColors.primaryColor
+                          : context.appColors.white,
                       iconPath: paymentTypeMethods == PaymentTypeMethods.cash
                           ? ImagesManger.radioIndicator
                           : ImagesManger.unselectedIcon,

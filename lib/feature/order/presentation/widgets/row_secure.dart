@@ -13,8 +13,13 @@ class RowSecure extends StatelessWidget {
     return Row(
       children: [
         SvgPicture.asset(ImagesManger.closedIcon),
-        SizedBox(width: 6.w,),
-        Text('You will be redirected to a secure payment page' , style: AppStyle.text12Regular.copyWith(color: ColorsManger.white),)
+        SizedBox(width: 6.w),
+        Text(
+          'You will be redirected to a secure payment page',
+          style: AppStyle.text12Regular.copyWith(
+            color: context.appColors.white,
+          ),
+        ),
       ],
     );
   }
