@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/routing/constant_route.dart';
 import '../widgets/filled_button.dart';
 
 class Updated extends StatelessWidget {
@@ -12,10 +12,10 @@ class Updated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.appColors.backgroundColor,
+      backgroundColor: ColorsManger.backgroundColor,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -23,29 +23,22 @@ class Updated extends StatelessWidget {
                 width: 70.h,
                 height: 70.h,
                 decoration: BoxDecoration(
-                  color: context.appColors.surface,
+                  color: Color(0xff1D1C20),
                   border: Border.all(
-                    color: context.appColors
-                        .forTheme(
-                          const Color(0xff242226),
-                          ColorsManger.lightBorder,
-                        )
-                        .withValues(alpha: .40),
+                    color: Color(0xff242226).withValues(alpha: .40),
                     strokeAlign: 1,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: context.appColors.primaryColor.withValues(
-                        alpha: .10,
-                      ),
+                      color: ColorsManger.primaryColor.withValues(alpha: .10),
                       blurRadius: 20,
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Icon(
                   Icons.check_circle,
-                  color: context.appColors.primaryColor,
+                  color: ColorsManger.primaryColor,
                   size: 25.h,
                 ),
               ),
@@ -54,36 +47,30 @@ class Updated extends StatelessWidget {
                 children: [
                   Text(
                     "Password updated",
-                    style: AppStyle.text22Semibold.copyWith(
-                      color: context.appColors.white,
+                    style: AppStyle.text24Semibold.copyWith(
+                      color: ColorsManger.white,
                     ),
                   ),
                   SizedBox(height: 5.h),
                   Text(
                     "Your password has been changed",
                     style: AppStyle.text14Regular.copyWith(
-                      color: context.appColors.passwordColor,
+                      color: ColorsManger.passwordColor,
                     ),
                   ),
                   Text(
                     "successfully.",
                     style: AppStyle.text14Regular.copyWith(
-                      color: context.appColors.passwordColor,
+                      color: ColorsManger.passwordColor,
                     ),
                   ),
                   SizedBox(height: 45.h),
                   CustomFilledButton(
                     text: "Back to Login",
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacementNamed(
                         context,
-                        PageRouteBuilder(
-                          pageBuilder: (
-                            context,
-                            animation,
-                            secondaryAnimation,
-                          ) => Login(),
-                        ),
+                        ConstantRoute.Login,
                       );
                     },
                   ),

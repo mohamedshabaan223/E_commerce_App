@@ -6,13 +6,13 @@ import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_cubit.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_state.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/screens/reset_password.dart';
-import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../../../core/utils/colors_manger.dart';
 import '../cubit/resetpassword_cubit.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/filled_button.dart';
@@ -69,7 +69,7 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.appColors.backgroundColor,
+      backgroundColor: ColorsManger.backgroundColor,
       body: BlocConsumer<OtpCubit, OtpState>(
         listener: (context, state) {
           if (state is OtpSuccess) {
@@ -105,9 +105,9 @@ class _VerificationState extends State<Verification> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0,
-                      vertical: 50,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 25.0.w,
+                      vertical: 50.h,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,23 +121,20 @@ class _VerificationState extends State<Verification> {
                           child: Pinput(
                             controller: otpcontroller,
                             cursor: Container(
-                              width: 2.h,
+                              width: 2.w,
                               height: 20.h,
-                              color: context.appColors.forTheme(
-                                const Color(0xffDAC49B),
-                                ColorsManger.lightPrimary,
-                              ),
+                              color: Color(0xffDAC49B),
                             ),
                             length: 6,
                             defaultPinTheme: PinTheme(
-                              width: 55.h,
+                              width: 55.w,
                               height: 55.h,
                               textStyle: AppStyle.text22Semibold.copyWith(
-                                color: context.appColors.white,
+                                color: ColorsManger.white,
                               ),
                               decoration: BoxDecoration(
-                                color: context.appColors.surface,
-                                borderRadius: BorderRadius.circular(12),
+                                color: Color(0xff1D1C20),
+                                borderRadius: BorderRadius.circular(12.r),
                               ),
                             ),
                             keyboardType: TextInputType.number,
@@ -148,9 +145,9 @@ class _VerificationState extends State<Verification> {
                         ),
                         SizedBox(height: 50.h),
                         if (state is OtpLoading)
-                          Center(
+                          const Center(
                             child: CircularProgressIndicator(
-                              color: context.appColors.primaryColor,
+                              color: ColorsManger.primaryColor,
                             ),
                           )
                         else
@@ -216,7 +213,7 @@ class _VerificationState extends State<Verification> {
                                     style: AppStyle.text12Medium.copyWith(
                                       color: secondsRemaining > 0
                                           ? Colors.grey
-                                          : context.appColors.primaryColor,
+                                          : ColorsManger.primaryColor,
                                     ),
                                   ),
                                 ),

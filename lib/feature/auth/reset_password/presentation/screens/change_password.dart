@@ -53,7 +53,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(20.0.r),
                       child: Theme(
                         data: Theme.of(context).copyWith(
                           inputDecorationTheme: InputDecorationTheme(
@@ -63,7 +63,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                               ColorsManger.lightSurfaceVariant,
                             ),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                               borderSide: BorderSide.none,
                             ),
                           ),

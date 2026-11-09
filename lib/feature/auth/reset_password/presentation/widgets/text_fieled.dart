@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormFilled extends StatelessWidget {
   final String text;
@@ -11,37 +12,34 @@ class CustomTextFormFilled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: context.appColors.cardSurface),
+      decoration: BoxDecoration(color: Color(0xff1B1B1D)),
       child: TextFormField(
         validator: validator,
         controller: controller,
-        cursorColor: context.appColors.forTheme(
-          const Color(0xffDAC49B),
-          ColorsManger.lightPrimary,
-        ),
+        cursorColor: Color(0xffDAC49B),
         style: AppStyle.text14Semibold,
         decoration: InputDecoration(
           hintText: text,
-          errorStyle: TextStyle(color: Colors.red),
+          errorStyle: TextStyle(color: ColorsManger.darkDanger),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(12.r),
+            borderSide: BorderSide(color: ColorsManger.darkDanger),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(12.r),
+            borderSide: BorderSide(color: ColorsManger.darkDanger),
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: context.appColors.cardSurface),
+            borderRadius: BorderRadius.circular(12.r),
+            borderSide: BorderSide(color: Color(0xff1B1B1D)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: context.appColors.cardSurface),
+            borderRadius: BorderRadius.circular(12.r),
+            borderSide: BorderSide(color: Color(0xff1B1B1D)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: context.appColors.cardSurface),
+            borderRadius: BorderRadius.circular(12.r),
+            borderSide: BorderSide(color: Color(0xff1B1B1D)),
           ),
         ),
       ),
@@ -78,46 +76,46 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
         Text(
           widget.text,
           style: AppStyle.text12Medium.copyWith(
-            color: context.appColors.textSecondary,
+            color: ColorsManger.textSecondary,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 10.h),
         TextFormField(
           autovalidateMode: widget.index == 1
               ? AutovalidateMode.onUserInteraction
               : null,
           validator: widget.validator,
           controller: widget.controller,
-          cursorColor: context.appColors.primaryColor,
+          cursorColor: ColorsManger.primaryColor,
           obscureText: isobsecure,
           style: AppStyle.text14Semibold.copyWith(
-            color: context.appColors.passwordColor,
+            color: ColorsManger.passwordColor,
             letterSpacing: 2,
           ),
           decoration: InputDecoration(
             filled: true,
-            fillColor: context.appColors.surface,
-            errorStyle: TextStyle(color: Colors.red),
+            fillColor: ColorsManger.surface,
+            errorStyle: TextStyle(color: ColorsManger.darkDanger),
 
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: ColorsManger.darkDanger),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: ColorsManger.darkDanger),
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: context.appColors.surface),
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: Color(0xff1D1C20)),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: context.appColors.surface),
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: Color(0xff1D1C20)),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: context.appColors.surface),
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: Color(0xff1D1C20)),
             ),
             suffixIcon: IconButton(
               onPressed: () {
@@ -129,7 +127,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
                 isobsecure
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                color: context.appColors.passwordColor,
+                color: ColorsManger.passwordColor,
               ),
             ),
           ),

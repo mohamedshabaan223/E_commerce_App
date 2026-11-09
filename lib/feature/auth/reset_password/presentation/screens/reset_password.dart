@@ -50,7 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: context.appColors.backgroundColor,
+          backgroundColor: ColorsManger.backgroundColor,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -63,9 +63,9 @@ class _ResetPasswordState extends State<ResetPassword> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0,
-                      vertical: 50,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 25.0.w,
+                      vertical: 50.h,
                     ),
                     child: Form(
                       key: mykey,
@@ -91,14 +91,19 @@ class _ResetPasswordState extends State<ResetPassword> {
                             index: 2,
                             text: "Confirm Password",
                             controller: confirmPasswordController,
-                            validator: ValidatorApp.validatePassword,
+                            validator: (pass) {
+                              return ValidatorApp.ConfirmPassword(
+                                pass!,
+                                newPasswordController.text,
+                              );
+                            },
                           ),
 
                           SizedBox(height: 38.h),
                           if (state is ResetPasswordLoading)
-                            Center(
+                            const Center(
                               child: CircularProgressIndicator(
-                                color: context.appColors.primaryColor,
+                                color: ColorsManger.primaryColor,
                               ),
                             )
                           else
@@ -110,6 +115,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       .trim();
                                   final confirmPassword =
                                       confirmPasswordController.text.trim();
+
                                   context
                                       .read<ResetPasswordCubit>()
                                       .resetPassword(
