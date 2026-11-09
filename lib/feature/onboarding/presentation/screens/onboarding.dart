@@ -1,9 +1,12 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
-import 'package:ecommerce_app/feature/reset_password/presentation/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -29,8 +32,10 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManger.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: ColorsManger.backgroundColor,
         title: Row(
           children: [
             Text(
@@ -58,7 +63,7 @@ class _OnboardingState extends State<Onboarding> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
         child: Column(
-          mainAxisAlignment: .start,
+          mainAxisAlignment: .spaceAround,
           children: [
             Container(
               decoration: BoxDecoration(
@@ -71,16 +76,19 @@ class _OnboardingState extends State<Onboarding> {
                 child: Image.asset(images[currentPage], fit: BoxFit.cover),
               ),
             ),
-            SizedBox(height: 100),
-            Text(text[currentPage], style: AppStyle.text22Medium),
-            SizedBox(height: 10),
-            Text(
-              text2[currentPage],
-              style: AppStyle.text14Regular.copyWith(
-                color: ColorsManger.primaryColor,
-              ),
+            // SizedBox(height: 100),
+            Column(
+              children: [
+                Text(text[currentPage], style: AppStyle.text22Medium),
+                SizedBox(height: 10),
+                Text(
+                  text2[currentPage],
+                  style: AppStyle.text14Regular.copyWith(
+                    color: ColorsManger.primaryColor,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 100),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +119,10 @@ class _OnboardingState extends State<Onboarding> {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          Login(),
+                          BlocProvider(
+                            create: (context) => AuthCubit(),
+                            child: Login(),
+                          ),
                     ),
                   );
                 }

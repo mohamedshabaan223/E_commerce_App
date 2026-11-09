@@ -1,0 +1,146 @@
+import 'package:ecommerce_app/core/helper/validator_app.dart';
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../cubit/forget_password_cubit.dart';
+import '../cubit/forget_password_state.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/filled_button.dart';
+import '../widgets/head.dart';
+import '../widgets/text_fieled.dart';
+import 'otp_verification.dart';
+
+class ForgetPassword extends StatefulWidget {
+  const ForgetPassword({super.key});
+
+  @override
+  State<ForgetPassword> createState() => _ForgetPasswordState();
+}
+
+class _ForgetPasswordState extends State<ForgetPassword> {
+  final GlobalKey<FormState> mykey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ForgotPasswordCubit(),
+      child: Scaffold(
+        backgroundColor: ColorsManger.backgroundColor,
+        body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+          listener: (context, state) {
+            if (state is ForgotPasswordSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('OTP sent successfully')),
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => OtpCubit(),
+                    child: Verification(email: emailController.text.trim()),
+                  ),
+                ),
+              );
+            }
+            if (state is ForgotPasswordError) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomAppBar(
+                  title: "FORGOT PASSWORD",
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25.0,
+                    vertical: 50,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Customhead(
+                          title: "Forgot Password",
+                          subtitle: "Enter your email, we will send you a code",
+                        ),
+                        SizedBox(height: 32.h),
+                        Container(
+                          width: double.infinity,
+                          height: 200.h,
+                          decoration: BoxDecoration(
+                            color: Color(0xff1D1C20),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "EMAIL",
+                                  style: AppStyle.text12Medium.copyWith(
+                                    color: ColorsManger.white,
+                                  ),
+                                ),
+                                Form(
+                                  key: mykey,
+                                  child: CustomTextFormFilled(
+                                    text: "name@example.com",
+                                    controller: emailController,
+                                    validator: ValidatorApp.validateEmail,
+                                  ),
+                                ),
+                                if (state is ForgotPasswordLoading)
+                                  const Center(
+                                    child: CircularProgressIndicator(
+                                      color: ColorsManger.primaryColor,
+                                    ),
+                                  )
+                                else
+                                  CustomFilledButton(
+                                    text: "SEND CODE",
+                                    onPressed: () {
+                                      if (mykey.currentState!.validate()) {
+                                        final email = emailController.text
+                                            .trim();
+
+                                        context
+                                            .read<ForgotPasswordCubit>()
+                                            .forgotPassword(email);
+                                      }
+                                    },
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
