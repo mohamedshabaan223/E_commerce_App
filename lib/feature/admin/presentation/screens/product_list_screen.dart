@@ -1,17 +1,20 @@
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_states.dart';
+import 'package:ecommerce_app/feature/admin/presentation/widgets/admin_product_card.dart';
+import 'package:ecommerce_app/feature/admin/presentation/widgets/delete_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:ecommerce_app/feature/admin/presentation/screens/add_product_screen.dart';
-import 'package:ecommerce_app/feature/admin/presentation/widgets/admin_product_card.dart';
-import 'package:ecommerce_app/feature/admin/presentation/widgets/delete_product.dart';
-
 class ProductListcreen extends StatefulWidget {
-  const ProductListcreen({super.key, required this.products});
+  const ProductListcreen({
+    super.key,
+    required this.products,
+    this.onAddPressed,
+  });
 
   final List<ProductModel> products;
+  final VoidCallback? onAddPressed;
 
   @override
   State<ProductListcreen> createState() => _ProductListcreenState();
@@ -20,22 +23,7 @@ class ProductListcreen extends StatefulWidget {
 class _ProductListcreenState extends State<ProductListcreen> {
   final TextEditingController _searchController = TextEditingController();
 
-  late List<ProductModel> _products;
   String _searchQuery = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _products = List.of(widget.products);
-  }
-
-  @override
-  void didUpdateWidget(covariant ProductListcreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.products != widget.products) {
-      _products = List.of(widget.products);
-    }
-  }
 
   @override
   void dispose() {
@@ -44,11 +32,12 @@ class _ProductListcreenState extends State<ProductListcreen> {
   }
 
   List<ProductModel> _getFilteredProducts() {
-    if (_searchQuery.isEmpty) return _products;
+    if (_searchQuery.isEmpty) return widget.products;
 
-    return _products.where((product) {
+    return widget.products.where((product) {
       final title = product.name.toLowerCase();
       final sku = (product.id ?? '').toLowerCase();
+
       return title.contains(_searchQuery) || sku.contains(_searchQuery);
     }).toList();
   }
@@ -61,8 +50,11 @@ class _ProductListcreenState extends State<ProductListcreen> {
       listener: (context, state) {
         if (state is DeleteProductSuccess) {
           setState(() {
-            _products.removeWhere((p) => p.id == state.deletedProductId);
+            widget.products.removeWhere(
+              (product) => product.id == state.deletedProductId,
+            );
           });
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Product deleted successfully'),
@@ -91,9 +83,9 @@ class _ProductListcreenState extends State<ProductListcreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHeader(isMobile, context),
+                  _buildHeader(isMobile),
                   const SizedBox(height: 28),
-                  _buildSearchField(isMobile),
+                  _buildSearchField(),
                   const SizedBox(height: 24),
                   Expanded(
                     child: _buildProductsGrid(context, products, isDeleting),
@@ -107,7 +99,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-  Widget _buildHeader(bool isMobile, BuildContext context) {
+  Widget _buildHeader(bool isMobile) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -124,7 +116,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
         ),
         const SizedBox(width: 12),
         ElevatedButton.icon(
-          onPressed: () => _navigateToAddProduct(context),
+          onPressed: widget.onAddPressed,
           icon: const Icon(Icons.add, color: Colors.black, size: 20),
           label: Text(
             isMobile ? 'Add' : 'Add Product',
@@ -148,7 +140,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-  Widget _buildSearchField(bool isMobile) {
+  Widget _buildSearchField() {
     return TextField(
       controller: _searchController,
       onChanged: (value) {
@@ -165,7 +157,9 @@ class _ProductListcreenState extends State<ProductListcreen> {
             ? IconButton(
                 onPressed: () {
                   _searchController.clear();
-                  setState(() => _searchQuery = '');
+                  setState(() {
+                    _searchQuery = '';
+                  });
                 },
                 icon: const Icon(Icons.close, color: Colors.grey),
               )
@@ -266,20 +260,8 @@ class _ProductListcreenState extends State<ProductListcreen> {
     );
   }
 
-  void _navigateToAddProduct(BuildContext context) {
-    final cubit = context.read<ProductCubit>();
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            BlocProvider.value(value: cubit, child: const AddProductScreen()),
-      ),
-    );
-  }
-
   void _showDeleteDialog(BuildContext context, ProductModel product) {
-    // Safety rule: Do not delete the existing test product named Etsh
+    // Safety rule: Do not delete the existing test product named Etsh.
     if (product.name.trim().toLowerCase() == 'etsh') {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -312,6 +294,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
           productSku: product.id ?? 'N/A',
           onDeletePressed: () {
             Navigator.pop(dialogContext);
+
             context.read<ProductCubit>().deleteProduct(product.id!);
           },
           onCancelPressed: () {

@@ -1,4 +1,8 @@
+import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
+import 'package:ecommerce_app/feature/admin/data/data_source/remote/admin_remote_data_source.dart';
+import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_product_screen.dart';
 import 'product_list_screen.dart';
@@ -13,50 +17,80 @@ class AdminScreens extends StatefulWidget {
 class _AdminScreensState extends State<AdminScreens> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    ProductListcreen(products: []),
-    AddProductScreen(),
-  ];
+  // المنتجات التي تمت إضافتها من شاشة Admin فقط
+  final List<ProductModel> _products = [];
 
   static const Color backgroundColor = Color(0xFF121212);
   static const Color sidebarColor = Color(0xFF1B1B1D);
   static const Color goldColor = Color(0xFFC4B18B);
 
+  void _goTo(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  // استقبال المنتج بعد نجاح الإضافة
+  void _addProduct(ProductModel product) {
+    setState(() {
+      _products.add(product);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final bool isMobile = constraints.maxWidth < 650;
+    return BlocProvider(
+      create: (_) => ProductCubit(AdminRemoteDataSource()),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool isMobile = constraints.maxWidth < 650;
 
-        return Scaffold(
-          backgroundColor: backgroundColor,
-          drawer: isMobile
-              ? Drawer(backgroundColor: sidebarColor, child: _buildSidebar())
-              : null,
-          appBar: isMobile
-              ? AppBar(
-                  backgroundColor: sidebarColor,
-                  iconTheme: const IconThemeData(color: goldColor),
-                  title: const Text(
-                    'LUXE Admin',
-                    style: TextStyle(color: Colors.white, fontFamily: 'Serif'),
-                  ),
-                )
-              : null,
-          body: Row(
-            children: [
-              if (!isMobile) SizedBox(width: 250, child: _buildSidebar()),
-              Expanded(
-                child: IndexedStack(index: _currentIndex, children: _pages),
-              ),
-            ],
-          ),
-        );
-      },
+          final pages = <Widget>[
+            ProductListcreen(products: _products, onAddPressed: () => _goTo(1)),
+
+            AddProductScreen(
+              onProductAdded: _addProduct,
+              onFinished: () => _goTo(0),
+            ),
+          ];
+
+          return Scaffold(
+            backgroundColor: backgroundColor,
+            drawer: isMobile
+                ? Drawer(
+                    backgroundColor: sidebarColor,
+                    child: _buildSidebar(isMobile),
+                  )
+                : null,
+            appBar: isMobile
+                ? AppBar(
+                    backgroundColor: sidebarColor,
+                    iconTheme: const IconThemeData(color: goldColor),
+                    title: const Text(
+                      'LUXE Admin',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Serif',
+                      ),
+                    ),
+                  )
+                : null,
+            body: Row(
+              children: [
+                if (!isMobile)
+                  SizedBox(width: 250, child: _buildSidebar(isMobile)),
+                Expanded(
+                  child: IndexedStack(index: _currentIndex, children: pages),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
-  Widget _buildSidebar() {
+  Widget _buildSidebar(bool isMobile) {
     return Container(
       color: sidebarColor,
       child: Column(
@@ -100,12 +134,14 @@ class _AdminScreensState extends State<AdminScreens> {
             icon: Icons.inventory_2_outlined,
             label: 'Products',
             index: 0,
+            isMobile: isMobile,
           ),
 
           _buildSidebarItem(
             icon: Icons.add_box_outlined,
             label: 'Add Product',
             index: 1,
+            isMobile: isMobile,
           ),
 
           const Spacer(),
@@ -151,6 +187,7 @@ class _AdminScreensState extends State<AdminScreens> {
     required IconData icon,
     required String label,
     required int index,
+    required bool isMobile,
   }) {
     final bool isSelected = _currentIndex == index;
 
@@ -170,11 +207,11 @@ class _AdminScreensState extends State<AdminScreens> {
           ),
         ),
         onTap: () {
-          setState(() {
-            _currentIndex = index;
-          });
+          _goTo(index);
 
-          Navigator.maybePop(context);
+          if (isMobile) {
+            Navigator.maybePop(context);
+          }
         },
       ),
     );

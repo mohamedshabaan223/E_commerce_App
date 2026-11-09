@@ -11,4 +11,6 @@ abstract class ApiConstatnt {
       'Registeration Successfull, an otp is sent to your email inbox please use it to verify your email.';
   static const String verifiyEmailEndPoint = 'auth/verify-email';
   static const String verifiyOtpEndPoint = 'auth/validate-otp';
+  static const String addProductEndPoint = 'products';
+  static const String deleteProductEndPoint = 'products/';
 }

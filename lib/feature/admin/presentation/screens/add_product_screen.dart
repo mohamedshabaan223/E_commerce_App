@@ -1,13 +1,16 @@
-import 'package:ecommerce_app/feature/admin/presentation/widgets/category_chip.dart';
-import 'package:ecommerce_app/feature/admin/presentation/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_states.dart';
+import 'package:ecommerce_app/feature/admin/presentation/widgets/category_chip.dart';
+import 'package:ecommerce_app/feature/admin/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({super.key});
+  const AddProductScreen({super.key, this.onFinished, this.onProductAdded});
+
+  final VoidCallback? onFinished;
+  final ValueChanged<ProductModel>? onProductAdded;
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
@@ -17,9 +20,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   static const Color backgroundColor = Color(0xFF121212);
   static const Color cardColor = Color(0xFF1B1B1D);
   static const Color goldColor = Color(0xFFC4B18B);
+
   static const List<String> _categories = ['Timepieces', 'Leather Goods'];
 
   String selectedCategory = _categories.first;
+
+  ProductModel? _pendingProduct;
 
   final _sellerIdController = TextEditingController();
   final _nameController = TextEditingController();
@@ -31,18 +37,34 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final _stockController = TextEditingController();
   final _coverImageUrlController = TextEditingController();
 
+  List<TextEditingController> get _controllers => [
+    _sellerIdController,
+    _nameController,
+    _nameArabicController,
+    _descriptionController,
+    _descriptionArabicController,
+    _colorController,
+    _priceController,
+    _stockController,
+    _coverImageUrlController,
+  ];
+
   @override
   void dispose() {
-    _sellerIdController.dispose();
-    _nameController.dispose();
-    _nameArabicController.dispose();
-    _descriptionController.dispose();
-    _descriptionArabicController.dispose();
-    _colorController.dispose();
-    _priceController.dispose();
-    _stockController.dispose();
-    _coverImageUrlController.dispose();
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
     super.dispose();
+  }
+
+  void _clearForm() {
+    for (final controller in _controllers) {
+      controller.clear();
+    }
+
+    setState(() {
+      selectedCategory = _categories.first;
+    });
   }
 
   void _showErrorSnackBar(BuildContext context, String message) {
@@ -58,10 +80,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
     final descriptionArabic = _descriptionArabicController.text.trim();
     final sellerId = _sellerIdController.text.trim();
     final color = _colorController.text.trim();
+
     final price = double.tryParse(_priceController.text.trim());
     final stock = int.tryParse(_stockController.text.trim());
 
     String? error;
+
     if (sellerId.isEmpty) {
       error = 'Seller ID (UUID) is required by the API.';
     } else if (name.isEmpty) {
@@ -99,6 +123,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
       productPictureUrls: [],
     );
 
+    _pendingProduct = product;
+
     context.read<ProductCubit>().addProduct(product);
   }
 
@@ -115,8 +141,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
               backgroundColor: Colors.green,
             ),
           );
-          Navigator.maybePop(context);
+
+          if (_pendingProduct != null) {
+            widget.onProductAdded?.call(_pendingProduct!);
+            _pendingProduct = null;
+          }
+
+          _clearForm();
+          widget.onFinished?.call();
         } else if (state is AddProductFailure) {
+          _pendingProduct = null;
           _showErrorSnackBar(context, state.errorMessage);
         }
       },
@@ -128,6 +162,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           return Scaffold(
             backgroundColor: backgroundColor,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: cardColor,
               elevation: 0,
               title: const Text(
@@ -244,6 +279,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
+
                       Wrap(
                         spacing: 12,
                         runSpacing: 12,
@@ -252,8 +288,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               (category) => CategoryChip(
                                 label: category,
                                 isSelected: selectedCategory == category,
-                                onTap: () =>
-                                    setState(() => selectedCategory = category),
+                                onTap: () {
+                                  setState(() {
+                                    selectedCategory = category;
+                                  });
+                                },
                               ),
                             )
                             .toList(),
@@ -266,7 +305,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             child: OutlinedButton(
                               onPressed: isLoading
                                   ? null
-                                  : () => Navigator.maybePop(context),
+                                  : () => widget.onFinished?.call(),
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.white,
                                 side: const BorderSide(color: Colors.white24),
@@ -278,6 +317,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             ),
                           ),
                           const SizedBox(width: 15),
+
                           Expanded(
                             child: ElevatedButton(
                               onPressed: isLoading
