@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';
 import 'package:ecommerce_app/feature/product_details/data/models/mock.dart';
 import 'package:ecommerce_app/feature/product_details/data/repo/product_details_repo.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_cubit.dart';
@@ -15,7 +16,6 @@ import 'package:ecommerce_app/feature/product_details/presentation/widgets/quant
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/review_tile.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/reviews_header.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
-import 'package:ecommerce_app/feature/cart/Cubit/cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +53,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ProductDetailsCubit(ProductDetailsRepo())..load(widget.productId),
         ),
         BlocProvider(
-          create: (_) => CartCubit(CartRemoteDataSource(DioFactory().dio)),
+          create: (_) => AddToCartCubit(CartRemoteDataSource(DioFactory().dio)),
         ),
       ],
       child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
@@ -167,7 +167,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           AddToCartButton(
             totalPrice:
                 '\$${(product.finalPrice * _quantity).toStringAsFixed(0)}',
-            productId: product.id,
+            productId: product.id, quantity: _quantity,
           ),
           SizedBox(height: 24.h),
           Divider(height: 1.h, thickness: 1.h, color: context.appColors.border),

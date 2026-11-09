@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/feature/cart/Cubit/cart_states.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/get_cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,6 @@ import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_item.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
 
 import '../../../../core/routing/constant_route.dart';
-import '../../Cubit/cart_cubit.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -23,12 +23,12 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<CartCubit>().getCart();
+    context.read<GetCartCubit>().getCart();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartState>(
+    return BlocBuilder<GetCartCubit, CartState>(
       builder: (context, state) {
         if (state is GetCartLoadingState) {
           return Scaffold(
@@ -58,9 +58,9 @@ class _CartScreenState extends State<CartScreen> {
 
           return Scaffold(
             backgroundColor: context.appColors.backgroundColor,
-            appBar: const CustomAppBar(title: 'Cart'),
+            appBar:  CustomAppBar(title: 'Cart'),
             body: Padding(
-              padding: const EdgeInsets.all(20),
+              padding:  EdgeInsets.all(20),
               child: Column(
                 spacing: 10,
                 children: [
@@ -75,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
                           color: context.appColors.white,
                         ),
                       ),
-                      const Spacer(),
+                       Spacer(),
                       Text(
                         "(${cartItems.length} ITEMS)",
                         style: TextStyle(
@@ -96,7 +96,7 @@ class _CartScreenState extends State<CartScreen> {
                           context: context,
                           image: item['productCoverUrl'] ?? '',
                           name: item['productName'] ?? '',
-                          price: item['totalPrice'].toDouble(),
+                          price: item['totalPrice'].toDouble(), quantity: item['quantity'], productId: item['productId'],
                         );
                       },
                     ),
@@ -108,12 +108,12 @@ class _CartScreenState extends State<CartScreen> {
                           height: 48,
                           decoration: BoxDecoration(
                             color: context.appColors.forTheme(
-                              const Color(0xFF1E1E1E),
+                               Color(0xFF1E1E1E),
                               ColorsManger.lightSurfaceVariant,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          padding:  EdgeInsets.symmetric(horizontal: 15),
                           child: TextField(
                             style: TextStyle(color: context.appColors.white),
                             decoration: InputDecoration(
@@ -134,13 +134,13 @@ class _CartScreenState extends State<CartScreen> {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: context.appColors.forTheme(
-                              const Color(0xFF2A2A2A),
+                               Color(0xFF2A2A2A),
                               ColorsManger.lightSurfaceVariant,
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            padding:  EdgeInsets.symmetric(horizontal: 24),
                           ),
                           child: Text(
                             'Apply',
@@ -156,7 +156,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   CartButton.cartButtonDesign(
                     context: context,
-                    page: const CheckoutScreen(),
+                    page:  CheckoutScreen(),
                     text: "Proceed to Checkout",
                   ),
                 ],
