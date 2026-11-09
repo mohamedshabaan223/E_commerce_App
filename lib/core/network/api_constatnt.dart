@@ -4,6 +4,7 @@ abstract class ApiConstatnt {
   static const String refreshTokenEndPoint = 'auth/refresh-token';
   static const String signInEndPoint = 'auth/login';
   static const String changePasswordEndPoint = 'auth/change-password';
+  static const String googleMobileEndPoint = 'auth/google/mobile';
   static const String signUpEndPoint = 'auth/register';
   static const String getCartEndPoint = 'cart';
   static const String addToCartEndPoint = 'cart/items';
@@ -13,4 +14,5 @@ abstract class ApiConstatnt {
   static const String verifiyOtpEndPoint = 'auth/validate-otp';
   static const String addProductEndPoint = 'products';
   static const String deleteProductEndPoint = 'products/';
+
 }

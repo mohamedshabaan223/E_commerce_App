@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/feature/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
 import 'package:ecommerce_app/feature/auth/data/models/register_request.dart';
@@ -71,4 +72,19 @@ class AuthCubit extends Cubit<AuthState> {
       (value) => emit(AuthSuccessState()),
     );
   }
+
+  Future<void> signInWithGoogle() async {
+  emit(AuthLoadingState());
+  final response = await _authRemoteDataSource.signInWithGoogle();
+  response.fold(
+    (error) {
+      if (error.code == ResponseCode.cancel) {
+        emit(AuthInitialState());
+        return;
+      }
+      emit(AuthErrorState(errorMessage: error.message));
+    },
+    (_) => emit(AuthSuccessState()),
+  );
+}
 }

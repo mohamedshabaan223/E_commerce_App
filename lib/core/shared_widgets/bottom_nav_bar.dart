@@ -21,7 +21,7 @@ class BottomNavBar extends StatelessWidget {
     ),
     _NavItemData(
       label: 'Cart',
-      iconAsset: 'assets/icons/nav_cart.svg',
+      iconAsset: 'assets/icons/cart.svg',
       hasBadge: true,
     ),
     _NavItemData(label: 'Profile', iconAsset: 'assets/icons/nav_profile.svg'),

@@ -106,6 +106,31 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     width: double.infinity,
                     height: 48,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          context.read<AuthCubit>().signIn(
+                            LoginRequest(
+                              email: email.text,
+                              password: password.text,
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.appColors.primaryColor,
+                        foregroundColor: context.appColors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(12),
+                        ),
+                      ),
+                      child: const Text('Login'),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
                     child: BlocListener<AuthCubit, AuthState>(
                       listener: (context, state) {
                         if (state is AuthLoadingState) {
@@ -150,49 +175,28 @@ class _LoginState extends State<Login> {
                             ),
                             fontSize: 16.0,
                           );
-                        } else {
-                          SizedBox.shrink();
+                        } else if (state is AuthInitialState) {
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
                         }
                       },
                       child: ElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<AuthCubit>().signIn(
-                              LoginRequest(
-                                email: email.text,
-                                password: password.text,
-                              ),
-                            );
-                          }
+                          context.read<AuthCubit>().signInWithGoogle();
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: context.appColors.primaryColor,
-                          foregroundColor: context.appColors.black,
+                          backgroundColor: context.appColors.forTheme(
+                            const Color(0xff343136),
+                            ColorsManger.lightSurfaceVariant,
+                          ),
+                          foregroundColor: context.appColors.primaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(12),
                           ),
                         ),
-                        child: const Text('Login'),
+                        child: const Text('Continue with Google'),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: context.appColors.forTheme(
-                          const Color(0xff343136),
-                          ColorsManger.lightSurfaceVariant,
-                        ),
-                        foregroundColor: context.appColors.primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(12),
-                        ),
-                      ),
-                      child: const Text('Continue with Google'),
                     ),
                   ),
                   const SizedBox(height: 24),
