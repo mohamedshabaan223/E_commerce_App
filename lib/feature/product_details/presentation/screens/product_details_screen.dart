@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/product_details/data/models/mock.dart';
 import 'package:ecommerce_app/feature/product_details/data/repo/product_details_repo.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/Product_details_cubit.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/Product_details_state.dart';
-import 'package:ecommerce_app/feature/product_details/presentation/data/models/mock.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/add_review_sheet.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/add_to_cart_button.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/product_description_card.dart';
@@ -80,61 +80,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           color: ColorsManger.textPrimary,
         ),
       ),
-<<<<<<< HEAD
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ProductImageGallery(
-              imageAsset: ProductDetailsMock.images[_selectedImageIndex],
-            ),
-            SizedBox(height: 12.h),
-            ProductThumbnailsRow(
-              images: ProductDetailsMock.images,
-              selectedIndex: _selectedImageIndex,
-              onSelect: (index) => setState(() => _selectedImageIndex = index),
-            ),
-            SizedBox(height: 20.h),
-            const ProductTitlePrice(
-              title: ProductDetailsMock.title,
-              price: ProductDetailsMock.price,
-              oldPrice: ProductDetailsMock.oldPrice,
-              discount: ProductDetailsMock.discount,
-              rating: ProductDetailsMock.rating,
-              reviewsCount: ProductDetailsMock.reviewsCount,
-            ),
-            SizedBox(height: 16.h),
-            const ProductDescriptionCard(
-              description: ProductDetailsMock.description,
-            ),
-            SizedBox(height: 12.h),
-            const ProductSpecsCard(specs: ProductDetailsMock.specs),
-            SizedBox(height: 12.h),
-            QuantitySelector(
-              quantity: _quantity,
-              onChanged: (value) => setState(() => _quantity = value),
-            ),
-            SizedBox(height: 16.h),
-            AddToCartButton(
-              //product id ------------------------>
-              totalPrice: '\$${ProductDetailsMock.unitPrice * _quantity}', productId: 1,
-            ),
-            SizedBox(height: 24.h),
-            Divider(height: 1.h, thickness: 1.h, color: ColorsManger.border),
-            SizedBox(height: 16.h),
-            ReviewsHeader(
-              rating: ProductDetailsMock.rating,
-              reviewsCount: ProductDetailsMock.reviewsCount,
-              onWriteReview: _openAddReviewSheet,
-            ),
-            SizedBox(height: 12.h),
-            for (final review in ProductDetailsMock.reviews) ...[
-              ReviewTile(review: review),
-              SizedBox(height: 10.h),
-            ],
-          ],
-=======
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.h),
         child: Divider(height: 1.h, thickness: 1.h, color: ColorsManger.border),
@@ -150,7 +95,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           style: AppStyle.text14Regular.copyWith(
             color: ColorsManger.textSecondary,
           ),
->>>>>>> feature-product-details-api
         ),
       );
     }
@@ -209,7 +153,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           AddToCartButton(
             totalPrice:
                 '\$${(product.finalPrice * _quantity).toStringAsFixed(0)}',
-            onPressed: () {},
+            productId: product.id,
           ),
           SizedBox(height: 24.h),
           Divider(height: 1.h, thickness: 1.h, color: ColorsManger.border),
