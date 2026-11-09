@@ -16,9 +16,12 @@ import 'package:ecommerce_app/feature/product_details/presentation/screens/produ
 import 'package:ecommerce_app/feature/splash/presentation/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+<<<<<<< HEAD
 
 import '../../feature/cart/presentation/screens/cart_screen.dart';
 import '../../feature/cart/presentation/screens/empty_cart_screen.dart';
+=======
+>>>>>>> feature-product-details-api
 
 abstract class RouteGenrator {
   static Route getRoute(RouteSettings settings) {
@@ -32,7 +35,10 @@ abstract class RouteGenrator {
       case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
       case ConstantRoute.productDetails:
-        return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
+        return MaterialPageRoute(
+          builder: (_) =>
+              ProductDetailsScreen(productId: settings.arguments as String),
+        );
       case ConstantRoute.Login:
         return MaterialPageRoute(
           builder: (_) =>
@@ -45,12 +51,16 @@ abstract class RouteGenrator {
         );
       case ConstantRoute.VerifyEmail:
         final email = settings.arguments as String;
+<<<<<<< HEAD
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => AuthCubit(),
             child: VerifyEmail(email: email),
           ),
         );
+=======
+        return MaterialPageRoute(builder: (_) => VerifyEmail(email: email));
+>>>>>>> feature-product-details-api
       case ConstantRoute.Logout:
         return MaterialPageRoute(builder: (_) => const Logout());
       case ConstantRoute.splash:

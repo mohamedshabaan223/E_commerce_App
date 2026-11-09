@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductImageGallery extends StatelessWidget {
-  const ProductImageGallery({super.key, required this.imageAsset});
+  const ProductImageGallery({super.key, required this.imageUrl});
 
-  final String imageAsset;
-
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +17,7 @@ class ProductImageGallery extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: ColorsManger.border, width: 1),
       ),
-      child: Center(child: Image.asset(imageAsset, fit: BoxFit.contain)),
+      child: Center(child: Image.network(imageUrl, fit: BoxFit.contain)),
     );
   }
 }
