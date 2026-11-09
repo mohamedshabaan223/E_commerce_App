@@ -10,12 +10,12 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
         onPressed: onPressed,
-        icon: Icon(Icons.arrow_back_ios, color: ColorsManger.white),
+        icon: Icon(Icons.arrow_back_ios, color: context.appColors.white),
       ),
       title: Text(title, style: AppStyle.text18Semibold),
     );

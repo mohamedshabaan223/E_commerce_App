@@ -21,7 +21,9 @@ class EmptyOrder extends StatelessWidget {
             SizedBox(height: 10.h),
             Text(
               'No orders yet',
-              style: AppStyle.text18Medium.copyWith(color: ColorsManger.white),
+              style: AppStyle.text18Medium.copyWith(
+                color: context.appColors.white,
+              ),
             ),
             SizedBox(height: 8.h),
             Text(
@@ -29,7 +31,7 @@ class EmptyOrder extends StatelessWidget {
 Start shopping to view your orders
                             here.''',
               style: AppStyle.text14Regular.copyWith(
-                color: ColorsManger.primaryColor,
+                color: context.appColors.primaryColor,
               ),
             ),
             SizedBox(height: 10.h),

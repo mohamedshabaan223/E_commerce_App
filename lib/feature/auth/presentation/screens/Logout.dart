@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class Logout extends StatelessWidget {
@@ -6,32 +7,49 @@ class Logout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF141416),
+      backgroundColor: context.appColors.backgroundColor,
       body: Center(
         child: Container(
           margin: const EdgeInsets.all(24),
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: const Color(0xFF1E1E21),
+            color: context.appColors.forTheme(
+              const Color(0xFF1E1E21),
+              ColorsManger.lightSurface,
+            ),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.power_settings_new, color: Colors.white70),
+              Icon(
+                Icons.power_settings_new,
+                color: context.appColors.forTheme(
+                  Colors.white70,
+                  ColorsManger.lightTextSecondary,
+                ),
+              ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'Log Out',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: context.appColors.forTheme(
+                    Colors.white,
+                    ColorsManger.lightTextPrimary,
+                  ),
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Are you sure you want to log out?',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                  color: context.appColors.forTheme(
+                    Colors.white70,
+                    ColorsManger.lightTextSecondary,
+                  ),
+                ),
               ),
               const SizedBox(height: 28),
               SizedBox(
@@ -40,8 +58,11 @@ class Logout extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFC2A878),
-                    foregroundColor: Color(0xff3C2E11),
+                    backgroundColor: context.appColors.forTheme(
+                      const Color(0xFFC2A878),
+                      ColorsManger.lightPrimary,
+                    ),
+                    foregroundColor: context.appColors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadiusGeometry.circular(12),
                     ),
@@ -56,8 +77,14 @@ class Logout extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF26262A),
-                    foregroundColor: Colors.white,
+                    backgroundColor: context.appColors.forTheme(
+                      const Color(0xFF26262A),
+                      ColorsManger.lightSurfaceVariant,
+                    ),
+                    foregroundColor: context.appColors.forTheme(
+                      Colors.white,
+                      ColorsManger.lightTextPrimary,
+                    ),
                   ),
                   child: const Text('Cancel'),
                 ),

@@ -32,17 +32,17 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: ColorsManger.backgroundColor,
+        backgroundColor: context.appColors.backgroundColor,
         title: Row(
           children: [
             Text(
               ". LUXE",
               style: AppStyle.text18Semibold.copyWith(
                 letterSpacing: 2,
-                color: ColorsManger.primaryColor,
+                color: context.appColors.primaryColor,
               ),
             ),
             Spacer(),
@@ -52,7 +52,7 @@ class _OnboardingState extends State<Onboarding> {
                     child: Text(
                       "skip",
                       style: AppStyle.text14Medium.copyWith(
-                        color: ColorsManger.primaryColor,
+                        color: context.appColors.primaryColor,
                       ),
                     ),
                   )
@@ -84,7 +84,7 @@ class _OnboardingState extends State<Onboarding> {
                 Text(
                   text2[currentPage],
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                   ),
                 ),
               ],
@@ -100,7 +100,7 @@ class _OnboardingState extends State<Onboarding> {
                   height: 6,
                   width: isActive ? 24 : 6,
                   decoration: BoxDecoration(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                     borderRadius: BorderRadius.circular(3),
                   ),
                 );

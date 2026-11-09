@@ -12,47 +12,51 @@ class OrderSummary extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1D),
+        color: context.appColors.cardSurface,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Order summary', style: AppStyle.text14Semibold.copyWith(color: ColorsManger.white)),
+          Text(
+            'Order summary',
+            style: AppStyle.text14Semibold.copyWith(
+              color: context.appColors.white,
+            ),
+          ),
           SizedBox(height: 10.h),
           RowPrice(
             label: 'Subtotal',
             price: '640 EGP',
             textStylePrice: AppStyle.text14Regular.copyWith(
-              color: Color(0xffB6A17A),
+              color: context.appColors.primaryColor,
             ),
             textStyleLabel: AppStyle.text14Regular.copyWith(
-              color: Color(0xffB6A17A),
+              color: context.appColors.primaryColor,
             ),
           ),
           SizedBox(height: 8.h),
           RowPrice(
             label: 'Discount',
             price: '\$40.00',
-            textStylePrice:AppStyle.text14Regular.copyWith(
-              color: Color(0xffB6A17A),
+            textStylePrice: AppStyle.text14Regular.copyWith(
+              color: context.appColors.primaryColor,
             ),
             textStyleLabel: AppStyle.text14Regular.copyWith(
-              color: Color(0xffB6A17A),
+              color: context.appColors.primaryColor,
             ),
           ),
-            SizedBox(height: 8.h),
+          SizedBox(height: 8.h),
           RowPrice(
             label: 'Total',
             price: '\$380.00',
             textStylePrice: AppStyle.text22Semibold.copyWith(
-              color: ColorsManger.white,
+              color: context.appColors.white,
             ),
-            textStyleLabel:  AppStyle.text18Semibold.copyWith(
-              color: ColorsManger.white,
+            textStyleLabel: AppStyle.text18Semibold.copyWith(
+              color: context.appColors.white,
             ),
           ),
-         
         ],
       ),
     );

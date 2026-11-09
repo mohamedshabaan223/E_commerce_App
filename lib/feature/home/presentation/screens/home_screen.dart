@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           appBar: const HomeAppBar(),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -61,9 +61,9 @@ class HomeScreen extends StatelessWidget {
                     if (state is HomeFailure) return const SizedBox.shrink();
                     return SizedBox(
                       height: 200.h,
-                      child: const Center(
+                      child: Center(
                         child: CircularProgressIndicator(
-                          color: ColorsManger.primaryColor,
+                          color: context.appColors.primaryColor,
                         ),
                       ),
                     );
@@ -84,9 +84,9 @@ class HomeScreen extends StatelessWidget {
                     if (state is! HomeSuccess) {
                       return SizedBox(
                         height: 100.h,
-                        child: const Center(
+                        child: Center(
                           child: CircularProgressIndicator(
-                            color: ColorsManger.primaryColor,
+                            color: context.appColors.primaryColor,
                           ),
                         ),
                       );
@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                       return Text(
                         state.categoriesError!,
                         style: AppStyle.text12Regular.copyWith(
-                          color: ColorsManger.textSecondary,
+                          color: context.appColors.textSecondary,
                         ),
                       );
                     }
@@ -103,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                       return Text(
                         'No categories yet',
                         style: AppStyle.text12Regular.copyWith(
-                          color: ColorsManger.textSecondary,
+                          color: context.appColors.textSecondary,
                         ),
                       );
                     }
@@ -134,9 +134,9 @@ class HomeScreen extends StatelessWidget {
                     if (state is! HomeSuccess) {
                       return SizedBox(
                         height: 120.h,
-                        child: const Center(
+                        child: Center(
                           child: CircularProgressIndicator(
-                            color: ColorsManger.primaryColor,
+                            color: context.appColors.primaryColor,
                           ),
                         ),
                       );
@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                       return Text(
                         state.productsError!,
                         style: AppStyle.text12Regular.copyWith(
-                          color: ColorsManger.textSecondary,
+                          color: context.appColors.textSecondary,
                         ),
                       );
                     }
@@ -153,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                       return Text(
                         'No products yet',
                         style: AppStyle.text12Regular.copyWith(
-                          color: ColorsManger.textSecondary,
+                          color: context.appColors.textSecondary,
                         ),
                       );
                     }

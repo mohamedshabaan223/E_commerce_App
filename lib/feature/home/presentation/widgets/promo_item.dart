@@ -31,7 +31,7 @@ class PromoItem extends StatelessWidget {
             imageUrl,
             fit: BoxFit.cover,
             errorBuilder: (_, _, _) =>
-                const ColoredBox(color: ColorsManger.surface),
+                ColoredBox(color: context.appColors.surface),
           ),
           DecoratedBox(
             decoration: BoxDecoration(
@@ -39,8 +39,8 @@ class PromoItem extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  ColorsManger.backgroundColor.withValues(alpha: 0.3),
-                  ColorsManger.backgroundColor.withValues(alpha: 0.9),
+                  context.appColors.backgroundColor.withValues(alpha: 0.3),
+                  context.appColors.backgroundColor.withValues(alpha: 0.9),
                 ],
               ),
             ),
@@ -54,7 +54,7 @@ class PromoItem extends StatelessWidget {
                 Text(
                   tag,
                   style: AppStyle.text12Medium.copyWith(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                     letterSpacing: 2,
                   ),
                 ),
@@ -62,14 +62,14 @@ class PromoItem extends StatelessWidget {
                 Text(
                   title,
                   style: AppStyle.text22Medium.copyWith(
-                    color: ColorsManger.textPrimary,
+                    color: context.appColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   subtitle,
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
                 SizedBox(height: 12.h),
@@ -84,8 +84,8 @@ class PromoItem extends StatelessWidget {
                       height: 4.h,
                       decoration: BoxDecoration(
                         color: i == currentIndex
-                            ? ColorsManger.primaryColor
-                            : ColorsManger.border,
+                            ? context.appColors.primaryColor
+                            : context.appColors.border,
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                     ),

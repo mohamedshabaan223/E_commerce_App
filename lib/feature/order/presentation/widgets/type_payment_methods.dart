@@ -11,7 +11,8 @@ class TypePaymentMethods extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.icoColor,
-    required this.iconPath, required this.selectedType,
+    required this.iconPath,
+    required this.selectedType,
   });
   final String label;
   final IconData icon;
@@ -24,7 +25,7 @@ class TypePaymentMethods extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 22.r, vertical: 17.r),
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1D),
+        color: context.appColors.cardSurface,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
@@ -33,7 +34,9 @@ class TypePaymentMethods extends StatelessWidget {
           SizedBox(width: 10.w),
           Text(
             label,
-            style: AppStyle.text14Medium.copyWith(color: ColorsManger.white),
+            style: AppStyle.text14Medium.copyWith(
+              color: context.appColors.white,
+            ),
           ),
           Spacer(),
           Icon(icon, color: icoColor),

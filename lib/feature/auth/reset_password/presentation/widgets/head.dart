@@ -15,12 +15,15 @@ class Customhead extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppStyle.text22Medium.copyWith(color: ColorsManger.white),
+          style: AppStyle.text22Medium.copyWith(color: context.appColors.white),
         ),
         SizedBox(height: 5.h),
         Text(
           subtitle,
-          style: const TextStyle(color: Color(0xffCFC5B8), fontFamily: null),
+          style: TextStyle(
+            color: context.appColors.passwordColor,
+            fontFamily: null,
+          ),
         ),
       ],
     );

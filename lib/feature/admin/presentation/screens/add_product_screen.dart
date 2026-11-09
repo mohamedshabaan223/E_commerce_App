@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -10,21 +11,17 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   String selectedCategory = 'Timepieces';
 
-  static const Color backgroundColor = Color(0xFF121212);
-  static const Color cardColor = Color(0xFF1B1B1D);
-  static const Color goldColor = Color(0xFFC4B18B);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: context.appColors.adminBackgroundColor,
       appBar: AppBar(
-        backgroundColor: cardColor,
+        backgroundColor: context.appColors.adminCardColor,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Add Product',
           style: TextStyle(
-            color: Colors.white,
+            color: context.appColors.adminForegroundColor,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -38,10 +35,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Product Information',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: context.appColors.adminForegroundColor,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -49,62 +46,86 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
                 const SizedBox(height: 25),
 
-                _buildLabel('Product Name (EN)'),
-                _buildTextField('Enter product name'),
+                _buildLabel(context, 'Product Name (EN)'),
+                _buildTextField(context, 'Enter product name'),
 
                 const SizedBox(height: 20),
 
-                _buildLabel('Product Name (AR)'),
-                _buildTextField('Enter Arabic product name'),
+                _buildLabel(context, 'Product Name (AR)'),
+                _buildTextField(context, 'Enter Arabic product name'),
 
                 const SizedBox(height: 20),
 
-                _buildLabel('Description (EN)'),
-                _buildTextField('Enter product description', maxLines: 4),
+                _buildLabel(context, 'Description (EN)'),
+                _buildTextField(
+                  context,
+                  'Enter product description',
+                  maxLines: 4,
+                ),
 
                 const SizedBox(height: 20),
 
-                _buildLabel('Price and Stock'),
+                _buildLabel(context, 'Price and Stock'),
 
                 Row(
                   children: [
-                    Expanded(child: _buildTextField('Price', suffixText: '\$')),
+                    Expanded(
+                      child: _buildTextField(
+                        context,
+                        'Price',
+                        suffixText: '\$',
+                      ),
+                    ),
                     const SizedBox(width: 15),
                     Expanded(
-                      child: _buildTextField('Stock', suffixText: 'Units'),
+                      child: _buildTextField(
+                        context,
+                        'Stock',
+                        suffixText: 'Units',
+                      ),
                     ),
                   ],
                 ),
 
                 const SizedBox(height: 25),
 
-                _buildLabel('Cover Image'),
+                _buildLabel(context, 'Cover Image'),
 
                 Container(
                   width: double.infinity,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: cardColor,
+                    color: context.appColors.adminCardColor,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: goldColor.withValues(alpha: 0.4)),
+                    border: Border.all(
+                      color: context.appColors.adminGoldColor.withValues(
+                        alpha: 0.4,
+                      ),
+                    ),
                   ),
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.cloud_upload_outlined,
                         size: 38,
-                        color: goldColor,
+                        color: context.appColors.adminGoldColor,
                       ),
                       SizedBox(height: 10),
                       Text(
                         'Upload Cover Image',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(
+                          color: context.appColors.adminForegroundColor,
+                          fontSize: 14,
+                        ),
                       ),
                       SizedBox(height: 5),
                       Text(
                         'PNG, JPG up to 5MB',
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                        style: TextStyle(
+                          color: context.appColors.adminGreyColor,
+                          fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
@@ -112,14 +133,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
                 const SizedBox(height: 25),
 
-                _buildLabel('Product Category'),
+                _buildLabel(context, 'Product Category'),
 
                 Wrap(
                   spacing: 12,
                   runSpacing: 12,
                   children: [
-                    _buildCategoryChip('Timepieces'),
-                    _buildCategoryChip('Leather Goods'),
+                    _buildCategoryChip(context, 'Timepieces'),
+                    _buildCategoryChip(context, 'Leather Goods'),
                   ],
                 ),
 
@@ -133,8 +154,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           Navigator.maybePop(context);
                         },
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          side: const BorderSide(color: Colors.white24),
+                          foregroundColor:
+                              context.appColors.adminForegroundColor,
+                          side: BorderSide(
+                            color: context.appColors.adminStrongBorderColor,
+                          ),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         child: const Text('Cancel'),
@@ -155,8 +179,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: goldColor,
-                          foregroundColor: Colors.black,
+                          backgroundColor: context.appColors.adminGoldColor,
+                          foregroundColor: context.appColors.adminBlackColor,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         child: const Text(
@@ -177,13 +201,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget _buildLabel(String text) {
+  Widget _buildLabel(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: context.appColors.adminForegroundColor,
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
@@ -191,17 +215,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget _buildTextField(String hint, {int maxLines = 1, String? suffixText}) {
+  Widget _buildTextField(
+    BuildContext context,
+    String hint, {
+    int maxLines = 1,
+    String? suffixText,
+  }) {
     return TextField(
       maxLines: maxLines,
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: context.appColors.adminForegroundColor),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey),
+        hintStyle: TextStyle(color: context.appColors.adminMutedColor),
         suffixText: suffixText,
-        suffixStyle: const TextStyle(color: goldColor),
+        suffixStyle: TextStyle(color: context.appColors.adminGoldColor),
         filled: true,
-        fillColor: cardColor,
+        fillColor: context.appColors.adminCardColor,
         contentPadding: const EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -209,17 +238,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.white12),
+          borderSide: BorderSide(color: context.appColors.adminBorderColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: goldColor),
+          borderSide: BorderSide(color: context.appColors.adminGoldColor),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryChip(String category) {
+  Widget _buildCategoryChip(BuildContext context, String category) {
     final bool isSelected = selectedCategory == category;
 
     return GestureDetector(
@@ -231,14 +260,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? goldColor : cardColor,
+          color: isSelected
+              ? context.appColors.adminGoldColor
+              : context.appColors.adminCardColor,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: isSelected ? goldColor : Colors.white24),
+          border: Border.all(
+            color: isSelected
+                ? context.appColors.adminGoldColor
+                : context.appColors.adminStrongBorderColor,
+          ),
         ),
         child: Text(
           category,
           style: TextStyle(
-            color: isSelected ? Colors.black : Colors.white,
+            color: isSelected
+                ? context.appColors.adminBlackColor
+                : context.appColors.adminForegroundColor,
             fontWeight: FontWeight.w600,
           ),
         ),

@@ -31,4 +31,6 @@ abstract class AppTheme {
 
     dividerTheme: const DividerThemeData(color: _border, thickness: 1),
   );
+
+  static final ThemeData dark = ThemeData(brightness: Brightness.dark);
 }

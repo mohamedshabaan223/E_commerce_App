@@ -13,9 +13,9 @@ class ProductImageGallery extends StatelessWidget {
       height: 270.h,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: ColorsManger.border, width: 1),
+        border: Border.all(color: context.appColors.border, width: 1),
       ),
       child: Center(child: Image.network(imageUrl, fit: BoxFit.contain)),
     );

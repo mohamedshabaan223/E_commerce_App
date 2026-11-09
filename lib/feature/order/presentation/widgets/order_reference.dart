@@ -26,13 +26,13 @@ class OrderReference extends StatelessWidget {
                   Text(
                     'ORDER REFERENCE',
                     style: AppStyle.text10Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   Text(
                     '#LX-84920',
                     style: AppStyle.text18Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                 ],
@@ -43,9 +43,16 @@ class OrderReference extends StatelessWidget {
           Divider(height: 30.h),
           Row(
             children: [
-              Expanded(child: RowDetailsPayment(title: 'Payment Method', subTitle: 'Card')),
-             SizedBox(width: 10.w,),
-              Expanded(child: RowDetailsPayment(title: 'Total', subTitle: '\$380.00')),
+              Expanded(
+                child: RowDetailsPayment(
+                  title: 'Payment Method',
+                  subTitle: 'Card',
+                ),
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: RowDetailsPayment(title: 'Total', subTitle: '\$380.00'),
+              ),
             ],
           ),
         ],

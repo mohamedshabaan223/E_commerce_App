@@ -21,7 +21,7 @@ class CustomOtp extends StatelessWidget {
     //     color: Colors.black,
     //   ),
     //   decoration: BoxDecoration(
-    //     color: ColorsManger.white,
+    //     color: context.appColors.white,
     //     borderRadius: BorderRadius.circular(12),
     //     border: Border.all(
     //       color: const Color(0xFFD4AF37), // لون ذهبي
@@ -33,16 +33,23 @@ class CustomOtp extends StatelessWidget {
     return Center(
       child: Pinput(
         controller: controller,
-        cursor: Container(width: 2.h, height: 20.h, color: Color(0xffDAC49B)),
+        cursor: Container(
+          width: 2.h,
+          height: 20.h,
+          color: context.appColors.forTheme(
+            const Color(0xffDAC49B),
+            ColorsManger.lightPrimary,
+          ),
+        ),
         length: 6,
         defaultPinTheme: PinTheme(
           width: 55.h,
           height: 55.h,
           textStyle: AppStyle.text22Semibold.copyWith(
-            color: ColorsManger.white,
+            color: context.appColors.white,
           ),
           decoration: BoxDecoration(
-            color: Color(0xff1D1C20),
+            color: context.appColors.surface,
             borderRadius: BorderRadius.circular(12),
           ),
         ),

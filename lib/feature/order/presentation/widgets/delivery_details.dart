@@ -29,13 +29,13 @@ class DeliveryDetails extends StatelessWidget {
                 Text(
                   '742 Evergreen TerraceApt 4B',
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.white,
+                    color: context.appColors.white,
                   ),
                 ),
                 Text(
                   'New York, NY',
                   style: AppStyle.text12Regular.copyWith(
-                    color: ColorsManger.white,
+                    color: context.appColors.white,
                   ),
                 ),
                 Row(
@@ -46,7 +46,7 @@ class DeliveryDetails extends StatelessWidget {
                     Text(
                       '+1 (555) 234-5678',
                       style: AppStyle.text12Regular.copyWith(
-                        color: Color(0xffCFC5B8),
+                        color: context.appColors.passwordColor,
                       ),
                     ),
                   ],
@@ -58,7 +58,7 @@ class DeliveryDetails extends StatelessWidget {
                     Text(
                       'Leave package at front door',
                       style: AppStyle.text12Regular.copyWith(
-                        color: Color(0xffCFC5B8),
+                        color: context.appColors.passwordColor,
                       ),
                     ),
                   ],

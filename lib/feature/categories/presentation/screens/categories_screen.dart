@@ -17,16 +17,16 @@ class CategoriesScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => CategoriesCubit(CategoriesRepo())..load(),
       child: Scaffold(
-        backgroundColor: ColorsManger.backgroundColor,
+        backgroundColor: context.appColors.backgroundColor,
         appBar: AppBar(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: true,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: ColorsManger.primaryColor,
+              color: context.appColors.primaryColor,
               size: 20.sp,
             ),
             onPressed: () => Navigator.maybePop(context),
@@ -34,7 +34,7 @@ class CategoriesScreen extends StatelessWidget {
           title: Text(
             'Categories',
             style: AppStyle.text18Semibold.copyWith(
-              color: ColorsManger.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
         ),
@@ -45,15 +45,15 @@ class CategoriesScreen extends StatelessWidget {
                 child: Text(
                   state.message,
                   style: AppStyle.text14Regular.copyWith(
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               );
             }
             if (state is! CategoriesSuccess) {
-              return const Center(
+              return Center(
                 child: CircularProgressIndicator(
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                 ),
               );
             }
@@ -70,9 +70,8 @@ class CategoriesScreen extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => CategoryProductsScreen(
-                        categoryName: category.name,
-                      ),
+                      builder: (_) =>
+                          CategoryProductsScreen(categoryName: category.name),
                     ),
                   ),
                 );

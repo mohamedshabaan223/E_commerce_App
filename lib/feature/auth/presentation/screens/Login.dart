@@ -32,15 +32,18 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF141416),
+      backgroundColor: context.appColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Theme(
-            data: ThemeData.dark().copyWith(
+            data: Theme.of(context).copyWith(
               inputDecorationTheme: InputDecorationTheme(
                 filled: true,
-                fillColor: const Color(0xFF26262A),
+                fillColor: context.appColors.forTheme(
+                  const Color(0xFF26262A),
+                  ColorsManger.lightSurfaceVariant,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
@@ -88,9 +91,14 @@ class _LoginState extends State<Login> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Forgot Password?',
-                        style: TextStyle(color: Color(0xFFC2A878)),
+                        style: TextStyle(
+                          color: context.appColors.forTheme(
+                            const Color(0xFFC2A878),
+                            ColorsManger.lightPrimary,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -104,9 +112,9 @@ class _LoginState extends State<Login> {
                           showDialog(
                             context: context,
                             barrierDismissible: false,
-                            builder: (_) => const Center(
+                            builder: (_) => Center(
                               child: CircularProgressIndicator(
-                                color: ColorsManger.primaryColor,
+                                color: context.appColors.primaryColor,
                               ),
                             ),
                           );
@@ -118,7 +126,10 @@ class _LoginState extends State<Login> {
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.lightGreen,
-                            textColor: Colors.white,
+                            textColor: context.appColors.forTheme(
+                              Colors.white,
+                              ColorsManger.lightTextPrimary,
+                            ),
                             fontSize: 16.0,
                           );
                           Navigator.pushReplacementNamed(
@@ -133,7 +144,10 @@ class _LoginState extends State<Login> {
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.red,
-                            textColor: Colors.white,
+                            textColor: context.appColors.forTheme(
+                              Colors.white,
+                              ColorsManger.lightTextPrimary,
+                            ),
                             fontSize: 16.0,
                           );
                         } else {
@@ -152,8 +166,8 @@ class _LoginState extends State<Login> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xffB6A17A),
-                          foregroundColor: Color(0xff3C2E11),
+                          backgroundColor: context.appColors.primaryColor,
+                          foregroundColor: context.appColors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(12),
                           ),
@@ -169,8 +183,11 @@ class _LoginState extends State<Login> {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff343136),
-                        foregroundColor: Color(0xffB6A17A),
+                        backgroundColor: context.appColors.forTheme(
+                          const Color(0xff343136),
+                          ColorsManger.lightSurfaceVariant,
+                        ),
+                        foregroundColor: context.appColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.circular(12),
                         ),
@@ -182,17 +199,27 @@ class _LoginState extends State<Login> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Don't have an account? ",
-                        style: TextStyle(color: Colors.white70),
+                        style: TextStyle(
+                          color: context.appColors.forTheme(
+                            Colors.white70,
+                            ColorsManger.lightTextSecondary,
+                          ),
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, ConstantRoute.SignUp);
                         },
-                        child: const Text(
+                        child: Text(
                           'Sign Up',
-                          style: TextStyle(color: Color(0xFFC2A878)),
+                          style: TextStyle(
+                            color: context.appColors.forTheme(
+                              const Color(0xFFC2A878),
+                              ColorsManger.lightPrimary,
+                            ),
+                          ),
                         ),
                       ),
                     ],

@@ -15,10 +15,10 @@ class CustomFilledButton extends StatelessWidget {
       height: 42.h,
       child: FilledButton(
         style: FilledButton.styleFrom(
-          backgroundColor: ColorsManger.primaryColor,
-          foregroundColor: ColorsManger.foreground,
-          disabledBackgroundColor: ColorsManger.primaryColor,
-          disabledForegroundColor: ColorsManger.foreground,
+          backgroundColor: context.appColors.primaryColor,
+          foregroundColor: context.appColors.foreground,
+          disabledBackgroundColor: context.appColors.primaryColor,
+          disabledForegroundColor: context.appColors.foreground,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.circular(12),
           ),
@@ -27,7 +27,7 @@ class CustomFilledButton extends StatelessWidget {
         child: Text(
           text,
           style: AppStyle.text14Semibold.copyWith(
-            color: ColorsManger.foreground,
+            color: context.appColors.foreground,
           ),
         ),
       ),

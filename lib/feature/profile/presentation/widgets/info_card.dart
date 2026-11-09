@@ -28,7 +28,7 @@ class InfoCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: ColorsManger.darkCard,
+        color: context.appColors.darkCard,
         borderRadius: BorderRadius.circular(14.r),
       ),
       child: Row(
@@ -46,7 +46,7 @@ class InfoCard extends StatelessWidget {
                     Text(
                       label,
                       style: AppStyle.text10Semibold.copyWith(
-                        color: ColorsManger.darkTextSecondary,
+                        color: context.appColors.darkTextSecondary,
                         letterSpacing: 1,
                       ),
                     ),
@@ -54,15 +54,17 @@ class InfoCard extends StatelessWidget {
                       SizedBox(width: 8.w),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 6.w, vertical: 2.h),
+                          horizontal: 6.w,
+                          vertical: 2.h,
+                        ),
                         decoration: BoxDecoration(
-                          color: ColorsManger.darkIconBox,
+                          color: context.appColors.darkIconBox,
                           borderRadius: BorderRadius.circular(4.r),
                         ),
                         child: Text(
                           tag!,
                           style: AppStyle.text10Semibold.copyWith(
-                            color: ColorsManger.darkTextSecondary,
+                            color: context.appColors.darkTextSecondary,
                           ),
                         ),
                       ),

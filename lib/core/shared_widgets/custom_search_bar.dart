@@ -27,14 +27,14 @@ class CustomSearchBar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(12.r),
         border: hasBorder
-            ? Border.all(color: ColorsManger.border, width: 1)
+            ? Border.all(color: context.appColors.border, width: 1)
             : null,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: ColorsManger.surface,
+            color: context.appColors.surface,
             blurRadius: 2,
             offset: Offset(0, 1),
           ),
@@ -42,7 +42,11 @@ class CustomSearchBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.search, size: 16.sp, color: ColorsManger.primaryColor),
+          Icon(
+            Icons.search,
+            size: 16.sp,
+            color: context.appColors.primaryColor,
+          ),
           SizedBox(width: 8.w),
           Expanded(
             child: TextField(
@@ -51,13 +55,13 @@ class CustomSearchBar extends StatelessWidget {
               onTap: onTap,
               readOnly: readOnly,
               style: TextStyle(
-                color: ColorsManger.textPrimary,
+                color: context.appColors.textPrimary,
                 fontSize: 14.sp,
               ),
               decoration: InputDecoration(
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: ColorsManger.textSecondary,
+                  color: context.appColors.textSecondary,
                   fontSize: 14.sp,
                 ),
                 border: InputBorder.none,
@@ -72,7 +76,7 @@ class CustomSearchBar extends StatelessWidget {
               child: Icon(
                 Icons.close,
                 size: 16.sp,
-                color: ColorsManger.textSecondary,
+                color: context.appColors.textSecondary,
               ),
             ),
         ],

@@ -17,9 +17,9 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  CustomAppBar(title: "Addresses List"),
+      appBar: CustomAppBar(title: "Addresses List"),
       body: Padding(
-        padding:  EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         child: Column(
           children: [
             Expanded(
@@ -29,8 +29,9 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
                 itemBuilder: (context, index) {
                   final address = AddressesListModel.addresses[index];
                   return Padding(
-                    padding:  EdgeInsets.only(bottom: 16),
+                    padding: EdgeInsets.only(bottom: 16),
                     child: AddressCard.addressCardDesign(
+                      context: context,
                       icon: address.icon,
                       city: address.city,
                       state: address.state,
@@ -43,10 +44,10 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
                 },
               ),
             ),
-             SizedBox(height: 10),
+            SizedBox(height: 10),
             CartButton.cartButtonDesign(
               context: context,
-              page:  AddAddressScreen(),
+              page: AddAddressScreen(),
               text: "+ Add New Address",
             ),
           ],

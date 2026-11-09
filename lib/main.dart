@@ -1,35 +1,46 @@
 import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/routing/route_genrator.dart';
+import 'package:ecommerce_app/core/theme/app_theme.dart';
+import 'package:ecommerce_app/core/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final token = await SecureStorageCacheing().getAccessToken();
+  final themeCubit = await ThemeCubit.load();
   final bool isLoggedIn = token != null;
-  runApp(MyApp(isLoggedIn: isLoggedIn));
+  runApp(MyApp(isLoggedIn: isLoggedIn, themeCubit: themeCubit));
 }
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
-  const MyApp({super.key, required this.isLoggedIn});
+  final ThemeCubit themeCubit;
+
+  const MyApp({super.key, required this.isLoggedIn, required this.themeCubit});
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(380, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.dark,
-
-          //fontFamily: 'DMSerifDisplay',
+    return BlocProvider.value(
+      value: themeCubit,
+      child: ScreenUtilInit(
+        designSize: const Size(380, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        child: BlocBuilder<ThemeCubit, ThemeMode>(
+          builder: (context, themeMode) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: themeMode,
+            onGenerateRoute: RouteGenrator.getRoute,
+            initialRoute: isLoggedIn
+                ? ConstantRoute.splash
+                : ConstantRoute.splash,
+          ),
         ),
-        onGenerateRoute: RouteGenrator.getRoute,
-        initialRoute: isLoggedIn ? ConstantRoute.splash : ConstantRoute.splash,
       ),
     );
   }

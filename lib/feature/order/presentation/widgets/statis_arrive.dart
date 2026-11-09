@@ -11,12 +11,12 @@ class StatisArrive extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: ColorsManger.brown,
+        color: context.appColors.brown,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Text(
         'In Transit',
-        style: AppStyle.text10Semibold.copyWith(color: ColorsManger.white),
+        style: AppStyle.text10Semibold.copyWith(color: context.appColors.white),
       ),
     );
   }

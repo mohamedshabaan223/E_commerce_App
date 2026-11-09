@@ -1,14 +1,11 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class AuthHeader extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const AuthHeader({
-    super.key,
-    required this.title,
-    required this.subtitle,
-  });
+  const AuthHeader({super.key, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +18,19 @@ class AuthHeader extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: const Color(0xFF26262A),
+                color: context.appColors.forTheme(
+                  const Color(0xFF26262A),
+                  ColorsManger.lightSurfaceVariant,
+                ),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'L',
                   style: TextStyle(
                     fontSize: 45,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xffB6A17A),
+                    color: context.appColors.primaryColor,
                   ),
                 ),
               ),
@@ -41,15 +41,11 @@ class AuthHeader extends StatelessWidget {
               child: Container(
                 width: 24,
                 height: 24,
-                decoration: const BoxDecoration(
-                  color: Color(0xffB6A17A),
+                decoration: BoxDecoration(
+                  color: context.appColors.primaryColor,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.star,
-                  size: 14,
-                  color: Colors.black,
-                ),
+                child: Icon(Icons.star, size: 14, color: Colors.black),
               ),
             ),
           ],
@@ -57,19 +53,25 @@ class AuthHeader extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: context.appColors.forTheme(
+              Colors.white,
+              ColorsManger.lightTextPrimary,
+            ),
           ),
         ),
         const SizedBox(height: 8),
         Text(
           subtitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
-            color: Colors.white70,
+            color: context.appColors.forTheme(
+              Colors.white70,
+              ColorsManger.lightTextSecondary,
+            ),
           ),
         ),
       ],

@@ -36,7 +36,7 @@ class CategoryCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12.r),
           child: Container(
-            color: ColorsManger.categoryCard,
+            color: context.appColors.categoryCard,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -50,7 +50,7 @@ class CategoryCard extends StatelessWidget {
                         imageUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (_, _, _) =>
-                            const ColoredBox(color: ColorsManger.surface),
+                            ColoredBox(color: context.appColors.surface),
                       ),
                       DecoratedBox(
                         decoration: BoxDecoration(
@@ -59,10 +59,10 @@ class CategoryCard extends StatelessWidget {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              ColorsManger.backgroundColor.withValues(
+                              context.appColors.backgroundColor.withValues(
                                 alpha: 0.6,
                               ),
-                              ColorsManger.backgroundColor,
+                              context.appColors.backgroundColor,
                             ],
                             stops: const [0.6, 0.9, 1.0],
                           ),
@@ -79,14 +79,14 @@ class CategoryCard extends StatelessWidget {
                       Text(
                         title,
                         style: AppStyle.text18Medium.copyWith(
-                          color: ColorsManger.textPrimary,
+                          color: context.appColors.textPrimary,
                         ),
                       ),
                       SizedBox(height: 6.h),
                       Text(
                         subtitle,
                         style: AppStyle.text12Regular.copyWith(
-                          color: ColorsManger.textSecondary,
+                          color: context.appColors.textSecondary,
                         ),
                       ),
                     ],
