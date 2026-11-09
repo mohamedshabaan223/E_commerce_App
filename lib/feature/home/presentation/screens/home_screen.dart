@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce_app/core/shared_widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/core/shared_widgets/section_header.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
@@ -70,7 +71,13 @@ class HomeScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 12.h),
-                SectionHeader(title: 'Categories', onViewAll: () {}),
+                SectionHeader(
+                  title: 'Categories',
+                  onViewAll: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CategoriesScreen()),
+                  ),
+                ),
                 SizedBox(height: 12.h),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {

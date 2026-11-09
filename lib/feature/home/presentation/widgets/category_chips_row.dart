@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/feature/categories/presentation/screens/category_products_screen.dart';
 import 'package:ecommerce_app/feature/home/data/models/category_model.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/category_chips_items.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,13 @@ class CategoryChipsRow extends StatelessWidget {
         itemBuilder: (_, i) => CategoryChipItem(
           imageUrl: categories[i].coverPictureUrl,
           name: categories[i].name,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) =>
+                  CategoryProductsScreen(categoryName: categories[i].name),
+            ),
+          ),
         ),
       ),
     );

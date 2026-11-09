@@ -8,42 +8,48 @@ class CategoryChipItem extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.name,
+    this.onTap,
   });
 
   final String imageUrl;
   final String name;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 72.r,
-          height: 72.r,
-          decoration: BoxDecoration(
-            color: ColorsManger.categoryCard,
-            borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: ColorsManger.border, width: 1),
-          ),
-          padding: EdgeInsets.all(7.r),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.r),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (_, _, _) =>
-                  const ColoredBox(color: ColorsManger.surface),
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Column(
+        children: [
+          Container(
+            width: 72.r,
+            height: 72.r,
+            decoration: BoxDecoration(
+              color: ColorsManger.categoryCard,
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(color: ColorsManger.border, width: 1),
+            ),
+            padding: EdgeInsets.all(7.r),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) =>
+                    const ColoredBox(color: ColorsManger.surface),
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 6.h),
-        Text(
-          name,
-          style: AppStyle.text12Medium.copyWith(
-            color: ColorsManger.textPrimary,
+          SizedBox(height: 6.h),
+          Text(
+            name,
+            style: AppStyle.text12Medium.copyWith(
+              color: ColorsManger.textPrimary,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
