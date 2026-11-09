@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class FormFieldWidget extends StatefulWidget {
@@ -41,20 +42,34 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
       validator: widget.validator,
       obscureText: isObscure,
       decoration: InputDecoration(
+        errorStyle: TextStyle(color: ColorsManger.darkDanger),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: ColorsManger.darkDanger),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: ColorsManger.darkDanger),
+        ),
+
         labelText: widget.label,
-        labelStyle: AppStyle.text14Medium,
+        labelStyle: AppStyle.text14Medium.copyWith(color: ColorsManger.white),
         hintText: widget.hintText,
+        hintStyle: AppStyle.text10Semibold.copyWith(color: ColorsManger.white),
 
         prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
         suffixIcon: widget.isPassword
             ? IconButton(
-          onPressed: () {
-            setState(() {
-              isObscure = !isObscure;
-            });
-          },
-          icon: Icon(isObscure ? Icons.visibility_off : Icons.visibility),
-        )
+                onPressed: () {
+                  setState(() {
+                    isObscure = !isObscure;
+                  });
+                },
+                icon: Icon(
+                  isObscure ? Icons.visibility_off : Icons.visibility,
+                  color: ColorsManger.white,
+                ),
+              )
             : widget.suffixIcon == null
             ? null
             : Icon(widget.suffixIcon),

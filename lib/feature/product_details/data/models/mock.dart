@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/feature/product_details/presentation/models/review_model.dart';
+import 'package:ecommerce_app/feature/product_details/data/models/review_model.dart';
 
 abstract class ProductDetailsMock {
   static const int unitPrice = 1850;

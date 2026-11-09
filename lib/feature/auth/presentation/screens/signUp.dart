@@ -1,10 +1,16 @@
+import 'package:ecommerce_app/core/helper/validator_app.dart';
+import 'package:ecommerce_app/core/network/api_constatnt.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
-import 'package:ecommerce_app/feature/auth/presentation/cubit/auth_cubit.dart';
-import 'package:ecommerce_app/feature/auth/presentation/cubit/auth_state.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
 import 'package:ecommerce_app/feature/auth/presentation/widgets/authHeader.dart';
 import 'package:ecommerce_app/feature/auth/presentation/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../data/models/register_request.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -15,11 +21,13 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool agreed = false;
+  bool isLoadingDialogOpen = false;
 
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -28,57 +36,6 @@ class _SignUpState extends State<SignUp> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
-
-  Future<void> createAccount() async {
-    final firstName = firstNameController.text.trim();
-    final lastName = lastNameController.text.trim();
-    final email = emailController.text.trim();
-    final password = passwordController.text;
-
-    if (firstName.isEmpty ||
-        lastName.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),
-      );
-      return;
-    }
-
-    if (!email.contains('@')) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a valid email')),
-      );
-      return;
-    }
-
-    if (!agreed) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please agree to the Terms and Privacy Policy'),
-        ),
-      );
-      return;
-    }
-
-    await context.read<AuthCubit2>().register(
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-    );
-
-    if (!mounted) return;
-
-    final state = context.read<AuthCubit2>().state;
-
-    if (state is AuthSuccess) {
-      Navigator.pushNamed(context, ConstantRoute.VerifyEmail, arguments: email);
-    } else if (state is AuthFailure) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(state.message)));
-    }
   }
 
   @override
@@ -99,76 +56,146 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                const AuthHeader(
-                  title: 'Create Account',
-                  subtitle: 'Create your account to start shopping',
-                ),
-                const SizedBox(height: 32),
-                Row(
-                  children: [
-                    Expanded(
-                      child: FormFieldWidget(
-                        label: 'First Name',
-                        hintText: 'Alexander',
-                        controller: firstNameController,
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  const AuthHeader(
+                    title: 'Create Account',
+                    subtitle: 'Create your account to start shopping',
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FormFieldWidget(
+                          label: 'First Name',
+                          hintText: 'Alexander',
+                          controller: firstNameController,
+                          validator: ValidatorApp.validateName,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: FormFieldWidget(
-                        label: 'Last Name',
-                        hintText: 'Vance',
-                        controller: lastNameController,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: FormFieldWidget(
+                          label: 'Last Name',
+                          hintText: 'Vance',
+                          controller: lastNameController,
+                          validator: ValidatorApp.validateName,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                FormFieldWidget(
-                  label: 'Email',
-                  hintText: 'alexander.vance@example.com',
-                  controller: emailController,
-                ),
-                const SizedBox(height: 16),
-                FormFieldWidget(
-                  label: 'Password',
-                  hintText: '••••••••••••',
-                  isPassword: true,
-                  controller: passwordController,
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: agreed,
-                      activeColor: const Color(0xFFC2A878),
-                      onChanged: (v) {
-                        setState(() {
-                          agreed = v ?? false;
-                        });
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  FormFieldWidget(
+                    validator: ValidatorApp.validateEmail,
+                    label: 'Email',
+                    hintText: 'alexander.vance@example.com',
+                    controller: emailController,
+                  ),
+                  const SizedBox(height: 16),
+                  FormFieldWidget(
+                    validator: (pass) {
+                      return ValidatorApp.validatePassword(pass!);
+                    },
+                    label: 'Password',
+                    hintText: '••••••••••••',
+                    isPassword: true,
+                    controller: passwordController,
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: agreed,
+                        activeColor: const Color(0xFFC2A878),
+                        onChanged: (v) {
+                          setState(() {
+                            agreed = v ?? false;
+                          });
+                        },
+                      ),
+                      const Expanded(
+                        child: Text(
+                          'I agree to the Terms of Service and Privacy Policy',
+                          style: TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: BlocListener<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthLoadingState) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const Center(
+                              child: CircularProgressIndicator(
+                                color: ColorsManger.primaryColor,
+                              ),
+                            ),
+                          );
+                        }
+                        // if (state is AuthLoadingState) {
+                        //   showDialog(
+                        //     context: context,
+                        //     barrierDismissible: false,
+                        //     builder: (_) => const Center(
+                        //       child: CircularProgressIndicator(
+                        //         color: ColorsManger.primaryColor,
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
+                        else if (state is AuthSuccessState) {
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                            msg: ApiConstatnt.registerResponseMessage,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: ColorsManger.primaryColor,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                          Navigator.pushReplacementNamed(
+                            context,
+                            ConstantRoute.VerifyEmail,
+                            arguments: emailController.text.trim(),
+                          );
+                        } else if (state is AuthErrorState) {
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                            msg: state.errorMessage,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        } else {
+                          SizedBox.shrink();
+                        }
                       },
-                    ),
-                    const Expanded(
-                      child: Text(
-                        'I agree to the Terms of Service and Privacy Policy',
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                BlocBuilder<AuthCubit2, AuthState>(
-                  builder: (context, state) {
-                    final isLoading = state is AuthLoading;
-
-                    return SizedBox(
-                      width: double.infinity,
-                      height: 48,
                       child: ElevatedButton(
-                        onPressed: isLoading ? null : createAccount,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().signUp(
+                              RegisterRequest(
+                                firstName: firstNameController.text.trim(),
+                                lastName: lastNameController.text.trim(),
+                                email: emailController.text.trim(),
+                                password: passwordController.text,
+                              ),
+                            );
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xffB6A17A),
                           foregroundColor: const Color(0xff3C2E11),
@@ -176,36 +203,34 @@ class _SignUpState extends State<SignUp> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: isLoading
-                            ? const CircularProgressIndicator()
-                            : const Text('Create Account'),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have an account? ',
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          ConstantRoute.Login,
-                        );
-                      },
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(color: Color(0xFFC2A878)),
+                        child: Text('Create Account'),
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            ConstantRoute.Login,
+                          );
+                        },
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Color(0xFFC2A878)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

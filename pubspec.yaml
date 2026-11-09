@@ -54,7 +54,11 @@ dependencies:
   bloc: ^9.2.1
 
   fluttertoast: ^10.0.2
+<<<<<<< HEAD
 >>>>>>> 2539161300af9b52580cd9289cddd56e551f5021
+=======
+  pin_code_fields: ^10.1.1
+>>>>>>> 4c437ce78c9b5e268c8704af8176c848e07af7b5
   
 
   

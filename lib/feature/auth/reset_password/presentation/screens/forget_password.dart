@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/helper/validator_app.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/reset_password/presentation/cubit/otp_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,8 +46,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => OtpCubit(),
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider(create: (context) => OtpCubit()),
+                      BlocProvider(create: (context) => AuthCubit()),
+                    ],
                     child: Verification(email: emailController.text.trim()),
                   ),
                 ),

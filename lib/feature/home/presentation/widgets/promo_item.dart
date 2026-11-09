@@ -10,11 +10,15 @@ class PromoItem extends StatelessWidget {
     required this.tag,
     required this.title,
     required this.subtitle,
+    required this.count,
+    required this.currentIndex,
   });
   final String imageUrl;
   final String tag;
   final String title;
   final String subtitle;
+  final int count;
+  final int currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +27,12 @@ class PromoItem extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          imageUrl.startsWith('http')
-              ? Image.network(imageUrl, fit: BoxFit.cover)
-              : Image.asset(imageUrl, fit: BoxFit.cover),
+          Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (_, _, _) =>
+                const ColoredBox(color: ColorsManger.surface),
+          ),
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -68,34 +75,21 @@ class PromoItem extends StatelessWidget {
                 SizedBox(height: 12.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 20.w,
+                  children: List.generate(
+                    count,
+                    (i) => AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      margin: EdgeInsets.symmetric(horizontal: 3.w),
+                      width: i == currentIndex ? 20.w : 6.w,
                       height: 4.h,
                       decoration: BoxDecoration(
-                        color: ColorsManger.primaryColor,
+                        color: i == currentIndex
+                            ? ColorsManger.primaryColor
+                            : ColorsManger.border,
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                     ),
-                    SizedBox(width: 6.w),
-                    Container(
-                      width: 6.w,
-                      height: 4.h,
-                      decoration: BoxDecoration(
-                        color: ColorsManger.border,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                    ),
-                    SizedBox(width: 6.w),
-                    Container(
-                      width: 6.w,
-                      height: 4.h,
-                      decoration: BoxDecoration(
-                        color: ColorsManger.border,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),

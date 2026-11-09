@@ -1,5 +1,3 @@
-import 'appstring.dart';
-
 class ValidatorApp {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -13,41 +11,34 @@ class ValidatorApp {
     return null;
   }
 
-  static String? validatePassword(String password) {
-    if (password.isEmpty) {
-      return AppStrings.fieldRequired;
+  static String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Password';
     }
-    if (password.length < 6) {
-      return AppStrings.passwordAtLeast8Char;
-    }
-    if (!RegExp(r'[A-Z]').hasMatch(password)) {
-      return AppStrings.passwordAtLeast1Uppercase;
-    }
-    if (!RegExp(r'[a-z]').hasMatch(password)) {
-      return AppStrings.passwordAtLeast1Lowercase;
-    }
-    if (!RegExp(r'\d').hasMatch(password)) {
-      return AppStrings.passwordAtLeast1Number;
-    }
-    if (!RegExp(r'[@$!%*?&]').hasMatch(password)) {
-      return AppStrings.passwordAtLeast1SpecialChar;
+    if (value.length < 8) {
+      return 'Please make the Password length at least 8 character';
     }
     return null;
   }
 
-  static String? confirmPassword(String? confirmPassword, String? password) {
-    if (confirmPassword == null || confirmPassword.isEmpty) {
-      return AppStrings.fieldRequired;
+  static String? ConfirmPassword(String? value, String password) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
     }
-    if (confirmPassword != password) {
-      return AppStrings.passwordNotTheSame;
+
+    if (value != password) {
+      return 'Password and confirm password must be the same.';
     }
+
     return null;
   }
 
   static String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter your name';
+    }
+    if (value.trim().length < 3) {
+      return 'Name must be at least 3 characters';
     }
     final nameRegex = RegExp(r"^[a-zA-Z\s]+$");
     if (!nameRegex.hasMatch(value)) {

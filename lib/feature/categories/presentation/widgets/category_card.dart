@@ -6,13 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     super.key,
-    required this.imageAsset,
+    required this.imageUrl,
     required this.title,
     required this.subtitle,
     this.onTap,
   });
 
-  final String imageAsset;
+  final String imageUrl;
   final String title;
   final String subtitle;
   final VoidCallback? onTap;
@@ -24,7 +24,7 @@ class CategoryCard extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r), // TODO: measure
+          borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.25),
@@ -42,11 +42,16 @@ class CategoryCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 AspectRatio(
-                  aspectRatio: 2.2 / 1, // TODO: measure
+                  aspectRatio: 2.2 / 1,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.asset(imageAsset, fit: BoxFit.cover),
+                      Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) =>
+                            const ColoredBox(color: ColorsManger.surface),
+                      ),
                       DecoratedBox(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(

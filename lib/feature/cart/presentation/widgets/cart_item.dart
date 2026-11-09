@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- 
+
 class CartItem {
   static Widget cartItemDesign({
     required String image,
@@ -21,11 +21,12 @@ class CartItem {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
+            child: Image.network(
               image,
               width: 98,
               height: 98,
               fit: BoxFit.cover,
+              errorBuilder: (_, _, _) => const SizedBox(width: 98, height: 98),
             ),
           ),
           const SizedBox(width: 16),

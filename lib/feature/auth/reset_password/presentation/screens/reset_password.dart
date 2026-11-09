@@ -92,7 +92,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             text: "Confirm Password",
                             controller: confirmPasswordController,
                             validator: (pass) {
-                              return ValidatorApp.confirmPassword(
+                              return ValidatorApp.ConfirmPassword(
                                 pass!,
                                 newPasswordController.text,
                               );
@@ -115,6 +115,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       .trim();
                                   final confirmPassword =
                                       confirmPasswordController.text.trim();
+
                                   context
                                       .read<ResetPasswordCubit>()
                                       .resetPassword(

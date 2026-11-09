@@ -1,18 +1,15 @@
 import 'package:ecommerce_app/core/helper/validator_app.dart';
+import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
+import 'package:ecommerce_app/feature/auth/presentation/widgets/authHeader.dart';
+import 'package:ecommerce_app/feature/auth/presentation/widgets/form_field.dart';
+import 'package:ecommerce_app/feature/auth/reset_password/presentation/screens/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../../../core/routing/constant_route.dart';
-import '../../reset_password/presentation/screens/forget_password.dart';
-import '../cubit/auth_cubit.dart';
-import '../widgets/authHeader.dart';
-import '../widgets/form_field.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -73,7 +70,7 @@ class _LoginState extends State<Login> {
                       return ValidatorApp.validatePassword(pass!);
                     },
                     label: 'Password',
-                    hintText: '••••••••••••',
+                    hintText: '••••••••••',
                     isPassword: true,
                   ),
                   Align(
@@ -191,17 +188,7 @@ class _LoginState extends State<Login> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      BlocProvider(
-                                        create: (context) => AuthCubit2(),
-                                        child: SignUp(),
-                                      ),
-                            ),
-                          );
+                          Navigator.pushNamed(context, ConstantRoute.SignUp);
                         },
                         child: const Text(
                           'Sign Up',

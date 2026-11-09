@@ -1,7 +1,12 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/categories/data/repo/categories_repo.dart';
+import 'package:ecommerce_app/feature/categories/presentation/screens/category_products_screen.dart';
+import 'package:ecommerce_app/feature/categories/presentation/viewmodels/cubits/categories_cubit.dart';
+import 'package:ecommerce_app/feature/categories/presentation/viewmodels/cubits/categories_state.dart';
 import 'package:ecommerce_app/feature/categories/presentation/widgets/category_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -9,62 +14,71 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
-      appBar: AppBar(
+    return BlocProvider(
+      create: (_) => CategoriesCubit(CategoriesRepo())..load(),
+      child: Scaffold(
         backgroundColor: ColorsManger.backgroundColor,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: ColorsManger.primaryColor,
-            size: 20.sp,
+        appBar: AppBar(
+          backgroundColor: ColorsManger.backgroundColor,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: ColorsManger.primaryColor,
+              size: 20.sp,
+            ),
+            onPressed: () => Navigator.maybePop(context),
           ),
-          onPressed: () => Navigator.maybePop(context),
-        ),
-        title: Text(
-          'Categories',
-          style: AppStyle.text18Semibold.copyWith(
-            color: ColorsManger.textPrimary,
+          title: Text(
+            'Categories',
+            style: AppStyle.text18Semibold.copyWith(
+              color: ColorsManger.textPrimary,
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
-          children: [
-            SizedBox(height: 80.h),
-            CategoryCard(
-              imageAsset: 'assets/images/category_watches_large.png',
-              title: 'Watches',
-              subtitle: 'Horology & Timeless Chronographs',
-              onTap: () {},
-            ),
-            SizedBox(height: 16.h),
-            CategoryCard(
-              imageAsset: 'assets/images/category_rings_large.png',
-              title: 'Rings',
-              subtitle: 'Solid Gold Signets & Fine Bands',
-              onTap: () {},
-            ),
-            SizedBox(height: 16.h),
-            CategoryCard(
-              imageAsset: 'assets/images/category_wallets_large.png',
-              title: 'Wallets',
-              subtitle: 'Handcrafted Calfskin Leather Essentials',
-              onTap: () {},
-            ),
-            SizedBox(height: 16.h),
-            CategoryCard(
-              imageAsset: 'assets/images/category_sunglasses_large.png',
-              title: 'Sunglasses',
-              subtitle: 'Titanium Frames & Polarized Optics',
-              onTap: () {},
-            ),
-            SizedBox(height: 100.h),
-          ],
+        body: BlocBuilder<CategoriesCubit, CategoriesState>(
+          builder: (context, state) {
+            if (state is CategoriesFailure) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: AppStyle.text14Regular.copyWith(
+                    color: ColorsManger.textSecondary,
+                  ),
+                ),
+              );
+            }
+            if (state is! CategoriesSuccess) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: ColorsManger.primaryColor,
+                ),
+              );
+            }
+            return ListView.separated(
+              padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 100.h),
+              itemCount: state.categories.length,
+              separatorBuilder: (_, _) => SizedBox(height: 16.h),
+              itemBuilder: (_, i) {
+                final category = state.categories[i];
+                return CategoryCard(
+                  imageUrl: category.coverPictureUrl,
+                  title: category.name,
+                  subtitle: category.description,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CategoryProductsScreen(
+                        categoryName: category.name,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );

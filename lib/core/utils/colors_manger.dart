@@ -35,4 +35,20 @@ abstract class ColorsManger {
   static const Color darkTextMuted = Color(0xFF6E6E73);
   static const Color darkDanger = Color(0xFFF08A8A);
   static const Color darkDivider = Color(0xFF26262A);
+
+  // Light Theme Colors
+  static const Color lightPrimary = Color(0xff9B8054);
+  static const Color lightBackground = Color(0xffF8F5EF);
+  static const Color lightSurface = Color(0xffFFFFFF);
+  static const Color lightTextPrimary = Color(0xff1E1B16);
+  static const Color lightTextSecondary = Color(0xff77736C);
+  static const Color lightBorder = Color(0xffE3DDD0);
+  static const Color lightNavInactive = Color(0xff99958E);
+  static const Color lightNavBackground = Color(0xffFFFFFF);
+  static const Color lightNavBorder = Color(0xffE3DDD0);
+  static const Color lightSurfaceVariant = Color(0xffF0EDE7);
+  static const Color lightCategoryCard = Color(0xffFFFFFF);
+  static const Color lightIconBox = Color(0xffF0EDE7);
+  static const Color lightDivider = Color(0xffE3DDD0);
+  static const Color lightDanger = Color(0xffC94B4B);
 }

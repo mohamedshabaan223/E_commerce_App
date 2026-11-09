@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/errors/failure.dart';
 import '../data/remote_data_sources/cart_remote_data_source.dart';
 
-
 class CartCubit extends Cubit<CartState> {
   final CartRemoteDataSource dataSource;
 
@@ -27,17 +26,13 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> addToCart({required int productId}) async {
+  Future<void> addToCart({required String productId}) async {
     emit(AddToCartLoadingState());
     try {
-      final Map<String, dynamic> data = {
-        'productId': productId,
-        'quantity': 1,
-      };
+      final Map<String, dynamic> data = {'productId': productId, 'quantity': 1};
 
       await dataSource.addToCart(data);
       emit(AddToCartSuccessState());
-
     } catch (e) {
       if (e is Failure) {
         emit(AddToCartFailureState(e.message));

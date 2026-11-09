@@ -5,8 +5,7 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
-import 'package:ecommerce_app/feature/admin/data/data_source/remote/home_remote_data_source.dart';
-import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
+import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
@@ -26,38 +25,55 @@ abstract class RouteGenrator {
   static Route getRoute(RouteSettings settings) {
     switch (settings.name) {
       case ConstantRoute.mainScreen:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => ProductCubit(HomeRemoteDataSource()),
-            child: const MainScreen(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const MainScreen());
+
+      case ConstantRoute.adminScreen:
+        return MaterialPageRoute(builder: (_) => AdminScreens());
+
       case ConstantRoute.orderScreen:
         return MaterialPageRoute(builder: (_) => OrderScreen());
+
       case ConstantRoute.checkoutScreen:
         return MaterialPageRoute(builder: (_) => CheckoutScreen());
+
       case ConstantRoute.orderDeatilsScreen:
         return MaterialPageRoute(builder: (_) => OrderDetailsScreen());
+
       case ConstantRoute.productDetails:
-        return MaterialPageRoute(builder: (_) => const ProductDetailsScreen());
+        return MaterialPageRoute(
+          builder: (_) =>
+              ProductDetailsScreen(productId: settings.arguments as String),
+        );
+
       case ConstantRoute.Login:
         return MaterialPageRoute(
           builder: (_) =>
               BlocProvider(create: (context) => AuthCubit(), child: Login()),
         );
+
       case ConstantRoute.SignUp:
-        return MaterialPageRoute(builder: (_) => const SignUp());
+        return MaterialPageRoute(
+          builder: (_) =>
+              BlocProvider(create: (context) => AuthCubit(), child: SignUp()),
+        );
+
       case ConstantRoute.VerifyEmail:
         final email = settings.arguments as String;
+
         return MaterialPageRoute(builder: (_) => VerifyEmail(email: email));
+
       case ConstantRoute.Logout:
         return MaterialPageRoute(builder: (_) => const Logout());
+
       case ConstantRoute.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+
       case ConstantRoute.onboarding:
         return MaterialPageRoute(builder: (_) => const Onboarding());
+
       case ConstantRoute.emptyCartScreen:
         return MaterialPageRoute(builder: (_) => const EmptyCartScreen());
+
       case ConstantRoute.cartScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -66,6 +82,7 @@ abstract class RouteGenrator {
             child: const CartScreen(),
           ),
         );
+
       default:
         return MaterialPageRoute(
           builder: (_) =>
