@@ -63,9 +63,7 @@ class AuthRemoteDataSource {
     }
   }
 
-  Future<Either<Failure, Response>> forgetPassword({
-    required String email,
-  }) async {
+  Future<Either<Failure, void>> forgetPassword({required String email}) async {
     try {
       final response = await dio.post(
         "auth/forgot-password",
@@ -79,7 +77,7 @@ class AuthRemoteDataSource {
     }
   }
 
-  Future<Either<Failure, Response>> verifyOtp({
+  Future<Either<Failure, void>> verifyOtp({
     required String email,
     required String otp,
   }) async {
@@ -88,8 +86,8 @@ class AuthRemoteDataSource {
         ApiConstatnt.verifiyEmailEndPoint,
         data: {"email": email, "otp": otp},
       );
-      final Response result = response.data;
-      return Right(result);
+
+      return Right(response);
     } catch (e) {
       log('Verify OTP Error: $e');
       return Left(ErrorHandler.handle(e).failure);
@@ -97,7 +95,7 @@ class AuthRemoteDataSource {
   }
 
   // Reset Password
-  Future<Either<Failure, Response>> resetPassword({
+  Future<Either<Failure, void>> resetPassword({
     required String email,
     required String otp,
     required String newPassword,
@@ -116,10 +114,10 @@ class AuthRemoteDataSource {
   }
 
   Future<void> resendOtp({required String email}) async {
-    await dio.post('/api/auth/resend-otp', data: {'email': email});
+    await dio.post('auth/resend-otp', data: {'email': email});
   }
 
-  Future<Either<Failure, Response>> verifyEmail({
+  Future<Either<Failure, void>> verifyEmail({
     required String email,
     required String otp,
   }) async {

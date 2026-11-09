@@ -179,8 +179,11 @@ class _VerificationState extends State<Verification> {
                         BlocListener<AuthCubit, AuthState>(
                           listener: (context, state) {
                             if (state is AuthSuccessState) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(content: Text('')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('OTP sent successfully!'),
+                                ),
+                              );
 
                               _restartTimer();
                             }
