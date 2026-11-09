@@ -6,7 +6,7 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
 import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
-import 'package:ecommerce_app/feature/cart/Cubit/cart_cubit.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/get_cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
@@ -78,7 +78,7 @@ abstract class RouteGenrator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
-                CartCubit(CartRemoteDataSource(DioFactory().dio)),
+                GetCartCubit(CartRemoteDataSource(DioFactory().dio)),
             child: const CartScreen(),
           ),
         );
