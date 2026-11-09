@@ -31,12 +31,11 @@ class AuthRemoteDataSource {
     }
   }
 
-  Future<Either<Failure, void>> signUp({required RegisterRequest request}) async {
+  Future<Either<Failure, void>> signUp({
+    required RegisterRequest request,
+  }) async {
     try {
-       await dio.post(
-        ApiConstatnt.signUpEndPoint,
-        data: request.toJson(),
-      );
+      await dio.post(ApiConstatnt.signUpEndPoint, data: request.toJson());
       return Right(null);
     } catch (e) {
       return Left(ErrorHandler.handle(e).failure);
@@ -80,7 +79,6 @@ class AuthRemoteDataSource {
     }
   }
 
-
   Future<Either<Failure, Response>> verifyOtp({
     required String email,
     required String otp,
@@ -90,7 +88,7 @@ class AuthRemoteDataSource {
         ApiConstatnt.verifiyEmailEndPoint,
         data: {"email": email, "otp": otp},
       );
-      final Response  result = response.data;
+      final Response result = response.data;
       return Right(result);
     } catch (e) {
       log('Verify OTP Error: $e');
@@ -116,16 +114,26 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
-  
 
-  Future<void> resendOtp({
+  Future<void> resendOtp({required String email}) async {
+    await dio.post('/api/auth/resend-otp', data: {'email': email});
+  }
+
+  Future<Either<Failure, Response>> verifyEmail({
     required String email,
+    required String otp,
   }) async {
-    await dio.post(
-      '/api/auth/resend-otp',
-      data: {
-        'email': email,
-      },
-    );
+    try {
+      final response = await dio.post(
+        ApiConstatnt.verifiyEmailEndPoint,
+        data: {"email": email, "otp": otp},
+      );
+
+      log('Verify Email Success: ${response.data}');
+      return Right(response);
+    } catch (e) {
+      log('Verify Email Error: $e');
+      return Left(ErrorHandler.handle(e).failure);
+    }
   }
 }
