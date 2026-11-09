@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/routing/constant_route.dart';
 import '../widgets/filled_button.dart';
 
 class Updated extends StatelessWidget {
@@ -20,7 +20,7 @@ class Updated extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 70.w,
+                width: 70.h,
                 height: 70.h,
                 decoration: BoxDecoration(
                   color: Color(0xff1D1C20),
@@ -47,7 +47,7 @@ class Updated extends StatelessWidget {
                 children: [
                   Text(
                     "Password updated",
-                    style: AppStyle.text22Semibold.copyWith(
+                    style: AppStyle.text24Semibold.copyWith(
                       color: ColorsManger.white,
                     ),
                   ),
@@ -68,15 +68,9 @@ class Updated extends StatelessWidget {
                   CustomFilledButton(
                     text: "Back to Login",
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacementNamed(
                         context,
-                        PageRouteBuilder(
-                          pageBuilder: (
-                            context,
-                            animation,
-                            secondaryAnimation,
-                          ) => Login(),
-                        ),
+                        ConstantRoute.Login,
                       );
                     },
                   ),
