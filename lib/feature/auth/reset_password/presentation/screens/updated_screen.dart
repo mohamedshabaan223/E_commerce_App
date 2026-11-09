@@ -15,12 +15,12 @@ class Updated extends StatelessWidget {
       backgroundColor: ColorsManger.backgroundColor,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 70.h,
+                width: 70.w,
                 height: 70.h,
                 decoration: BoxDecoration(
                   color: Color(0xff1D1C20),
@@ -34,7 +34,7 @@ class Updated extends StatelessWidget {
                       blurRadius: 20,
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Icon(
                   Icons.check_circle,
