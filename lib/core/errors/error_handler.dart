@@ -124,6 +124,14 @@ class ErrorHandler implements Exception {
     final errors = responseData['errors'];
 
     if (errors is Map && errors.isNotEmpty) {
+      if (errors['lastName'] is List &&
+          (errors['lastName'] as List).isNotEmpty) {
+        return (errors['lastName'] as List).first.toString();
+      }
+      if (errors['firstName'] is List &&
+          (errors['firstName'] as List).isNotEmpty) {
+        return (errors['firstName'] as List).first.toString();
+      }
       if (errors['otp'] is List && (errors['otp'] as List).isNotEmpty) {
         return ResponseMessage.invalidOtp;
       }
