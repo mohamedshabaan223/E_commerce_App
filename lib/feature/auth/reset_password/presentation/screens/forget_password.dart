@@ -71,72 +71,76 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     Navigator.pop(context);
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25.0,
-                    vertical: 50,
-                  ),
+                Expanded(
                   child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Customhead(
-                          title: "Forgot Password",
-                          subtitle: "Enter your email, we will send you a code",
-                        ),
-                        SizedBox(height: 32.h),
-                        Container(
-                          width: double.infinity,
-                          height: 200.h,
-                          decoration: BoxDecoration(
-                            color: Color(0xff1D1C20),
-                            borderRadius: BorderRadius.circular(12),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 25.0.w,
+                        vertical: 50.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Customhead(
+                            title: "Forgot Password",
+                            subtitle:
+                                "Enter your email, we will send you a code",
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "EMAIL",
-                                  style: AppStyle.text12Medium.copyWith(
-                                    color: ColorsManger.white,
-                                  ),
-                                ),
-                                Form(
-                                  key: mykey,
-                                  child: CustomTextFormFilled(
-                                    text: "name@example.com",
-                                    controller: emailController,
-                                    validator: ValidatorApp.validateEmail,
-                                  ),
-                                ),
-                                if (state is ForgotPasswordLoading)
-                                  const Center(
-                                    child: CircularProgressIndicator(
-                                      color: ColorsManger.primaryColor,
+                          SizedBox(height: 32.h),
+                          Container(
+                            width: double.infinity,
+                            height: 200.h,
+                            decoration: BoxDecoration(
+                              color: Color(0xff1D1C20),
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(24.0.r),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "EMAIL",
+                                    style: AppStyle.text12Medium.copyWith(
+                                      color: ColorsManger.white,
                                     ),
-                                  )
-                                else
-                                  CustomFilledButton(
-                                    text: "SEND CODE",
-                                    onPressed: () {
-                                      if (mykey.currentState!.validate()) {
-                                        final email = emailController.text
-                                            .trim();
-
-                                        context
-                                            .read<ForgotPasswordCubit>()
-                                            .forgotPassword(email);
-                                      }
-                                    },
                                   ),
-                              ],
+                                  Form(
+                                    key: mykey,
+                                    child: CustomTextFormFilled(
+                                      text: "name@example.com",
+                                      controller: emailController,
+                                      validator: ValidatorApp.validateEmail,
+                                    ),
+                                  ),
+                                  if (state is ForgotPasswordLoading)
+                                    const Center(
+                                      child: CircularProgressIndicator(
+                                        color: ColorsManger.primaryColor,
+                                      ),
+                                    )
+                                  else
+                                    CustomFilledButton(
+                                      text: "SEND CODE",
+                                      onPressed: () {
+                                        if (mykey.currentState!.validate()) {
+                                          final email = emailController.text
+                                              .trim();
+
+                                          context
+                                              .read<ForgotPasswordCubit>()
+                                              .forgotPassword(email);
+                                        }
+                                      },
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
