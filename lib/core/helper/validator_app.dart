@@ -15,9 +15,21 @@ class ValidatorApp {
     if (value == null || value.isEmpty) {
       return 'Please enter your Password';
     }
-    if (value.length < 7) {
+    if (value.length < 8) {
       return 'Please make the Password length at least 8 character';
     }
+    return null;
+  }
+
+  static String? ConfirmPassword(String? value, String password) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+
+    if (value != password) {
+      return 'Password and confirm password must be the same.';
+    }
+
     return null;
   }
 

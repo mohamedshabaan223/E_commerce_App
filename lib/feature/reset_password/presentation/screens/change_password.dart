@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
 
@@ -68,7 +67,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           children: [
                             FormFieldWidget(
                               controller: currentPassword,
-                              validator:ValidatorApp.validatePassword ,
+                              validator: ValidatorApp.validatePassword,
                               label: 'CURRENT PASSWORD',
                               hintText: 'CURRENT PASSWORD',
                               isPassword: true,
@@ -84,7 +83,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             SizedBox(height: 20.h),
                             FormFieldWidget(
                               controller: confirmPassword,
-                              validator:ValidatorApp.validatePassword,
+                              validator: ValidatorApp.validatePassword,
                               label: 'CONFIRM PASSWORD',
                               hintText: 'CONFIRM PASSWORD',
                               isPassword: true,
@@ -103,10 +102,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     ),
                                   );
                                 } else if (state is AuthSuccessState) {
-                                  Navigator.pop(context); 
+                                  Navigator.pop(context);
                                   Fluttertoast.showToast(
-                                    msg:
-                                        "Password has been changed successfully.",
+                                    msg: "Password has been changed successfully.",
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
@@ -115,7 +113,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     fontSize: 16.0,
                                   );
                                 } else if (state is AuthErrorState) {
-                                  Navigator.pop(context); 
+                                  Navigator.pop(context);
                                   Fluttertoast.showToast(
                                     msg: state.errorMessage,
                                     toastLength: Toast.LENGTH_SHORT,

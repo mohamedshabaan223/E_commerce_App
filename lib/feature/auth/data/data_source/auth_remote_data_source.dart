@@ -83,7 +83,7 @@ class AuthRemoteDataSource {
   }) async {
     try {
       final response = await dio.post(
-        ApiConstatnt.verifiyEmailEndPoint,
+        ApiConstatnt.verifiyOtpEndPoint,
         data: {"email": email, "otp": otp},
       );
 
