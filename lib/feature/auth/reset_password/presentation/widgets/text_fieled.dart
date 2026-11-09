@@ -19,14 +19,14 @@ class CustomTextFormFilled extends StatelessWidget {
         style: AppStyle.text14Semibold,
         decoration: InputDecoration(
           hintText: text,
-          errorStyle: TextStyle(color: Colors.red),
+          errorStyle: TextStyle(color: ColorsManger.darkDanger),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.red),
+            borderSide: BorderSide(color: ColorsManger.darkDanger),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.red),
+            borderSide: BorderSide(color: ColorsManger.darkDanger),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -94,15 +94,15 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
           decoration: InputDecoration(
             filled: true,
             fillColor: ColorsManger.surface,
-            errorStyle: TextStyle(color: Colors.red),
+            errorStyle: TextStyle(color: ColorsManger.darkDanger),
 
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: ColorsManger.darkDanger),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: ColorsManger.darkDanger),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

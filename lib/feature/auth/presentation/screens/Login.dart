@@ -66,9 +66,11 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 16),
                   FormFieldWidget(
                     controller: password,
-                    validator: ValidatorApp.validatePassword,
+                    validator: (pass) {
+                      return ValidatorApp.validatePassword(pass!);
+                    },
                     label: 'Password',
-                    hintText: '••••••••••••',
+                    hintText: '••••••••••',
                     isPassword: true,
                   ),
                   Align(

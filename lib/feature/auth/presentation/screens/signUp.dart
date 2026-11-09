@@ -96,7 +96,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 16),
                   FormFieldWidget(
-                    validator: ValidatorApp.validatePassword,
+                    validator: (pass) {
+                      return ValidatorApp.validatePassword(pass!);
+                    },
                     label: 'Password',
                     hintText: '••••••••••••',
                     isPassword: true,
