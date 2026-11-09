@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/feature/categories/data/models/category_model.dart';
+import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
 
 class CategoriesRemoteDataSource {
   final Dio _dio = DioFactory().dio;
@@ -21,5 +22,14 @@ class CategoriesRemoteDataSource {
       items.addAll(data['categories']);
     }
     return items.map((e) => CategoryModel.fromJson(e)).toList();
+  }
+
+  Future<List<ProductModel>> getProductsByCategory(String category) async {
+    final res = await _dio.get(
+      'products',
+      queryParameters: {'category': category, 'page': 1, 'pageSize': 20},
+    );
+    final items = res.data['items'] as List;
+    return items.map((e) => ProductModel.fromJson(e)).toList();
   }
 }
