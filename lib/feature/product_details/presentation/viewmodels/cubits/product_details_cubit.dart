@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/feature/product_details/data/repo/product_details_repo.dart';
-import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/Product_details_state.dart';
+import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
