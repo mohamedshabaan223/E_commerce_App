@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/feature/categories/data/data_source/categories_remote.dart';
 import 'package:ecommerce_app/feature/categories/data/models/category_model.dart';
-import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
 
 class CategoriesRepo {
   CategoriesRepo({CategoriesRemoteDataSource? remote})
@@ -17,9 +16,12 @@ class CategoriesRepo {
     }
   }
 
-  Future<List<ProductModel>> getProductsByCategory(String category) async {
+  Future<CategoryProductsPage> getProductsByCategory(
+    String category, {
+    int page = 1,
+  }) async {
     try {
-      return await _remote.getProductsByCategory(category);
+      return await _remote.getProductsByCategory(category, page: page);
     } catch (e) {
       throw ErrorHandler.handle(e);
     }

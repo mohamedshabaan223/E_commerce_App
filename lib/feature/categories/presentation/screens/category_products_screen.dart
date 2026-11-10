@@ -69,9 +69,47 @@ class CategoryProductsScreen extends StatelessWidget {
                 ),
               );
             }
+
             return SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
-              child: AllProductsGrid(products: state.products),
+              child: Column(
+                children: [
+                  AllProductsGrid(products: state.products),
+
+                  if (state.loadMoreError != null) ...[
+                    SizedBox(height: 12.h),
+                    Text(
+                      state.loadMoreError!,
+                      style: AppStyle.text14Regular.copyWith(
+                        color: context.appColors.textSecondary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+
+                  if (state.isLoadingMore)
+                    Padding(
+                      padding: EdgeInsets.all(16.h),
+                      child: CircularProgressIndicator(
+                        color: context.appColors.primaryColor,
+                      ),
+                    )
+                  else if (state.hasNextPage)
+                    Padding(
+                      padding: EdgeInsets.only(top: 16.h),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.read<CategoryProductsCubit>().loadMore();
+                        },
+                        child: Text(
+                          state.loadMoreError != null
+                              ? 'Try Again'
+                              : 'Load More',
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             );
           },
         ),
