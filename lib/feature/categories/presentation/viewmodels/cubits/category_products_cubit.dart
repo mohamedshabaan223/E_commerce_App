@@ -1,3 +1,4 @@
+// feature/categories/presentation/viewmodels/cubits/category_products_cubit.dart
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/feature/categories/data/repo/categories_repo.dart';
 import 'package:ecommerce_app/feature/categories/presentation/viewmodels/cubits/category_products_state.dart';
