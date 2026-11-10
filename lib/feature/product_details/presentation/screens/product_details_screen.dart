@@ -36,6 +36,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   void _openAddReviewSheet(BuildContext ctx) {
     final reviewsCubit = ctx.read<ReviewsCubit>();
+    final productDetailsCubit = ctx.read<ProductDetailsCubit>();
     reviewsCubit.resetSubmit();
     showModalBottomSheet(
       context: ctx,
@@ -52,6 +53,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ScaffoldMessenger.of(ctx).showSnackBar(
                 const SnackBar(content: Text('Review added successfully')),
               );
+              productDetailsCubit.refresh(widget.productId);
+
               reviewsCubit.resetSubmit();
             }
             if (state.submitStatus == SubmitStatus.failure) {
@@ -85,15 +88,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => ProductDetailsCubit(ProductDetailsRepo())..load(widget.productId)),
-        BlocProvider(create: (_) => ReviewsCubit(ProductDetailsRepo(), widget.productId)..getReviews()),
-        BlocProvider(create: (_) => AddToCartCubit(CartRemoteDataSource(DioFactory().dio))),
+        BlocProvider(
+          create: (_) =>
+              ProductDetailsCubit(ProductDetailsRepo())..load(widget.productId),
+        ),
+        BlocProvider(
+          create: (_) =>
+              ReviewsCubit(ProductDetailsRepo(), widget.productId)
+                ..getReviews(),
+        ),
+        BlocProvider(
+          create: (_) => AddToCartCubit(CartRemoteDataSource(DioFactory().dio)),
+        ),
       ],
       child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
         builder: (context, state) {
           return Scaffold(
             backgroundColor: context.appColors.backgroundColor,
-            appBar: _buildAppBar(state is ProductDetailsSuccess ? state.product.name : ''),
+            appBar: _buildAppBar(
+              state is ProductDetailsSuccess ? state.product.name : '',
+            ),
             body: _buildBody(context, state),
           );
         },
@@ -108,23 +122,45 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new, color: context.appColors.primaryColor, size: 20.sp),
+        icon: Icon(
+          Icons.arrow_back_ios_new,
+          color: context.appColors.primaryColor,
+          size: 20.sp,
+        ),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: Text(title, style: AppStyle.text18Semibold.copyWith(color: context.appColors.textPrimary)),
+      title: Text(
+        title,
+        style: AppStyle.text18Semibold.copyWith(
+          color: context.appColors.textPrimary,
+        ),
+      ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.h),
-        child: Divider(height: 1.h, thickness: 1.h, color: context.appColors.border),
+        child: Divider(
+          height: 1.h,
+          thickness: 1.h,
+          color: context.appColors.border,
+        ),
       ),
     );
   }
 
   Widget _buildBody(BuildContext context, ProductDetailsState state) {
     if (state is ProductDetailsFailure) {
-      return Center(child: Text(state.message, style: AppStyle.text14Regular.copyWith(color: context.appColors.textSecondary)));
+      return Center(
+        child: Text(
+          state.message,
+          style: AppStyle.text14Regular.copyWith(
+            color: context.appColors.textSecondary,
+          ),
+        ),
+      );
     }
     if (state is! ProductDetailsSuccess) {
-      return Center(child: CircularProgressIndicator(color: context.appColors.primaryColor));
+      return Center(
+        child: CircularProgressIndicator(color: context.appColors.primaryColor),
+      );
     }
     final product = state.product;
     final images = product.images;
@@ -135,24 +171,48 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         children: [
           ProductImageGallery(imageUrl: images[_selectedImageIndex]),
           SizedBox(height: 12.h),
-          ProductThumbnailsRow(images: images, selectedIndex: _selectedImageIndex, onSelect: (index) => setState(() => _selectedImageIndex = index)),
+          ProductThumbnailsRow(
+            images: images,
+            selectedIndex: _selectedImageIndex,
+            onSelect: (index) => setState(() => _selectedImageIndex = index),
+          ),
           SizedBox(height: 20.h),
           ProductTitlePrice(
             title: product.name,
             price: '\$${product.finalPrice.toStringAsFixed(0)}',
-            oldPrice: product.hasDiscount ? '\$${product.price.toStringAsFixed(0)}' : null,
-            discount: product.hasDiscount ? '-${product.discountPercentage}% OFF' : null,
+            oldPrice: product.hasDiscount
+                ? '\$${product.price.toStringAsFixed(0)}'
+                : null,
+            discount: product.hasDiscount
+                ? '-${product.discountPercentage}% OFF'
+                : null,
             rating: product.rating,
             reviewsCount: product.reviewsCount,
           ),
           SizedBox(height: 16.h),
           ProductDescriptionCard(description: product.description),
           SizedBox(height: 12.h),
-          ProductSpecsCard(specs: {'Color': product.color, 'Weight (g)': product.weight.toString(), 'Stock': product.stock > 0 ? 'In stock: ${product.stock}' : 'Out of stock'}),
+          ProductSpecsCard(
+            specs: {
+              'Color': product.color,
+              'Weight (g)': product.weight.toString(),
+              'Stock': product.stock > 0
+                  ? 'In stock: ${product.stock}'
+                  : 'Out of stock',
+            },
+          ),
           SizedBox(height: 12.h),
-          QuantitySelector(quantity: _quantity, onChanged: (value) => setState(() => _quantity = value)),
+          QuantitySelector(
+            quantity: _quantity,
+            onChanged: (value) => setState(() => _quantity = value),
+          ),
           SizedBox(height: 16.h),
-          AddToCartButton(totalPrice: '\$${(product.finalPrice * _quantity).toStringAsFixed(0)}', productId: product.id, quantity: _quantity),
+          AddToCartButton(
+            totalPrice:
+                '\$${(product.finalPrice * _quantity).toStringAsFixed(0)}',
+            productId: product.id,
+            quantity: _quantity,
+          ),
           SizedBox(height: 24.h),
           Divider(height: 1.h, thickness: 1.h, color: context.appColors.border),
           SizedBox(height: 16.h),
@@ -162,7 +222,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               final reviews = reviewsState.reviews;
               final avg = reviews.isEmpty
                   ? product.rating
-                  : reviews.map((e) => e.rating).reduce((a, b) => a + b) / reviews.length;
+                  : reviews.map((e) => e.rating).reduce((a, b) => a + b) /
+                        reviews.length;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -173,9 +234,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   SizedBox(height: 12.h),
                   if (reviewsState.isLoading)
-                    Center(child: CircularProgressIndicator(color: context.appColors.primaryColor))
+                    Center(
+                      child: CircularProgressIndicator(
+                        color: context.appColors.primaryColor,
+                      ),
+                    )
+                  else if (reviewsState.error != null && reviews.isEmpty)
+                    Column(
+                      children: [
+                        Text(
+                          reviewsState.error!,
+                          textAlign: TextAlign.center,
+                          style: AppStyle.text14Regular.copyWith(
+                            color: context.appColors.textSecondary,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              context.read<ReviewsCubit>().getReviews(),
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    )
                   else if (reviews.isEmpty)
-                    Center(child: Text('No reviews yet. Be the first!', style: AppStyle.text14Regular.copyWith(color: context.appColors.textSecondary)))
+                    Center(
+                      child: Text(
+                        'No reviews yet. Be the first!',
+                        style: AppStyle.text14Regular.copyWith(
+                          color: context.appColors.textSecondary,
+                        ),
+                      ),
+                    )
                   else
                     for (final review in reviews) ...[
                       ReviewTile(review: review),
