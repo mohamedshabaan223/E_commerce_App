@@ -1,3 +1,4 @@
+// feature/product_details/presentation/viewmodels/cubits/product_details_state.dart
 import 'package:ecommerce_app/feature/product_details/data/models/product_details_model.dart';
 
 abstract class ProductDetailsState {}
