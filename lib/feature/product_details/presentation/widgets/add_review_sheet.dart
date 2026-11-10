@@ -1,3 +1,4 @@
+// feature/product_details/presentation/widgets/add_review_sheet.dart
 import 'package:ecommerce_app/core/shared_widgets/rating_stars.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
@@ -5,10 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddReviewSheet extends StatefulWidget {
-  const AddReviewSheet({super.key, this.onClose, this.onSubmit});
+  const AddReviewSheet({
+    super.key,
+    this.onClose,
+    this.onSubmit,
+    this.isLoading = false,
+  });
 
   final VoidCallback? onClose;
   final void Function(int rating, String comment)? onSubmit;
+  final bool isLoading;
 
   @override
   State<AddReviewSheet> createState() => _AddReviewSheetState();
@@ -34,7 +41,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
         MediaQuery.of(context).viewInsets.bottom + 24.h,
       ),
       decoration: BoxDecoration(
-        color: context.appColors.surface,
+        color: ColorsManger.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       child: Column(
@@ -44,7 +51,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
             width: 40.w,
             height: 4.h,
             decoration: BoxDecoration(
-              color: context.appColors.border,
+              color: ColorsManger.border,
               borderRadius: BorderRadius.circular(2.r),
             ),
           ),
@@ -55,23 +62,23 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
               Text(
                 'Add Review',
                 style: AppStyle.text22Medium.copyWith(
-                  color: context.appColors.textPrimary,
+                  color: ColorsManger.textPrimary,
                 ),
               ),
               GestureDetector(
-                onTap: widget.onClose,
+                onTap: widget.onClose ?? () => Navigator.maybePop(context),
                 behavior: HitTestBehavior.opaque,
                 child: Container(
                   width: 32.r,
                   height: 32.r,
                   decoration: BoxDecoration(
-                    color: context.appColors.surfaceVariant,
+                    color: ColorsManger.surfaceVariant,
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.close,
-                    color: context.appColors.textSecondary,
+                    color: ColorsManger.textSecondary,
                     size: 18.sp,
                   ),
                 ),
@@ -89,7 +96,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
           Text(
             '$_selectedStars OF 5 STARS',
             style: AppStyle.text12Medium.copyWith(
-              color: context.appColors.primaryColor,
+              color: ColorsManger.primaryColor,
               letterSpacing: 1.0,
             ),
           ),
@@ -98,15 +105,15 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
             controller: _controller,
             maxLines: 4,
             style: AppStyle.text14Regular.copyWith(
-              color: context.appColors.textPrimary,
+              color: ColorsManger.textPrimary,
             ),
             decoration: InputDecoration(
               hintText: 'Write your review (optional)',
               hintStyle: AppStyle.text14Regular.copyWith(
-                color: context.appColors.textSecondary,
+                color: ColorsManger.textSecondary,
               ),
               filled: true,
-              fillColor: context.appColors.backgroundColor,
+              fillColor: ColorsManger.backgroundColor,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.r),
                 borderSide: BorderSide.none,
@@ -115,32 +122,48 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
             ),
           ),
           SizedBox(height: 20.h),
-          GestureDetector(
-            onTap: () =>
-                widget.onSubmit?.call(_selectedStars, _controller.text),
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              width: double.infinity,
-              height: 52.h,
-              decoration: BoxDecoration(
-                color: context.appColors.primaryColor,
-                borderRadius: BorderRadius.circular(15.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: context.appColors.primaryColor.withValues(
-                      alpha: 0.25,
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: widget.isLoading
+                  ? null
+                  : () {
+                      print('SUBMIT TAPPED isLoading=${widget.isLoading} stars=$_selectedStars text=${_controller.text}');
+                      widget.onSubmit?.call(_selectedStars, _controller.text);
+                    },
+              borderRadius: BorderRadius.circular(15.r),
+              child: Container(
+                width: double.infinity,
+                height: 52.h,
+                decoration: BoxDecoration(
+                  color: widget.isLoading
+                      ? Colors.grey
+                      : ColorsManger.primaryColor,
+                  borderRadius: BorderRadius.circular(15.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorsManger.primaryColor.withValues(alpha: 0.25),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
                     ),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                'Submit',
-                style: AppStyle.text14Semibold.copyWith(
-                  color: context.appColors.backgroundColor,
+                  ],
                 ),
+                alignment: Alignment.center,
+                child: widget.isLoading
+                    ? SizedBox(
+                        height: 22.h,
+                        width: 22.h,
+                        child: CircularProgressIndicator(
+                          color: ColorsManger.backgroundColor,
+                          strokeWidth: 2.5,
+                        ),
+                      )
+                    : Text(
+                        'Submit',
+                        style: AppStyle.text14Semibold.copyWith(
+                          color: ColorsManger.backgroundColor,
+                        ),
+                      ),
               ),
             ),
           ),

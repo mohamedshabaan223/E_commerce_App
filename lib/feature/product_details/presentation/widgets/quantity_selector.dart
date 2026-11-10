@@ -1,3 +1,4 @@
+// feature/product_details/presentation/widgets/quantity_selector.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,6 @@ class QuantitySelector extends StatelessWidget {
     );
   }
 }
-
 class _QuantityButton extends StatelessWidget {
   const _QuantityButton({required this.icon, required this.onTap});
 

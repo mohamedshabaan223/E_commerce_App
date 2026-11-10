@@ -1,3 +1,4 @@
+// feature/product_details/presentation/widgets/product_title_price.dart
 import 'package:ecommerce_app/core/shared_widgets/discount_badge.dart';
 import 'package:ecommerce_app/core/shared_widgets/rating_stars.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';

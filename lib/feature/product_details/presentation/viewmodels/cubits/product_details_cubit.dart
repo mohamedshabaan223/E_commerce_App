@@ -1,3 +1,4 @@
+// feature/product_details/presentation/viewmodels/cubits/product_details_cubit.dart
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/feature/product_details/data/repo/product_details_repo.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_state.dart';
@@ -22,5 +23,14 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         ),
       );
     }
+  }
+
+  /// Reloads the product (rating / reviews count) without showing a spinner.
+  Future<void> refresh(String id) async {
+    try {
+      final product = await _repo.getProductById(id);
+      if (isClosed) return;
+      emit(ProductDetailsSuccess(product));
+    } catch (_) {}
   }
 }

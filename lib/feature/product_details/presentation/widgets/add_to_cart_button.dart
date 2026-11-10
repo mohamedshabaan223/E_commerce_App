@@ -1,24 +1,26 @@
+// feature/product_details/presentation/widgets/add_to_cart_button.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/cart_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../cart/Cubit/cart_cubit.dart';
 
 class AddToCartButton extends StatelessWidget {
   const AddToCartButton({
     super.key,
     required this.totalPrice,
     required this.productId,
+    required this.quantity,
   });
 
   final String totalPrice;
   final String productId;
+  final int quantity;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CartCubit, CartState>(
+    return BlocConsumer<AddToCartCubit, CartState>(
       listener: (context, state) {
         if (state is AddToCartSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -39,7 +41,7 @@ class AddToCartButton extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
-            context.read<CartCubit>().addToCart(productId: productId);
+            context.read<AddToCartCubit>().addToCart(productId: productId, quantity: quantity);
           },
           behavior: HitTestBehavior.opaque,
           child: Container(
