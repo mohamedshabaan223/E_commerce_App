@@ -82,7 +82,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             text: "New Password",
                             controller: newPasswordController,
                             validator: (pass) {
-                              return ValidatorApp.validatePassword(pass!);
+                              return ValidatorApp.validatePassword2(pass!);
                             },
                           ),
 

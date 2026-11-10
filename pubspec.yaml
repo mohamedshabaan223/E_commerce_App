@@ -28,7 +28,11 @@ dependencies:
   equatable: ^3.0.0
   bloc: ^9.2.1
   fluttertoast: ^10.0.2
+<<<<<<< HEAD
   google_sign_in: ^7.2.0
+=======
+  google_sign_in: ^6.2.1
+>>>>>>> d3062691dcd201a763fc91b8e01944d752d1405b
 
 dev_dependencies:
   flutter_test:

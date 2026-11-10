@@ -9,10 +9,16 @@ import 'package:ecommerce_app/core/network/api_constatnt.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
 import 'package:ecommerce_app/feature/auth/data/models/register_request.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class AuthRemoteDataSource {
   final Dio dio = DioFactory().dio;
   final SecureStorageCacheing secureStorageCacheing = SecureStorageCacheing();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'profile'],
+    serverClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+  );
 
   Future<Either<Failure, void>> signIn({required LoginRequest request}) async {
     try {
@@ -134,4 +140,30 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
+  
+
+  Future<Either<Failure, void>> signInWithGoogle() async {
+    try {
+      await _googleSignIn.signOut();
+      final account = await _googleSignIn.signIn();
+      final idToken = (await account?.authentication)?.idToken;
+
+      if (idToken == null) return Right(null);
+
+      final response = await dio.post(
+        ApiConstatnt.googleMobileEndPoint,
+        data: {'idToken': idToken},
+      );
+
+      await secureStorageCacheing.saveAuthData(
+        accessToken: response.data['accessToken'],
+        refreshToken: response.data['refreshToken'],
+        expiresAt: DateTime.parse(response.data['expiresAtUtc']),
+      );
+      return Right(null);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
+
 }
