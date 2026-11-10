@@ -15,7 +15,6 @@ class ReviewModel {
   final String date;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
-    // لو الاسم جوه user: { "user": { "name": "Ahmed" } }
     Map<String, dynamic> userMap = {};
     if (json['user'] is Map) userMap = Map<String, dynamic>.from(json['user'] as Map);
     if (json['customer'] is Map) userMap = Map<String, dynamic>.from(json['customer'] as Map);
