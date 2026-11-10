@@ -72,14 +72,14 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => const Onboarding());
 
       case ConstantRoute.emptyCartScreen:
-        return MaterialPageRoute(builder: (_) => const EmptyCartScreen());
+        return MaterialPageRoute(builder: (_) => EmptyCartScreen(onBrowseProducts: () {}));
 
       case ConstantRoute.cartScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 GetCartCubit(CartRemoteDataSource(DioFactory().dio)),
-            child: const CartScreen(),
+            child: CartScreen(onBrowseProducts: () {}),
           ),
         );
 

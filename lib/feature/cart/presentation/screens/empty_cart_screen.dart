@@ -1,12 +1,15 @@
 import 'package:ecommerce_app/core/shared_widgets/custom_app_bar.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_button.dart';
-import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EmptyCartScreen extends StatelessWidget {
-  const EmptyCartScreen({super.key});
+  const EmptyCartScreen({
+    required this.onBrowseProducts,
+    super.key,
+  });
+
+  final VoidCallback onBrowseProducts;
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +58,17 @@ class EmptyCartScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            CartButton.cartButtonDesign(
-              context: context,
-              page: MainScreen(),
-              text: "Browse Products",
+            ElevatedButton(
+              onPressed: () {
+                onBrowseProducts();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: context.appColors.primaryColor,
+                foregroundColor: context.appColors.cartButtonFg,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                minimumSize: Size(double.infinity, 56),
+              ),
+              child: Center(child: Text("Browse Products", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: context.appColors.cartButtonFg))),
             ),
           ],
         ),

@@ -8,18 +8,27 @@ import 'package:ecommerce_app/core/shared_widgets/custom_app_bar.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_button.dart';
 import 'package:ecommerce_app/feature/cart/presentation/widgets/cart_item.dart';
+import 'package:ecommerce_app/feature/cart/presentation/screens/empty_cart_screen.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/checkout_screen.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';
 
-import '../../../../core/routing/constant_route.dart';
+
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  const CartScreen({
+    required this.onBrowseProducts,
+    super.key,
+  });
+
+  final VoidCallback onBrowseProducts;
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final TextEditingController couponController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -49,18 +58,19 @@ class _CartScreenState extends State<CartScreen> {
             body: Center(child: Text(state.errorMessage)),
           );
         }
+
         if (state is GetCartSuccessState) {
           final List cartItems = state.cartItems['cartItems'] ?? [];
 
           if (cartItems.isEmpty) {
-            Navigator.pushNamed(context, ConstantRoute.emptyCartScreen);
+            return EmptyCartScreen(onBrowseProducts: widget.onBrowseProducts);
           }
 
           return Scaffold(
             backgroundColor: context.appColors.backgroundColor,
-            appBar:  CustomAppBar(title: 'Cart'),
+            appBar: CustomAppBar(title: 'Cart'),
             body: Padding(
-              padding:  EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               child: Column(
                 spacing: 10,
                 children: [
@@ -75,7 +85,7 @@ class _CartScreenState extends State<CartScreen> {
                           color: context.appColors.white,
                         ),
                       ),
-                       Spacer(),
+                      Spacer(),
                       Text(
                         "(${cartItems.length} ITEMS)",
                         style: TextStyle(
@@ -96,7 +106,10 @@ class _CartScreenState extends State<CartScreen> {
                           context: context,
                           image: item['productCoverUrl'] ?? '',
                           name: item['productName'] ?? '',
-                          price: item['totalPrice'].toDouble(), quantity: item['quantity'], productId: item['productId'],
+                          price: item['totalPrice'].toDouble(),
+                          quantity: item['quantity'],
+                          productId: item['productId'],
+                          itemId: item['itemId'],
                         );
                       },
                     ),
@@ -108,12 +121,12 @@ class _CartScreenState extends State<CartScreen> {
                           height: 48,
                           decoration: BoxDecoration(
                             color: context.appColors.forTheme(
-                               Color(0xFF1E1E1E),
+                              Color(0xFF1E1E1E),
                               ColorsManger.lightSurfaceVariant,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          padding:  EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: 15),
                           child: TextField(
                             style: TextStyle(color: context.appColors.white),
                             decoration: InputDecoration(
@@ -124,6 +137,7 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               border: InputBorder.none,
                             ),
+                            controller: couponController,
                           ),
                         ),
                       ),
@@ -131,16 +145,31 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            final couponCode = couponController.text.trim();
+
+                            if (couponCode.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Please enter a coupon code'),
+                                ),
+                              );
+                              return;
+                            }
+
+                            context.read<AddToCartCubit>().applyCoupon(
+                              couponCode: couponCode,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: context.appColors.forTheme(
-                               Color(0xFF2A2A2A),
+                              Color(0xFF2A2A2A),
                               ColorsManger.lightSurfaceVariant,
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            padding:  EdgeInsets.symmetric(horizontal: 24),
+                            padding: EdgeInsets.symmetric(horizontal: 24),
                           ),
                           child: Text(
                             'Apply',
@@ -156,7 +185,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   CartButton.cartButtonDesign(
                     context: context,
-                    page:  CheckoutScreen(),
+                    page: CheckoutScreen(),
                     text: "Proceed to Checkout",
                   ),
                 ],
