@@ -1,3 +1,4 @@
+// feature/product_details/presentation/widgets/add_to_cart_button.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';

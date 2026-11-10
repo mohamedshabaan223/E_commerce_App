@@ -10,9 +10,9 @@ abstract class ApiConstatnt {
   static const String getCartEndPoint = 'cart';
   static const String addToCartEndPoint = 'cart/items';
 
-  // Reviews: GET + POST -> products/{productId}/reviews
+  // Reviews: GET + POST -> reviews/{productId}
   static String productReviewsEndPoint(String productId) =>
-      'products/$productId/reviews';
+      'reviews/$productId';
 
   static const String registerResponseMessage =
       'Registeration Successfull, an otp is sent to your email inbox please use it to verify your email.';

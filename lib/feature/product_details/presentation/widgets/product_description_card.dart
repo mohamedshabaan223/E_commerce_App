@@ -1,3 +1,4 @@
+// feature/product_details/presentation/widgets/product_description_card.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
