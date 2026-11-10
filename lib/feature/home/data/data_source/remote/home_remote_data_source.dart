@@ -31,7 +31,18 @@ class HomeRemoteDataSource {
     } else if (data is Map && data['categories'] is List) {
       items.addAll(data['categories']);
     }
-    return items.map((e) => CategoryModel.fromJson(e)).toList();
+    final validItems = items.where((e) {
+      final name = e['name']?.toString().trim().toLowerCase();
+      final image = e['coverPictureUrl']?.toString().trim().toLowerCase();
+
+      return name != null &&
+          name.isNotEmpty &&
+          name != 'string' &&
+          name != 'istring' &&
+          image != 'string';
+    }).toList();
+
+    return validItems.map((e) => CategoryModel.fromJson(e)).toList();
   }
 
   Future<List<ProductModel>> getProducts({

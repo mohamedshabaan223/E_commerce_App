@@ -30,8 +30,12 @@ class PromoItem extends StatelessWidget {
           Image.network(
             imageUrl,
             fit: BoxFit.cover,
-            errorBuilder: (_, _, _) =>
-                ColoredBox(color: context.appColors.surface),
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                'assets/images/promo_banner.png',
+                fit: BoxFit.cover,
+              );
+            },
           ),
           DecoratedBox(
             decoration: BoxDecoration(
