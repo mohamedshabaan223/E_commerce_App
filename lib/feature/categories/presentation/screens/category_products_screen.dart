@@ -44,11 +44,26 @@ class CategoryProductsScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is CategoryProductsFailure) {
               return Center(
-                child: Text(
-                  state.message,
-                  style: AppStyle.text14Regular.copyWith(
-                    color: context.appColors.textSecondary,
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.message,
+                      style: AppStyle.text14Regular.copyWith(
+                        color: context.appColors.textSecondary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 12.h),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<CategoryProductsCubit>().load(
+                          categoryName,
+                        );
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
                 ),
               );
             }
