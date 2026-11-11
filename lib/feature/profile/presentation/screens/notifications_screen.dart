@@ -1,4 +1,3 @@
-// feature/profile/presentation/screens/screens/notifications_screen.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/data/models/notification_model.dart';
