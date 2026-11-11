@@ -1,10 +1,12 @@
+// feature/product_details/presentation/screens/product_details_screen.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';
-import 'package:ecommerce_app/feature/product_details/data/models/mock.dart';
 import 'package:ecommerce_app/feature/product_details/data/repo/product_details_repo.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_cubit.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_state.dart';
+import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/reviews_cubit.dart';
+import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/reviews_state.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/add_review_sheet.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/add_to_cart_button.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/product_description_card.dart';
@@ -23,9 +25,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.productId});
-
   final String productId;
-
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
@@ -34,13 +34,53 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _selectedImageIndex = 0;
   int _quantity = 1;
 
-  void _openAddReviewSheet() {
+  void _openAddReviewSheet(BuildContext ctx) {
+    final reviewsCubit = ctx.read<ReviewsCubit>();
+    final productDetailsCubit = ctx.read<ProductDetailsCubit>();
+    reviewsCubit.resetSubmit();
     showModalBottomSheet(
-      context: context,
+      context: ctx,
       backgroundColor: Colors.transparent,
-      barrierColor: context.appColors.modalBackdrop,
+      barrierColor: ctx.appColors.modalBackdrop,
       isScrollControlled: true,
-      builder: (_) => const AddReviewSheet(),
+      builder: (_) => BlocProvider.value(
+        value: reviewsCubit,
+        child: BlocListener<ReviewsCubit, ReviewsState>(
+          listenWhen: (prev, curr) => prev.submitStatus != curr.submitStatus,
+          listener: (context, state) {
+            if (state.submitStatus == SubmitStatus.success) {
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(ctx).showSnackBar(
+                const SnackBar(content: Text('Review added successfully')),
+              );
+              productDetailsCubit.refresh(widget.productId);
+
+              reviewsCubit.resetSubmit();
+            }
+            if (state.submitStatus == SubmitStatus.failure) {
+              ScaffoldMessenger.of(ctx).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    state.submitError ?? state.error ?? 'Failed to add review',
+                  ),
+                ),
+              );
+              reviewsCubit.resetSubmit();
+            }
+          },
+          child: BlocBuilder<ReviewsCubit, ReviewsState>(
+            builder: (context, reviewsState) {
+              return AddReviewSheet(
+                isLoading: reviewsState.submitStatus == SubmitStatus.loading,
+                onClose: () => Navigator.pop(ctx),
+                onSubmit: (rating, comment) {
+                  reviewsCubit.addReview(rating: rating, comment: comment);
+                },
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -53,6 +93,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ProductDetailsCubit(ProductDetailsRepo())..load(widget.productId),
         ),
         BlocProvider(
+          create: (_) =>
+              ReviewsCubit(ProductDetailsRepo(), widget.productId)
+                ..getReviews(),
+        ),
+        BlocProvider(
           create: (_) => AddToCartCubit(CartRemoteDataSource(DioFactory().dio)),
         ),
       ],
@@ -63,7 +108,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             appBar: _buildAppBar(
               state is ProductDetailsSuccess ? state.product.name : '',
             ),
-            body: _buildBody(state),
+            body: _buildBody(context, state),
           );
         },
       ),
@@ -101,7 +146,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Widget _buildBody(ProductDetailsState state) {
+  Widget _buildBody(BuildContext context, ProductDetailsState state) {
     if (state is ProductDetailsFailure) {
       return Center(
         child: Text(
@@ -117,10 +162,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: CircularProgressIndicator(color: context.appColors.primaryColor),
       );
     }
-
     final product = state.product;
     final images = product.images;
-
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
       child: Column(
@@ -167,21 +210,70 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           AddToCartButton(
             totalPrice:
                 '\$${(product.finalPrice * _quantity).toStringAsFixed(0)}',
-            productId: product.id, quantity: _quantity,
+            productId: product.id,
+            quantity: _quantity,
           ),
           SizedBox(height: 24.h),
           Divider(height: 1.h, thickness: 1.h, color: context.appColors.border),
           SizedBox(height: 16.h),
-          ReviewsHeader(
-            rating: product.rating,
-            reviewsCount: product.reviewsCount,
-            onWriteReview: _openAddReviewSheet,
+          // --- Reviews الحقيقية ---
+          BlocBuilder<ReviewsCubit, ReviewsState>(
+            builder: (context, reviewsState) {
+              final reviews = reviewsState.reviews;
+              final avg = reviews.isEmpty
+                  ? product.rating
+                  : reviews.map((e) => e.rating).reduce((a, b) => a + b) /
+                        reviews.length;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ReviewsHeader(
+                    rating: avg,
+                    reviewsCount: reviews.length,
+                    onWriteReview: () => _openAddReviewSheet(context),
+                  ),
+                  SizedBox(height: 12.h),
+                  if (reviewsState.isLoading)
+                    Center(
+                      child: CircularProgressIndicator(
+                        color: context.appColors.primaryColor,
+                      ),
+                    )
+                  else if (reviewsState.error != null && reviews.isEmpty)
+                    Column(
+                      children: [
+                        Text(
+                          reviewsState.error!,
+                          textAlign: TextAlign.center,
+                          style: AppStyle.text14Regular.copyWith(
+                            color: context.appColors.textSecondary,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              context.read<ReviewsCubit>().getReviews(),
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    )
+                  else if (reviews.isEmpty)
+                    Center(
+                      child: Text(
+                        'No reviews yet. Be the first!',
+                        style: AppStyle.text14Regular.copyWith(
+                          color: context.appColors.textSecondary,
+                        ),
+                      ),
+                    )
+                  else
+                    for (final review in reviews) ...[
+                      ReviewTile(review: review),
+                      SizedBox(height: 10.h),
+                    ],
+                ],
+              );
+            },
           ),
-          SizedBox(height: 12.h),
-          for (final review in ProductDetailsMock.reviews) ...[
-            ReviewTile(review: review),
-            SizedBox(height: 10.h),
-          ],
         ],
       ),
     );

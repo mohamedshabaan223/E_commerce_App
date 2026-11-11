@@ -1,3 +1,4 @@
+// feature/product_details/data/models/product_details_model.dart
 class ProductDetailsModel {
   const ProductDetailsModel({
     required this.id,

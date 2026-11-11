@@ -7,13 +7,22 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
   CategoryProductsCubit(this._repo) : super(CategoryProductsInitial());
 
   final CategoriesRepo _repo;
+  String? _category;
+  int _currentPage = 1;
+  bool _hasNextPage = false;
+  bool _isLoadingMore = false;
 
   Future<void> load(String category) async {
     emit(CategoryProductsLoading());
+    _category = category;
+    _currentPage = 1;
+    _hasNextPage = false;
     try {
-      final products = await _repo.getProductsByCategory(category);
+      final result = await _repo.getProductsByCategory(category, page: 1);
       if (isClosed) return;
-      emit(CategoryProductsSuccess(products));
+      _hasNextPage = result.hasNextPage;
+
+      emit(CategoryProductsSuccess(result.products, hasNextPage: _hasNextPage));
     } catch (e) {
       if (isClosed) return;
       emit(
@@ -21,6 +30,56 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
           e is ErrorHandler ? e.failure.message : e.toString(),
         ),
       );
+    }
+  }
+
+  Future<void> loadMore() async {
+    if (_isLoadingMore || !_hasNextPage || _category == null) return;
+
+    final currentState = state;
+    if (currentState is! CategoryProductsSuccess) return;
+
+    _isLoadingMore = true;
+
+    emit(
+      CategoryProductsSuccess(
+        currentState.products,
+        hasNextPage: _hasNextPage,
+        isLoadingMore: true,
+      ),
+    );
+
+    try {
+      final nextPage = _currentPage + 1;
+
+      final result = await _repo.getProductsByCategory(
+        _category!,
+        page: nextPage,
+      );
+
+      if (isClosed) return;
+
+      _currentPage = nextPage;
+      _hasNextPage = result.hasNextPage;
+
+      emit(
+        CategoryProductsSuccess([
+          ...currentState.products,
+          ...result.products,
+        ], hasNextPage: _hasNextPage),
+      );
+    } catch (e) {
+      if (isClosed) return;
+
+      emit(
+        CategoryProductsSuccess(
+          currentState.products,
+          hasNextPage: _hasNextPage,
+          loadMoreError: e is ErrorHandler ? e.failure.message : e.toString(),
+        ),
+      );
+    } finally {
+      _isLoadingMore = false;
     }
   }
 }

@@ -1,3 +1,4 @@
+// feature/product_details/data/models/mock.dart
 import 'package:ecommerce_app/feature/product_details/data/models/review_model.dart';
 
 abstract class ProductDetailsMock {

@@ -1,3 +1,4 @@
+// feature/product_details/data/data_source/product_details_remote.dart
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/network/api_constatnt.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
@@ -14,17 +15,34 @@ class ProductDetailsRemoteDataSource {
 
   Future<List<ReviewModel>> getReviews(String productId) async {
     final res = await _dio.get(ApiConstatnt.productReviewsEndPoint(productId));
-    final data = res.data;
-    final List raw = data is List
-        ? data
-        : (data is Map
-              ? (data['items'] ?? data['data'] ?? data['reviews'] ?? const [])
-                    as List
-              : const []);
+    print('REVIEWS RAW: ${res.data}');
+    final raw = _extractList(res.data);
     return raw
         .whereType<Map>()
         .map((e) => ReviewModel.fromJson(Map<String, dynamic>.from(e)))
         .toList();
+  }
+
+  List _extractList(dynamic data) {
+    if (data is List) return data;
+    if (data is Map) {
+    
+      for (final key in ['items', 'reviews', 'data', 'result', 'results']) {
+        final v = data[key];
+        if (v is List) return v;
+        if (v is Map) {
+        
+          final nested = _extractList(v);
+          if (nested.isNotEmpty) return nested;
+        }
+      }
+      
+      if (data.containsKey('product') && data['product'] is Map) {
+        final nested = _extractList(data['product']);
+        if (nested.isNotEmpty) return nested;
+      }
+    }
+    return const [];
   }
 
   Future<void> addReview({
@@ -34,7 +52,11 @@ class ProductDetailsRemoteDataSource {
   }) async {
     await _dio.post(
       ApiConstatnt.productReviewsEndPoint(productId),
-      data: {'rating': rating, 'comment': comment},
+      data: {
+        'productId': productId,
+        'rating': rating,
+        'comment': comment,
+      },
     );
   }
 }

@@ -1,3 +1,4 @@
+// feature/product_details/data/models/review_model.dart
 class ReviewModel {
   const ReviewModel({
     required this.name,
@@ -9,32 +10,27 @@ class ReviewModel {
 
   final String name;
   final String initials;
-  final String date;
   final double rating;
   final String comment;
+  final String date;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
+    Map<String, dynamic> userMap = {};
+    if (json['user'] is Map) userMap = Map<String, dynamic>.from(json['user'] as Map);
+    if (json['customer'] is Map) userMap = Map<String, dynamic>.from(json['customer'] as Map);
+    if (json['reviewer'] is Map) userMap = Map<String, dynamic>.from(json['reviewer'] as Map);
+
     final name = _firstString(json, [
-      'userName',
-      'userFullName',
-      'reviewerName',
-      'customerName',
-      'fullName',
-      'name',
+      'userName', 'userFullName', 'reviewerName', 'customerName', 'fullName', 'name',
+    ]) + _firstString(userMap, [
+      'userName', 'fullName', 'name', 'firstName',
     ]);
     final displayName = name.isEmpty ? 'Anonymous' : name;
 
     return ReviewModel(
       name: displayName,
       initials: _initials(displayName),
-      date: _formatDate(
-        _firstString(json, [
-          'createdAtUtc',
-          'createdAt',
-          'createdOn',
-          'date',
-        ]),
-      ),
+      date: _formatDate(_firstString(json, ['createdAtUtc', 'createdAt', 'createdOn', 'date'])),
       rating: double.tryParse('${json['rating'] ?? json['stars'] ?? 0}') ?? 0,
       comment: _firstString(json, ['comment', 'content', 'text', 'body']),
     );
@@ -59,10 +55,7 @@ class ReviewModel {
   static String _formatDate(String raw) {
     final date = DateTime.tryParse(raw)?.toLocal();
     if (date == null) return raw;
-    const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-    ];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return '${months[date.month - 1]} ${date.day}, ${date.year}';
   }
 }

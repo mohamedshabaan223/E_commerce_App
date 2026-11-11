@@ -3,6 +3,13 @@ import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/feature/categories/data/models/category_model.dart';
 import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
 
+class CategoryProductsPage {
+  CategoryProductsPage({required this.products, required this.hasNextPage});
+
+  final List<ProductModel> products;
+  final bool hasNextPage;
+}
+
 class CategoriesRemoteDataSource {
   final Dio _dio = DioFactory().dio;
 
@@ -21,15 +28,34 @@ class CategoriesRemoteDataSource {
     } else if (data is Map && data['categories'] is List) {
       items.addAll(data['categories']);
     }
-    return items.map((e) => CategoryModel.fromJson(e)).toList();
+    final validItems = items.where((e) {
+      final name = e['name']?.toString().trim().toLowerCase();
+      final image = e['coverPictureUrl']?.toString().trim().toLowerCase();
+
+      return name != null &&
+          name.isNotEmpty &&
+          name != 'string' &&
+          name != 'istring' &&
+          image != 'string';
+    }).toList();
+
+    return validItems.map((e) => CategoryModel.fromJson(e)).toList();
   }
 
-  Future<List<ProductModel>> getProductsByCategory(String category) async {
+  Future<CategoryProductsPage> getProductsByCategory(
+    String category, {
+    int page = 1,
+  }) async {
     final res = await _dio.get(
       'products',
-      queryParameters: {'category': category, 'page': 1, 'pageSize': 20},
+      queryParameters: {'category': category, 'page': page, 'pageSize': 20},
     );
+
     final items = res.data['items'] as List;
-    return items.map((e) => ProductModel.fromJson(e)).toList();
+
+    return CategoryProductsPage(
+      products: items.map((e) => ProductModel.fromJson(e)).toList(),
+      hasNextPage: res.data['hasNextPage'] == true,
+    );
   }
 }

@@ -10,10 +10,15 @@ abstract class ApiConstatnt {
   static const String signUpEndPoint = 'auth/register';
   static const String getCartEndPoint = 'cart';
   static const String addToCartEndPoint = 'cart/items';
+  static const String decrementCartItemEndPoint = 'cart/items/decrement';
 
-  // Reviews: GET + POST -> products/{productId}/reviews
+  static String deleteCartItemEndPoint(String itemId) => 'cart/items/$itemId';
+
+  static const String applyCouponEndPoint = 'cart/apply-coupon';
+
+  // Reviews: GET + POST -> reviews/{productId}
   static String productReviewsEndPoint(String productId) =>
-      'products/$productId/reviews';
+      'reviews/$productId';
 
   static const String registerResponseMessage =
       'Registeration Successfull, an otp is sent to your email inbox please use it to verify your email.';

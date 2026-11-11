@@ -14,9 +14,9 @@ class CartItem {
     required String name,
     required double price,
     required int quantity,
-    required String productId
+    required String productId,
+    required String itemId,
   }) {
-
     return Container(
       constraints: const BoxConstraints(minHeight: 140),
       padding: const EdgeInsets.all(16),
@@ -31,10 +31,10 @@ class CartItem {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-                image,
-                width: 98,
-                height: 98,
-                fit: BoxFit.cover
+              image,
+              width: 98,
+              height: 98,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(width: 16),
@@ -59,7 +59,16 @@ class CartItem {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final cubit = context.read<AddToCartCubit>();
+
+                        await cubit.deleteCartItem(itemId: itemId);
+
+                        if (cubit.state is DeleteCartItemSuccessState &&
+                            context.mounted) {
+                          context.read<GetCartCubit>().getCart();
+                        }
+                      },
                       icon: Icon(
                         Icons.delete,
                         color: context.appColors.passwordColor,
@@ -97,20 +106,20 @@ class CartItem {
 
                   child: BlocListener<AddToCartCubit, CartState>(
                     listener: (context, state) {
-                      if (state is AddToCartSuccessState) {
+                      if (state is AddToCartSuccessState ||
+                          state is DecCartItemSuccessState) {
                         context.read<GetCartCubit>().getCart();
                       }
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-
                         GestureDetector(
                           onTap: () {
                             if (quantity > 1) {
-                              context.read<AddToCartCubit>().addToCart(
-                                productId: productId,
-                                quantity: -1,
+                              context.read<AddToCartCubit>().decrementCartItem(
+                                itemId: itemId,
+                                quantity: 1,
                               );
                             }
                           },

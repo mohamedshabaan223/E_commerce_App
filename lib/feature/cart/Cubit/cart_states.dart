@@ -35,3 +35,24 @@ class DecCartItemFailureState extends CartState {
 
   DecCartItemFailureState(this.errorMessage);
 }
+
+class DeleteCartItemLoadingState extends CartState {}
+
+class DeleteCartItemSuccessState extends CartState {}
+
+class DeleteCartItemFailureState extends CartState {
+  final String errorMessage;
+  DeleteCartItemFailureState(this.errorMessage);
+}
+
+class ApplyCouponLoadingState extends CartState {}
+
+class ApplyCouponSuccessState extends CartState {
+  final dynamic couponData;
+  ApplyCouponSuccessState(this.couponData);
+}
+
+class ApplyCouponFailureState extends CartState {
+  final String errorMessage;
+  ApplyCouponFailureState(this.errorMessage);
+}

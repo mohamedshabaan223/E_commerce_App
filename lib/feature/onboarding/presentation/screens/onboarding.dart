@@ -115,7 +115,7 @@ class _OnboardingState extends State<Onboarding> {
                     currentPage++;
                   });
                 } else {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>

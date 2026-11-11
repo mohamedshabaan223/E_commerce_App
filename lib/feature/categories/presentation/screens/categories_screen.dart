@@ -42,11 +42,24 @@ class CategoriesScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is CategoriesFailure) {
               return Center(
-                child: Text(
-                  state.message,
-                  style: AppStyle.text14Regular.copyWith(
-                    color: context.appColors.textSecondary,
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.message,
+                      style: AppStyle.text14Regular.copyWith(
+                        color: context.appColors.textSecondary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 12.h),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<CategoriesCubit>().load();
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
                 ),
               );
             }
@@ -54,6 +67,16 @@ class CategoriesScreen extends StatelessWidget {
               return Center(
                 child: CircularProgressIndicator(
                   color: context.appColors.primaryColor,
+                ),
+              );
+            }
+            if (state.categories.isEmpty) {
+              return Center(
+                child: Text(
+                  'No categories available',
+                  style: AppStyle.text14Regular.copyWith(
+                    color: context.appColors.textSecondary,
+                  ),
                 ),
               );
             }

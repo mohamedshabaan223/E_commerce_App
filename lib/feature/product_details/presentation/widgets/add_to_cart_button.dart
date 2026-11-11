@@ -1,7 +1,9 @@
+// feature/product_details/presentation/widgets/add_to_cart_button.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/cart_states.dart';
+import 'package:ecommerce_app/feature/cart/Cubit/get_cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +30,7 @@ class AddToCartButton extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
           );
+          context.read<GetCartCubit>().getCart();
         } else if (state is AddToCartFailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

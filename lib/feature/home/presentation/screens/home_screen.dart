@@ -55,10 +55,26 @@ class HomeScreen extends StatelessWidget {
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
                     if (state is HomeSuccess) {
+                      if (state.offersError != null) {
+                        return Text(
+                          state.offersError!,
+                          style: AppStyle.text12Regular.copyWith(
+                            color: context.appColors.textSecondary,
+                          ),
+                        );
+                      }
+
                       if (state.offers.isEmpty) return const SizedBox.shrink();
                       return PromoBannerCarousel(offers: state.offers);
                     }
-                    if (state is HomeFailure) return const SizedBox.shrink();
+                    if (state is HomeFailure) {
+                      return Text(
+                        state.message,
+                        style: AppStyle.text12Regular.copyWith(
+                          color: context.appColors.textSecondary,
+                        ),
+                      );
+                    }
                     return SizedBox(
                       height: 200.h,
                       child: Center(
@@ -81,6 +97,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 12.h),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
+                    if (state is HomeFailure) return const SizedBox.shrink();
                     if (state is! HomeSuccess) {
                       return SizedBox(
                         height: 100.h,
@@ -91,6 +108,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       );
                     }
+
                     if (state.categoriesError != null) {
                       return Text(
                         state.categoriesError!,
@@ -131,6 +149,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 12.h),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
+                    if (state is HomeFailure) return const SizedBox.shrink();
                     if (state is! HomeSuccess) {
                       return SizedBox(
                         height: 120.h,

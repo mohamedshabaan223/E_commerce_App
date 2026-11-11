@@ -1,3 +1,4 @@
+// feature/product_details/presentation/widgets/review_tile.dart
 import 'package:ecommerce_app/core/shared_widgets/rating_stars.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
