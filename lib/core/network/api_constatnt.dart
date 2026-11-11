@@ -6,6 +6,7 @@ abstract class ApiConstatnt {
   static const String signInEndPoint = 'auth/login';
   static const String changePasswordEndPoint = 'auth/change-password';
   static const String googleMobileEndPoint = 'auth/google/mobile';
+  static const String logOutEndPoint = 'auth/logout';
   static const String signUpEndPoint = 'auth/register';
   static const String getCartEndPoint = 'cart';
   static const String addToCartEndPoint = 'cart/items';
