@@ -16,12 +16,15 @@ class ReviewModel {
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> userMap = {};
-    if (json['user'] is Map)
+    if (json['user'] is Map) {
       userMap = Map<String, dynamic>.from(json['user'] as Map);
-    if (json['customer'] is Map)
+    }
+    if (json['customer'] is Map) {
       userMap = Map<String, dynamic>.from(json['customer'] as Map);
-    if (json['reviewer'] is Map)
+    }
+    if (json['reviewer'] is Map) {
       userMap = Map<String, dynamic>.from(json['reviewer'] as Map);
+    }
 
     final name =
         _firstString(json, [

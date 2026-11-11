@@ -2,8 +2,10 @@ import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/routing/route_genrator.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
+import 'package:ecommerce_app/generated/l10n/app_localizations.dart';
 import 'package:ecommerce_app/core/theme/theme_cubit.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/core/language/lang_cubit.dart';
 import 'package:ecommerce_app/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
 import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
@@ -67,10 +69,14 @@ void main() {
 
   testWidgets('Profile switch changes the app theme', (tester) async {
     final cubit = await ThemeCubit.load(storage: _ThemeStorage());
+    final languageCubit = await LanguageCubit.load(storage: _ThemeStorage());
 
     await tester.pumpWidget(
-      BlocProvider.value(
-        value: cubit,
+      MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: cubit),
+          BlocProvider.value(value: languageCubit),
+        ],
         child: ScreenUtilInit(
           designSize: const Size(380, 690),
           child: BlocBuilder<ThemeCubit, ThemeMode>(
@@ -78,6 +84,8 @@ void main() {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: themeMode,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
               home: const ProfileScreen(),
             ),
           ),
