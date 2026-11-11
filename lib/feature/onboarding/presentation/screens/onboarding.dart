@@ -17,7 +17,7 @@ class Onboarding extends StatefulWidget {
 class _OnboardingState extends State<Onboarding> {
   final List<OnboardingItem> pages = const [
     OnboardingItem(
-      image: 'assets/images/onboarding.png',
+      image: 'assets/images/earrings.png',
       title: 'Discover',
       description: 'Watches, rings, wallets and more',
     ),
@@ -27,7 +27,7 @@ class _OnboardingState extends State<Onboarding> {
       description: 'Grab daily deals and discounts',
     ),
     OnboardingItem(
-      image: 'assets/images/onboarding3.png',
+      image: 'assets/images/accessories.png',
       title: 'Fast Delivery',
       description: 'Order easily and track your orders',
     ),
