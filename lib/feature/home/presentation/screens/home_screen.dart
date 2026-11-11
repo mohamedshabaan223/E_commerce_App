@@ -11,6 +11,7 @@ import 'package:ecommerce_app/feature/home/presentation/widgets/home_app_bar.dar
 import 'package:ecommerce_app/feature/home/presentation/widgets/hot_deals.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/promo_banner.dart';
 import 'package:ecommerce_app/feature/search/presentation/screens/search_screen.dart';
+import 'package:ecommerce_app/feature/profile/presentation/screens/notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,7 +38,11 @@ class HomeScreen extends StatelessWidget {
         },
         child: Scaffold(
           backgroundColor: context.appColors.backgroundColor,
-          appBar: const HomeAppBar(),
+          appBar: HomeAppBar(
+            onNotificationTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const NotificationsScreen()),
+            ),
+          ),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Column(

@@ -1,5 +1,3 @@
-// feature/profile/presentation/screens/screens/profile_screen.dart
-
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/core/theme/theme_cubit.dart';
@@ -7,7 +5,10 @@ import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.d
 import 'package:ecommerce_app/feature/adresses/presentation/screens/addresses_list_screen.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/logout.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
+import 'package:ecommerce_app/feature/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dart';
+import 'package:ecommerce_app/feature/profile/presentation/cubits/profile_cubit.dart';
+import 'package:ecommerce_app/feature/profile/presentation/cubits/profile_state.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/lustre_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';
@@ -102,19 +103,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           children: [
             SizedBox(height: 8.h),
-            _buildAvatar(context),
-            SizedBox(height: 16.h),
-            Text(
-              'Alexander Kane',
-              style: AppStyle.text24Semibold.copyWith(
-                color: context.appColors.darkTextPrimary,
-              ),
-            ),
-            SizedBox(height: 4.h),
-            Text(
-              'alexander.kane@example.com',
-              style: AppStyle.text14Regular.copyWith(
-                color: context.appColors.darkTextSecondary,
+            BlocProvider(
+              create: (_) =>
+                  ProfileCubit(ProfileRemoteDataSource())..loadProfile(),
+              child: BlocConsumer<ProfileCubit, ProfileState>(
+                listener: (context, state) {
+                  if (state is ProfileFailure) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(state.message)));
+                  }
+                },
+                builder: (context, state) {
+                  final user = state is ProfileSuccess ? state.user : null;
+                  return Column(
+                    children: [
+                      _buildAvatar(context, user?.initials ?? ''),
+                      SizedBox(height: 16.h),
+                      Text(
+                        user?.fullName ?? '',
+                        style: AppStyle.text24Semibold.copyWith(
+                          color: context.appColors.darkTextPrimary,
+                        ),
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        user?.email ?? '',
+                        style: AppStyle.text14Regular.copyWith(
+                          color: context.appColors.darkTextSecondary,
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
             SizedBox(height: 24.h),
@@ -130,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildAvatar(BuildContext context) {
+  Widget _buildAvatar(BuildContext context, String initials) {
     return Container(
       width: 80.w,
       height: 80.h,
@@ -140,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Text(
-        'AK',
+        initials,
         style: AppStyle.text20Semibold.copyWith(
           color: context.appColors.darkOnGold,
         ),
