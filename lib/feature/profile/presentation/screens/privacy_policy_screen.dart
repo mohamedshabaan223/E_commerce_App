@@ -1,7 +1,7 @@
 // feature/profile/presentation/screens/screens/privacy_policy_screen.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/lustre_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +12,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.appColors.darkBackground,
-      appBar: const LuxeAppBar(title: 'Privacy Policy'),
+      appBar: const LUSTREAppBar(title: 'Privacy Policy'),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
         children: [
@@ -38,7 +38,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 'If you have any questions or inquiries regarding your '
                 'privacy, our support team is always available to assist. '
                 'Please write to us directly at ',
-            link: 'support@luxe-store.com',
+            link: 'support@LUSTRE-store.com',
             trailing: '.',
           ),
           SizedBox(height: 8.h),

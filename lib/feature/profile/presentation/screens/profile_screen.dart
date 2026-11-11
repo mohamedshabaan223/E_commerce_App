@@ -9,7 +9,7 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/lustre_app_bar.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.appColors.darkBackground,
-      appBar: const LuxeAppBar(title: 'Profile'),
+      appBar: const LUSTREAppBar(title: 'Profile'),
 
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),

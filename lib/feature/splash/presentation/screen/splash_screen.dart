@@ -49,11 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ],
               ),
-              child: Image.asset("assets/images/luxe_logo.png"),
+              child: Image.asset("assets/images/lustre_logo.png"),
             ),
             SizedBox(height: 20),
             Text(
-              "LUXE",
+              "LUSTRE",
               style: AppStyle.text25Semibold.copyWith(letterSpacing: 6),
             ),
             SizedBox(height: 10),

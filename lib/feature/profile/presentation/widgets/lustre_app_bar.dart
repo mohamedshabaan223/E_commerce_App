@@ -1,12 +1,12 @@
-// feature/profile/presentation/widgets/widgets/luxe_app_bar.dart
+// feature/profile/presentation/widgets/widgets/LUSTRE_app_bar.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LuxeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class LUSTREAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const LuxeAppBar({super.key, required this.title});
+  const LUSTREAppBar({super.key, required this.title});
 
   @override
   Size get preferredSize => Size.fromHeight(60.h);

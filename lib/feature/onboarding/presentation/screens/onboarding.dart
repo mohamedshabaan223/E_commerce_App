@@ -39,7 +39,7 @@ class _OnboardingState extends State<Onboarding> {
         title: Row(
           children: [
             Text(
-              ". LUXE",
+              ". LUSTRE",
               style: AppStyle.text18Semibold.copyWith(
                 letterSpacing: 2,
                 color: context.appColors.primaryColor,

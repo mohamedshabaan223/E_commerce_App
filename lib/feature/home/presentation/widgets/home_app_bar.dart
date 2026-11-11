@@ -23,14 +23,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.r),
           child: Image.asset(
-            'assets/images/luxe_logo.png',
+            'assets/images/lustre_logo.png',
             fit: BoxFit.contain,
           ),
         ),
       ),
       titleSpacing: 12.w,
       title: Text(
-        "LUXE ",
+        "LUSTRE",
         style: AppStyle.text18Semibold.copyWith(
           color: context.appColors.primaryColor,
           letterSpacing: 2,

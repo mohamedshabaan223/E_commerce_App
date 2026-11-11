@@ -2,7 +2,7 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/info_card.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/lustre_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,14 +23,14 @@ class ContactUsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: context.appColors.darkBackground,
-      appBar: const LuxeAppBar(title: 'Contact Us'),
+      appBar: const LUSTREAppBar(title: 'Contact Us'),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 20.h),
         children: [
           InfoCard(
             icon: Icons.mail_outline_rounded,
             label: 'EMAIL',
-            content: Text('support@luxe-store.com', style: valueStyle),
+            content: Text('support@LUSTRE-store.com', style: valueStyle),
           ),
           InfoCard(
             icon: Icons.phone_outlined,

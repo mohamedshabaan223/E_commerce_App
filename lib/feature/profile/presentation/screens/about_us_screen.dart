@@ -1,7 +1,7 @@
 // feature/profile/presentation/screens/screens/about_us_screen.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/feature/profile/presentation/widgets/luxe_app_bar.dart';
+import 'package:ecommerce_app/feature/profile/presentation/widgets/lustre_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +12,7 @@ class AboutUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.appColors.darkBackground,
-      appBar: const LuxeAppBar(title: 'About Us'),
+      appBar: const LUSTREAppBar(title: 'About Us'),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 32.w),
@@ -43,7 +43,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
               SizedBox(height: 24.h),
               Text(
-                'L U X E',
+                'L U S T R E',
                 style: AppStyle.text18Semibold.copyWith(
                   color: context.appColors.darkTextPrimary,
                   fontWeight: FontWeight.w700,
@@ -58,7 +58,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
               SizedBox(height: 24.h),
               Text(
-                'LUXE is an accessories store offering watches, rings, '
+                'LUSTRE is an accessories store offering watches, rings, '
                 'wallets and more. We bring you quality products at fair '
                 'prices with fast delivery.',
                 textAlign: TextAlign.center,

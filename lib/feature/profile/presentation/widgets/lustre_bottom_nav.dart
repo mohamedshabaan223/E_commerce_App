@@ -1,15 +1,15 @@
-// feature/profile/presentation/widgets/widgets/luxe_bottom_nav.dart
+// feature/profile/presentation/widgets/widgets/LUSTRE_bottom_nav.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LuxeBottomNav extends StatelessWidget {
+class LUSTREBottomNav extends StatelessWidget {
   final int currentIndex;
   final int cartCount;
   final ValueChanged<int> onTap;
 
-  const LuxeBottomNav({
+  const LUSTREBottomNav({
     super.key,
     required this.currentIndex,
     required this.onTap,
