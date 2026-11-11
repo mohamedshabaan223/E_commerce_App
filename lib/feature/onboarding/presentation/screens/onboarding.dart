@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -45,7 +45,7 @@ class ValidatorApp {
     return null;
   }
 
-  static String? ConfirmPassword(String? value, String password) {
+  static String? confirmPassword(String? value, String password) {
     if (value == null || value.isEmpty) {
       return 'Please confirm your password';
     }
