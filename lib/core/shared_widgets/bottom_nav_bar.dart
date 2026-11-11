@@ -26,7 +26,7 @@ class BottomNavBar extends StatelessWidget {
     _NavItemData(
       label: 'Cart',
       iconAsset: 'assets/icons/cart.svg',
-      hasBadge: false,
+      hasBadge: true,
     ),
     _NavItemData(label: 'Profile', iconAsset: 'assets/icons/nav_profile.svg'),
   ];
@@ -111,15 +111,6 @@ class BottomNavBar extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                // child: Text(
-                                //   '2',
-                                //   style: TextStyle(
-                                //     color: context.appColors.cartBadgeBg,
-                                //     fontSize: 10.sp,
-                                //     fontWeight: FontWeight.w700,
-                                //     height: 1,
-                                //   ),
-                                // ),
                               ),
                             ),
                         ],
