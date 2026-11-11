@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
 
 class Onboarding extends StatefulWidget {
-  const Onboarding({super.key});
+  const Onboarding({super.key, this.storage});
+
+  final SecureStorageCacheing? storage;
 
   @override
   State<Onboarding> createState() => _OnboardingState();
@@ -29,6 +32,21 @@ class _OnboardingState extends State<Onboarding> {
   ];
   int currentPage = 0;
   final controller = PageController(initialPage: 0);
+
+  void _completeOnboarding() {
+    (widget.storage ?? SecureStorageCacheing()).saveOnboardingCompleted();
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            BlocProvider(
+              create: (context) => AuthCubit(),
+              child: Login(),
+            ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +66,7 @@ class _OnboardingState extends State<Onboarding> {
             Spacer(),
             currentPage < images.length - 1
                 ? TextButton(
-                    onPressed: () {},
+                    onPressed: _completeOnboarding,
                     child: Text(
                       "skip",
                       style: AppStyle.text14Medium.copyWith(
@@ -115,16 +133,7 @@ class _OnboardingState extends State<Onboarding> {
                     currentPage++;
                   });
                 } else {
-                  Navigator.pushReplacement(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          BlocProvider(
-                            create: (context) => AuthCubit(),
-                            child: Login(),
-                          ),
-                    ),
-                  );
+                  _completeOnboarding();
                 }
               },
             ),

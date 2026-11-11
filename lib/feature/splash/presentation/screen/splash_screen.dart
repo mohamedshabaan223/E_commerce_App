@@ -5,7 +5,9 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({super.key, this.storage});
+
+  final SecureStorageCacheing? storage;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -16,11 +18,22 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () async {
-      final token = await SecureStorageCacheing().getAccessToken();
+      final storage = widget.storage ?? SecureStorageCacheing();
+      final token = await storage.getAccessToken();
+      if (!mounted) return;
+      if (token != null) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          ConstantRoute.mainScreen,
+          (route) => false,
+        );
+        return;
+      }
+      final onboardingCompleted = await storage.getOnboardingCompleted();
       if (!mounted) return;
       Navigator.pushNamedAndRemoveUntil(
         context,
-        token == null ? ConstantRoute.onboarding : ConstantRoute.mainScreen,
+        onboardingCompleted ? ConstantRoute.login : ConstantRoute.onboarding,
         (route) => false,
       );
     });
