@@ -1,145 +1,202 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
-import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/utils/colors_manger.dart';
 import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
 
 class Onboarding extends StatefulWidget {
-  const Onboarding({super.key, this.storage});
+  const Onboarding({super.key});
 
-  final SecureStorageCacheing? storage;
 
   @override
   State<Onboarding> createState() => _OnboardingState();
 }
 
 class _OnboardingState extends State<Onboarding> {
-  final images = [
-    "assets/images/category_watches.png",
-    "assets/images/promo_banner.png",
-    "assets/images/category_rings.png",
+  final List<OnboardingItem> pages = const [
+    OnboardingItem(
+      image: 'assets/images/earrings.png',
+      title: 'Discover',
+      description: 'Watches, rings, wallets and more',
+    ),
+    OnboardingItem(
+      image: 'assets/images/chronograph_watch (1).png',
+      title: 'Exclusive Offers',
+      description: 'Grab daily deals and discounts',
+    ),
+    OnboardingItem(
+      image: 'assets/images/accessories.png',
+      title: 'Fast Delivery',
+      description: 'Order easily and track your orders',
+    ),
   ];
-  final text = ["Discover", "Exclusive Offers", "Fast Delivery"];
-  final text2 = [
-    "Watches, rings, wallets and more",
-    "Grab daily deals and discounts",
-    "Order easily and track your orders",
-  ];
+  late final PageController pageController;
   int currentPage = 0;
-  final controller = PageController(initialPage: 0);
 
-  void _completeOnboarding() {
-    (widget.storage ?? SecureStorageCacheing()).saveOnboardingCompleted();
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  void nextPage() {
+    if (currentPage < pages.length - 1) {
+      pageController.nextPage(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.decelerate,
+      );
+    } else {
+      goToLogin();
+    }
+  }
+
+  void skipOnboarding() {
+    pageController.animateToPage(
+      pages.length - 1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.decelerate,
+    );
+  }
+
+  void goToLogin() {
     Navigator.pushReplacement(
       context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            BlocProvider(
-              create: (context) => AuthCubit(),
-              child: Login(),
-            ),
+      MaterialPageRoute(
+        builder: (context) =>
+            BlocProvider(create: (context) => AuthCubit(), child: Login()),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final appColors = context.appColors;
+
     return Scaffold(
-      backgroundColor: context.appColors.backgroundColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: context.appColors.backgroundColor,
-        title: Row(
-          children: [
-            Text(
-              ". LUSTRE",
-              style: AppStyle.text18Semibold.copyWith(
-                letterSpacing: 2,
-                color: context.appColors.primaryColor,
-              ),
-            ),
-            Spacer(),
-            currentPage < images.length - 1
-                ? TextButton(
-                    onPressed: _completeOnboarding,
-                    child: Text(
-                      "skip",
-                      style: AppStyle.text14Medium.copyWith(
-                        color: context.appColors.primaryColor,
-                      ),
-                    ),
-                  )
-                : SizedBox(),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
-        child: Column(
-          mainAxisAlignment: .spaceAround,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: 250.h,
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadiusGeometry.circular(12),
-                child: Image.asset(images[currentPage], fit: BoxFit.cover),
-              ),
-            ),
-            // SizedBox(height: 100),
-            Column(
-              children: [
-                Text(text[currentPage], style: AppStyle.text22Medium),
-                SizedBox(height: 10),
-                Text(
-                  text2[currentPage],
-                  style: AppStyle.text14Regular.copyWith(
-                    color: context.appColors.primaryColor,
+
+      backgroundColor: appColors.backgroundColor,
+
+      body: PageView.builder(
+        controller: pageController,
+        itemCount: pages.length,
+        onPageChanged: (index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+
+        itemBuilder: (context, index) {
+          final page = pages[index];
+
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(page.image, fit: BoxFit.cover),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withValues(alpha: 0.45),
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.85),
+                    ],
+                    stops: const [0.0, 0.35, 1.0],
                   ),
                 ),
-              ],
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(3, (index) {
-                bool isActive = currentPage == index;
-                return AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
-                  margin: EdgeInsets.symmetric(horizontal: 4),
-                  height: 6,
-                  width: isActive ? 24 : 6,
-                  decoration: BoxDecoration(
-                    color: context.appColors.primaryColor,
-                    borderRadius: BorderRadius.circular(3),
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 20,
                   ),
-                );
-              }),
-            ),
-            SizedBox(height: 20),
-            CustomFilledButton(
-              text: currentPage < images.length - 1 ? "NEXT" : "GET STARTED",
-              onPressed: () {
-                if (currentPage < images.length - 1) {
-                  setState(() {
-                    currentPage++;
-                  });
-                } else {
-                  _completeOnboarding();
-                }
-              },
-            ),
-          ],
-        ),
+
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            '. LUSTRE',
+                            style: AppStyle.text18Semibold.copyWith(
+                              letterSpacing: 2,
+                              color: appColors.primaryColor,
+                            ),
+                          ),
+
+                          Spacer(),
+
+                          if (currentPage != pages.length - 1)
+                            TextButton(
+                              onPressed: skipOnboarding,
+                              child: Text(
+                                'Skip',
+                                style: AppStyle.text14Medium.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+
+                      Spacer(),
+                      Text(
+                        page.title,
+                        style: AppStyle.text22Medium.copyWith(
+                          color: Colors.white,
+                          fontSize: 28,
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        page.description,
+                        style: AppStyle.text14Regular.copyWith(
+                          color: Colors.white70,
+                        ),
+                      ),
+
+                      SizedBox(height: 40),
+                      SizedBox(
+                        width: double.infinity,
+                        child: CustomFilledButton(
+                          text: currentPage == pages.length - 1
+                              ? 'GET STARTED'
+                              : 'NEXT',
+                          onPressed: nextPage,
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
+}
+
+class OnboardingItem {
+  final String image;
+  final String title;
+  final String description;
+
+  const OnboardingItem({
+    required this.image,
+    required this.title,
+    required this.description,
+  });
 }
