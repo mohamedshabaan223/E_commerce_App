@@ -469,4 +469,62 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get categoryJewelrySets => 'أطقم المجوهرات';
+
+  @override
+  String get categoryCharmsDescription =>
+      'دلايات جميلة تضيف لمسة مميزة لإطلالتك.';
+
+  @override
+  String get categoryAnkletsDescription => 'خلاخيل أنيقة لإطلالة يومية مميزة.';
+
+  @override
+  String get categoryPendantsDescription =>
+      'اكتشفي قلادات متدلية جميلة تناسب جميع المناسبات.';
+
+  @override
+  String get categoryEarringsDescription => 'أقراط متنوعة تكمل جمال إطلالتك.';
+
+  @override
+  String get categoryClothesDescription =>
+      'اكتشفي قطع ملابس عصرية تناسب جميع الأذواق.';
+
+  @override
+  String get categoryBagsDescription =>
+      'حقائب أنيقة للاستخدام اليومي والمناسبات الخاصة.';
+
+  @override
+  String get categoryJewelryDescription =>
+      'اكتشفي مجوهرات أنيقة تعبر عن أسلوبك.';
+
+  @override
+  String get categoryNecklacesDescription =>
+      'قلادات أنيقة تضيف لمسة من الرقي لإطلالتك.';
+
+  @override
+  String get categoryBraceletsDescription => 'أساور جميلة تكمل أناقة إطلالتك.';
+
+  @override
+  String get categoryRingsDescription => 'خواتم أنيقة تناسب جميع المناسبات.';
+
+  @override
+  String get categoryGlassesDescription => 'نظارات عصرية لإطلالة مميزة.';
+
+  @override
+  String get categorySneakersDescription => 'أحذية رياضية مريحة وعصرية.';
+
+  @override
+  String get categoryWatchesDescription =>
+      'ساعات أنيقة تجمع بين الجمال والعملية.';
+
+  @override
+  String get categoryBroochesDescription =>
+      'دبابيس زينة مميزة تضيف لمسة خاصة لملابسك.';
+
+  @override
+  String get categoryBanglesDescription =>
+      'أساور صلبة أنيقة تناسب جميع المناسبات.';
+
+  @override
+  String get categoryJewelrySetsDescription =>
+      'أطقم مجوهرات أنيقة لإطلالة متكاملة.';
 }

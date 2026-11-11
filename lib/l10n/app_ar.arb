@@ -153,5 +153,21 @@
         "categoryWatches": "الساعات",
         "categoryBrooches": "دبابيس الزينة",
         "categoryBangles": "الأساور الصلبة",
-        "categoryJewelrySets": "أطقم المجوهرات"
+        "categoryJewelrySets": "أطقم المجوهرات",
+        "categoryCharmsDescription": "دلايات جميلة تضيف لمسة مميزة لإطلالتك.",
+        "categoryAnkletsDescription": "خلاخيل أنيقة لإطلالة يومية مميزة.",
+        "categoryPendantsDescription": "اكتشفي قلادات متدلية جميلة تناسب جميع المناسبات.",
+        "categoryEarringsDescription": "أقراط متنوعة تكمل جمال إطلالتك.",
+        "categoryClothesDescription": "اكتشفي قطع ملابس عصرية تناسب جميع الأذواق.",
+        "categoryBagsDescription": "حقائب أنيقة للاستخدام اليومي والمناسبات الخاصة.",
+        "categoryJewelryDescription": "اكتشفي مجوهرات أنيقة تعبر عن أسلوبك.",
+        "categoryNecklacesDescription": "قلادات أنيقة تضيف لمسة من الرقي لإطلالتك.",
+        "categoryBraceletsDescription": "أساور جميلة تكمل أناقة إطلالتك.",
+        "categoryRingsDescription": "خواتم أنيقة تناسب جميع المناسبات.",
+        "categoryGlassesDescription": "نظارات عصرية لإطلالة مميزة.",
+        "categorySneakersDescription": "أحذية رياضية مريحة وعصرية.",
+        "categoryWatchesDescription": "ساعات أنيقة تجمع بين الجمال والعملية.",
+        "categoryBroochesDescription": "دبابيس زينة مميزة تضيف لمسة خاصة لملابسك.",
+        "categoryBanglesDescription": "أساور صلبة أنيقة تناسب جميع المناسبات.",
+        "categoryJewelrySetsDescription": "أطقم مجوهرات أنيقة لإطلالة متكاملة."
 }
