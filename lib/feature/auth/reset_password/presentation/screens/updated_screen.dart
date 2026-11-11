@@ -12,7 +12,7 @@ class Updated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -23,9 +23,11 @@ class Updated extends StatelessWidget {
                 width: 70.h,
                 height: 70.h,
                 decoration: BoxDecoration(
-                  color: Color(0xff1D1C20),
+                  color: context.appColors.surface,
                   border: Border.all(
-                    color: Color(0xff242226).withValues(alpha: .40),
+                    color: context.appColors.backgroundColor.withValues(
+                      alpha: .40,
+                    ),
                     strokeAlign: 1,
                   ),
                   boxShadow: [
@@ -48,20 +50,20 @@ class Updated extends StatelessWidget {
                   Text(
                     "Password updated",
                     style: AppStyle.text24Semibold.copyWith(
-                      color: ColorsManger.white,
+                      color: context.appColors.white,
                     ),
                   ),
                   SizedBox(height: 5.h),
                   Text(
                     "Your password has been changed",
                     style: AppStyle.text14Regular.copyWith(
-                      color: ColorsManger.passwordColor,
+                      color: context.appColors.passwordColor,
                     ),
                   ),
                   Text(
                     "successfully.",
                     style: AppStyle.text14Regular.copyWith(
-                      color: ColorsManger.passwordColor,
+                      color: context.appColors.passwordColor,
                     ),
                   ),
                   SizedBox(height: 45.h),

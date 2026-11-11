@@ -69,7 +69,7 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManger.backgroundColor,
+      backgroundColor: context.appColors.backgroundColor,
       body: BlocConsumer<OtpCubit, OtpState>(
         listener: (context, state) {
           if (state is OtpSuccess) {
@@ -129,11 +129,9 @@ class _VerificationState extends State<Verification> {
                             defaultPinTheme: PinTheme(
                               width: 55.w,
                               height: 55.h,
-                              textStyle: AppStyle.text22Semibold.copyWith(
-                                color: ColorsManger.white,
-                              ),
+                              textStyle: AppStyle.text22Semibold.copyWith(),
                               decoration: BoxDecoration(
-                                color: Color(0xff1D1C20),
+                                color: context.appColors.surface,
                                 borderRadius: BorderRadius.circular(12.r),
                               ),
                             ),
