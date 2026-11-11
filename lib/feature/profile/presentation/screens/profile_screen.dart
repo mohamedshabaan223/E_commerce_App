@@ -1,6 +1,6 @@
+import 'package:ecommerce_app/core/theme/theme_cubit.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
-import 'package:ecommerce_app/core/theme/theme_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
 import 'package:ecommerce_app/feature/adresses/presentation/screens/addresses_list_screen.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/logout.dart';
@@ -153,11 +153,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildAvatar(BuildContext context, String initials) {
     return Container(
       width: 80.w,
-      height: 80.h,
+      height: 80.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: context.appColors.darkGold,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(50.r),
       ),
       child: Text(
         initials,
