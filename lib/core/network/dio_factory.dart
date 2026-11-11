@@ -58,11 +58,6 @@ class DioFactory {
       ),
     );
 
-    connectTimeout:
-    Duration(minutes: 1);
-    receiveTimeout:
-    Duration(minutes: 1);
-
     dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,

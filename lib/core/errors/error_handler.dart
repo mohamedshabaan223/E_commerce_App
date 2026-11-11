@@ -90,10 +90,6 @@ class ErrorHandler implements Exception {
 
   static String? _getLocalizedApiMessage(String message) {
     if (message.startsWith('Invalid PhoneNumber Or Password')) {
-      final match = RegExp(r'Failed attempts:\s*(\d+)').firstMatch(message);
-
-      final attempts = match?.group(1) ?? '';
-
       return "Invalid PhoneNumber Or Password";
     }
 
@@ -107,12 +103,6 @@ class ErrorHandler implements Exception {
     }
 
     if (message.startsWith('Account is locked until')) {
-      final match = RegExp(
-        r'Account is locked until (.+?)\. Use OTP to login\.',
-      ).firstMatch(message);
-
-      final lockedUntil = match?.group(1) ?? '';
-
       return "Account is locked";
     }
 

@@ -113,8 +113,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 if (mykey.currentState!.validate()) {
                                   final password = newPasswordController.text
                                       .trim();
-                                  final confirmPassword =
-                                      confirmPasswordController.text.trim();
 
                                   context
                                       .read<ResetPasswordCubit>()
