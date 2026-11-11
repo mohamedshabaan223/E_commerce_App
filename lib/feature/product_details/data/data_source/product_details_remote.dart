@@ -15,7 +15,6 @@ class ProductDetailsRemoteDataSource {
 
   Future<List<ReviewModel>> getReviews(String productId) async {
     final res = await _dio.get(ApiConstatnt.productReviewsEndPoint(productId));
-    print('REVIEWS RAW: ${res.data}');
     final raw = _extractList(res.data);
     return raw
         .whereType<Map>()

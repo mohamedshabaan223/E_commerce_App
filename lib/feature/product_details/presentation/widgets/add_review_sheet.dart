@@ -128,7 +128,6 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
               onTap: widget.isLoading
                   ? null
                   : () {
-                      print('SUBMIT TAPPED isLoading=${widget.isLoading} stars=$_selectedStars text=${_controller.text}');
                       widget.onSubmit?.call(_selectedStars, _controller.text);
                     },
               borderRadius: BorderRadius.circular(15.r),
