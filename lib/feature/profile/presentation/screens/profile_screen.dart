@@ -9,6 +9,7 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/logout.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dart';
+import 'package:ecommerce_app/feature/profile/data/models/user_model.dart';
 import 'package:ecommerce_app/feature/profile/data/profile_image_storage.dart';
 import 'package:ecommerce_app/feature/profile/presentation/cubits/profile_cubit.dart';
 import 'package:ecommerce_app/feature/profile/presentation/cubits/profile_state.dart';
@@ -37,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   final ProfileImageStorage _imageStorage = ProfileImageStorage();
   String? _localImagePath;
+  String? _currentAccountId;
 
   final List<ProfileItemModel> _orders = const [
     ProfileItemModel(
@@ -102,16 +104,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ];
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _loadLocalImage();
-  }
-
-  Future<void> _loadLocalImage() async {
+  Future<void> _loadImageForUser(UserModel user) async {
+    final String accountId = user.email;
+    if (_currentAccountId == accountId) return;
+    if (!mounted) return;
+    setState(() {
+      _currentAccountId = accountId;
+      _localImagePath = null;
+    });
     try {
-      final String? path = await _imageStorage.loadImagePath();
-      if (!mounted || path == null) return;
+      final String? path = await _imageStorage.loadImagePath(accountId);
+      if (!mounted) return;
       setState(() {
         _localImagePath = path;
       });
@@ -121,13 +124,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _pickLocalImage() async {
+    if (_currentAccountId == null) return;
+    final String accountId = _currentAccountId!;
     try {
       final XFile? picked = await _imagePicker.pickImage(
         source: ImageSource.gallery,
         requestFullMetadata: false,
       );
       if (picked == null) return;
-      final String path = await _imageStorage.saveImage(picked.path);
+      final String path = await _imageStorage.saveImage(picked.path, accountId);
       if (!mounted) return;
       setState(() {
         _localImagePath = path;
@@ -159,6 +164,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   if (state is ProfileFailure) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(state.message)));
+                  } else if (state is ProfileSuccess) {
+                    _loadImageForUser(state.user);
                   }
                 },
                 builder: (context, state) {
