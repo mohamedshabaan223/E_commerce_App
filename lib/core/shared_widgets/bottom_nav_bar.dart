@@ -1,7 +1,11 @@
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../feature/cart/Cubit/cart_states.dart';
+import '../../feature/cart/Cubit/get_cart_cubit.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
@@ -94,15 +98,28 @@ class BottomNavBar extends StatelessWidget {
                                   shape: BoxShape.circle,
                                 ),
                                 alignment: Alignment.center,
-                                child: Text(
-                                  '2',
-                                  style: TextStyle(
-                                    color: context.appColors.cartBadgeBg,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1,
-                                  ),
+                                child: BlocBuilder<GetCartCubit, CartState>(
+                                  builder: (context, _) {
+                                    return Text(
+                                      '${context.read<GetCartCubit>().cartCount}',
+                                      style: TextStyle(
+                                        color: context.appColors.cartBadgeBg,
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1,
+                                      ),
+                                    );
+                                  },
                                 ),
+                                // child: Text(
+                                //   '2',
+                                //   style: TextStyle(
+                                //     color: context.appColors.cartBadgeBg,
+                                //     fontSize: 10.sp,
+                                //     fontWeight: FontWeight.w700,
+                                //     height: 1,
+                                //   ),
+                                // ),
                               ),
                             ),
                         ],

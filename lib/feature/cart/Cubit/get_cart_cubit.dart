@@ -10,6 +10,17 @@ class GetCartCubit extends Cubit<CartState> {
   GetCartCubit(this.dataSource) : super(CartInitialState());
 
   dynamic cartItems;
+  int get cartCount {
+    final items = cartItems is Map ? cartItems['cartItems'] : null;
+
+    if (items is! List) return 0;
+
+    return items.fold<int>(0, (total, item) {
+      final quantity = item is Map ? item['quantity'] : null;
+
+      return total + (quantity is num ? quantity.toInt() : 0);
+    });
+  }
 
   Future<void> getCart() async {
     emit(GetCartLoadingState());
@@ -25,5 +36,4 @@ class GetCartCubit extends Cubit<CartState> {
       }
     }
   }
-
 }
