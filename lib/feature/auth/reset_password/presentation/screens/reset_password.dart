@@ -50,7 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
