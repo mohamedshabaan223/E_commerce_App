@@ -42,8 +42,7 @@ class MyApp extends StatelessWidget {
             themeMode: themeMode,
             onGenerateRoute: RouteGenrator.getRoute,
 
-            initialRoute: ConstantRoute.splash,
-
+            initialRoute: ConstantRoute.Login,
           ),
         ),
       ),

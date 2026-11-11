@@ -11,36 +11,35 @@ class CustomTextFormFilled extends StatelessWidget {
   const new({super.key, required this.text, this.controller, this.validator});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Color(0xff1B1B1D)),
-      child: TextFormField(
-        validator: validator,
-        controller: controller,
-        cursorColor: Color(0xffDAC49B),
-        style: AppStyle.text14Semibold,
-        decoration: InputDecoration(
-          hintText: text,
-          errorStyle: TextStyle(color: ColorsManger.darkDanger),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            borderSide: BorderSide(color: ColorsManger.darkDanger),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            borderSide: BorderSide(color: ColorsManger.darkDanger),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            borderSide: BorderSide(color: Color(0xff1B1B1D)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            borderSide: BorderSide(color: Color(0xff1B1B1D)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            borderSide: BorderSide(color: Color(0xff1B1B1D)),
-          ),
+    return TextFormField(
+      validator: validator,
+      controller: controller,
+      cursorColor: Color(0xffDAC49B),
+      style: AppStyle.text14Semibold,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: context.appColors.backgroundColor,
+        hintText: text,
+        errorStyle: TextStyle(color: context.appColors.darkDanger),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: context.appColors.darkDanger),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: context.appColors.darkDanger),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: context.appColors.backgroundColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: context.appColors.backgroundColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: context.appColors.backgroundColor),
         ),
       ),
     );
@@ -73,12 +72,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.text,
-          style: AppStyle.text12Medium.copyWith(
-            color: ColorsManger.textSecondary,
-          ),
-        ),
+        Text(widget.text, style: AppStyle.text12Medium),
         SizedBox(height: 10.h),
         TextFormField(
           autovalidateMode: widget.index == 1
@@ -89,33 +83,33 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
           cursorColor: ColorsManger.primaryColor,
           obscureText: isobsecure,
           style: AppStyle.text14Semibold.copyWith(
-            color: ColorsManger.passwordColor,
+            color: context.appColors.passwordColor,
             letterSpacing: 2,
           ),
           decoration: InputDecoration(
             filled: true,
-            fillColor: ColorsManger.surface,
-            errorStyle: TextStyle(color: ColorsManger.darkDanger),
+            fillColor: context.appColors.surface,
+            errorStyle: TextStyle(color: context.appColors.darkDanger),
 
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: ColorsManger.darkDanger),
+              borderSide: BorderSide(color: context.appColors.darkDanger),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: ColorsManger.darkDanger),
+              borderSide: BorderSide(color: context.appColors.darkDanger),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: Color(0xff1D1C20)),
+              borderSide: BorderSide(color: context.appColors.surface),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: Color(0xff1D1C20)),
+              borderSide: BorderSide(color: context.appColors.surface),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: Color(0xff1D1C20)),
+              borderSide: BorderSide(color: context.appColors.surface),
             ),
             suffixIcon: IconButton(
               onPressed: () {
