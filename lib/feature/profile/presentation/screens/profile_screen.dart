@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecommerce_app/core/theme/theme_cubit.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
@@ -7,6 +9,7 @@ import 'package:ecommerce_app/feature/auth/presentation/screens/logout.dart';
 import 'package:ecommerce_app/feature/order/presentation/screens/order_screen.dart';
 import 'package:ecommerce_app/feature/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:ecommerce_app/feature/profile/data/models/profile_item_model.dart';
+import 'package:ecommerce_app/feature/profile/data/profile_image_storage.dart';
 import 'package:ecommerce_app/feature/profile/presentation/cubits/profile_cubit.dart';
 import 'package:ecommerce_app/feature/profile/presentation/cubits/profile_state.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/icon_box.dart';
@@ -15,6 +18,7 @@ import 'package:ecommerce_app/feature/profile/presentation/widgets/profile_menu_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../auth/reset_password/presentation/screens/change_password.dart';
 import 'about_us_screen.dart';
@@ -30,6 +34,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final ImagePicker _imagePicker = ImagePicker();
+  final ProfileImageStorage _imageStorage = ProfileImageStorage();
+  String? _localImagePath;
+
   final List<ProfileItemModel> _orders = const [
     ProfileItemModel(
       title: 'My Orders',
@@ -92,6 +100,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
         destination: AdminScreens(userEmail: userEmail),
       ),
     ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocalImage();
+  }
+
+  Future<void> _loadLocalImage() async {
+    try {
+      final String? path = await _imageStorage.loadImagePath();
+      if (!mounted || path == null) return;
+      setState(() {
+        _localImagePath = path;
+      });
+    } catch (_) {
+      return;
+    }
+  }
+
+  Future<void> _pickLocalImage() async {
+    try {
+      final XFile? picked = await _imagePicker.pickImage(
+        source: ImageSource.gallery,
+        requestFullMetadata: false,
+      );
+      if (picked == null) return;
+      final String path = await _imageStorage.saveImage(picked.path);
+      if (!mounted) return;
+      setState(() {
+        _localImagePath = path;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not load the image')),
+      );
+    }
   }
 
   @override
@@ -162,20 +208,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildAvatar(BuildContext context, String initials) {
-    return Container(
-      width: 80.w,
-      height: 80.w,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: context.appColors.darkGold,
-        borderRadius: BorderRadius.circular(50.r),
-      ),
-      child: Text(
-        initials,
-        style: AppStyle.text20Semibold.copyWith(
-          color: context.appColors.darkOnGold,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          width: 80.w,
+          height: 80.w,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: context.appColors.darkGold,
+            borderRadius: BorderRadius.circular(50.r),
+          ),
+          child: _localImagePath == null
+              ? Text(
+                  initials,
+                  style: AppStyle.text20Semibold.copyWith(
+                    color: context.appColors.darkOnGold,
+                  ),
+                )
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(50.r),
+                  child: Image.file(
+                    File(_localImagePath!),
+                    width: 80.w,
+                    height: 80.w,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Text(
+                      initials,
+                      style: AppStyle.text20Semibold.copyWith(
+                        color: context.appColors.darkOnGold,
+                      ),
+                    ),
+                  ),
+                ),
         ),
-      ),
+        // Added profile image
+        Positioned(
+          right: 0,
+          bottom: 0,
+          child: GestureDetector(
+            onTap: _pickLocalImage,
+            child: Container(
+              padding: EdgeInsets.all(6.w),
+              decoration: BoxDecoration(
+                color: context.appColors.darkGold,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: context.appColors.darkBackground,
+                  width: 1.5,
+                ),
+              ),
+              child: Icon(
+                Icons.camera_alt_rounded,
+                size: 16.sp,
+                color: context.appColors.darkOnGold,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
