@@ -153,7 +153,23 @@
         "categoryWatches": "Watches",
         "categoryBrooches": "Brooches",
         "categoryBangles": "Bangles",
-        "categoryJewelrySets": "Jewelry Sets"
+        "categoryJewelrySets": "Jewelry Sets",
+        "categoryCharmsDescription": "Beautiful charms to add a special touch to your style.",
+        "categoryAnkletsDescription": "Elegant anklets for a stylish everyday look.",
+        "categoryPendantsDescription": "Discover beautiful pendants for every occasion.",
+        "categoryEarringsDescription": "Explore earrings that complete your look.",
+        "categoryClothesDescription": "Discover fashionable pieces for every style.",
+        "categoryBagsDescription": "Find stylish bags for everyday use and special occasions.",
+        "categoryJewelryDescription": "Explore elegant jewelry to express your style.",
+        "categoryNecklacesDescription": "Discover necklaces that add elegance to your outfit.",
+        "categoryBraceletsDescription": "Beautiful bracelets to complement your style.",
+        "categoryRingsDescription": "Find elegant rings for every occasion.",
+        "categoryGlassesDescription": "Explore stylish glasses for a modern look.",
+        "categorySneakersDescription": "Discover comfortable and trendy sneakers.",
+        "categoryWatchesDescription": "Elegant watches that combine style and functionality.",
+        "categoryBroochesDescription": "Unique brooches to add a special touch to your outfit.",
+        "categoryBanglesDescription": "Discover stylish bangles for every occasion.",
+        "categoryJewelrySetsDescription": "Beautiful jewelry sets for a complete elegant look."
 
 
 }

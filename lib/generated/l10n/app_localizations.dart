@@ -1015,6 +1015,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Jewelry Sets'**
   String get categoryJewelrySets;
+
+  /// No description provided for @categoryCharmsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Beautiful charms to add a special touch to your style.'**
+  String get categoryCharmsDescription;
+
+  /// No description provided for @categoryAnkletsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Elegant anklets for a stylish everyday look.'**
+  String get categoryAnkletsDescription;
+
+  /// No description provided for @categoryPendantsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover beautiful pendants for every occasion.'**
+  String get categoryPendantsDescription;
+
+  /// No description provided for @categoryEarringsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore earrings that complete your look.'**
+  String get categoryEarringsDescription;
+
+  /// No description provided for @categoryClothesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover fashionable pieces for every style.'**
+  String get categoryClothesDescription;
+
+  /// No description provided for @categoryBagsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Find stylish bags for everyday use and special occasions.'**
+  String get categoryBagsDescription;
+
+  /// No description provided for @categoryJewelryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore elegant jewelry to express your style.'**
+  String get categoryJewelryDescription;
+
+  /// No description provided for @categoryNecklacesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover necklaces that add elegance to your outfit.'**
+  String get categoryNecklacesDescription;
+
+  /// No description provided for @categoryBraceletsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Beautiful bracelets to complement your style.'**
+  String get categoryBraceletsDescription;
+
+  /// No description provided for @categoryRingsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Find elegant rings for every occasion.'**
+  String get categoryRingsDescription;
+
+  /// No description provided for @categoryGlassesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore stylish glasses for a modern look.'**
+  String get categoryGlassesDescription;
+
+  /// No description provided for @categorySneakersDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover comfortable and trendy sneakers.'**
+  String get categorySneakersDescription;
+
+  /// No description provided for @categoryWatchesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Elegant watches that combine style and functionality.'**
+  String get categoryWatchesDescription;
+
+  /// No description provided for @categoryBroochesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unique brooches to add a special touch to your outfit.'**
+  String get categoryBroochesDescription;
+
+  /// No description provided for @categoryBanglesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover stylish bangles for every occasion.'**
+  String get categoryBanglesDescription;
+
+  /// No description provided for @categoryJewelrySetsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Beautiful jewelry sets for a complete elegant look.'**
+  String get categoryJewelrySetsDescription;
 }
 
 class _AppLocalizationsDelegate

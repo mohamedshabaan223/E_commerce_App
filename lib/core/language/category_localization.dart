@@ -57,3 +57,44 @@ String localizeCategoryName(BuildContext context, String categoryName) {
       return categoryName;
   }
 }
+
+String localizeCategoryDescription(BuildContext context, String categoryName) {
+  final l10n = AppLocalizations.of(context)!;
+
+  switch (categoryName.trim().toLowerCase()) {
+    case 'charms':
+      return l10n.categoryCharmsDescription;
+    case 'anklets':
+      return l10n.categoryAnkletsDescription;
+    case 'pendants':
+      return l10n.categoryPendantsDescription;
+    case 'earrings':
+      return l10n.categoryEarringsDescription;
+    case 'clothes':
+      return l10n.categoryClothesDescription;
+    case 'bags':
+      return l10n.categoryBagsDescription;
+    case 'jewelry':
+      return l10n.categoryJewelryDescription;
+    case 'necklaces':
+      return l10n.categoryNecklacesDescription;
+    case 'bracelets':
+      return l10n.categoryBraceletsDescription;
+    case 'rings':
+      return l10n.categoryRingsDescription;
+    case 'glasses':
+      return l10n.categoryGlassesDescription;
+    case 'sneakers':
+      return l10n.categorySneakersDescription;
+    case 'watches':
+      return l10n.categoryWatchesDescription;
+    case 'brooches':
+      return l10n.categoryBroochesDescription;
+    case 'bangles':
+      return l10n.categoryBanglesDescription;
+    case 'jewelry-sets':
+      return l10n.categoryJewelrySetsDescription;
+    default:
+      return '';
+  }
+}

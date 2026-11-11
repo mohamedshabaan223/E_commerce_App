@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/language/category_localization.dart';
 import '../../../../generated/l10n/app_localizations.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -92,8 +93,8 @@ class CategoriesScreen extends StatelessWidget {
                 final category = state.categories[i];
                 return CategoryCard(
                   imageUrl: category.coverPictureUrl,
-                  title: category.name,
-                  subtitle: category.description,
+                  title: localizeCategoryName(context, category.name),
+                  subtitle: localizeCategoryDescription(context, category.name),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(

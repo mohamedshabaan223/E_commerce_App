@@ -471,4 +471,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categoryJewelrySets => 'Jewelry Sets';
+
+  @override
+  String get categoryCharmsDescription =>
+      'Beautiful charms to add a special touch to your style.';
+
+  @override
+  String get categoryAnkletsDescription =>
+      'Elegant anklets for a stylish everyday look.';
+
+  @override
+  String get categoryPendantsDescription =>
+      'Discover beautiful pendants for every occasion.';
+
+  @override
+  String get categoryEarringsDescription =>
+      'Explore earrings that complete your look.';
+
+  @override
+  String get categoryClothesDescription =>
+      'Discover fashionable pieces for every style.';
+
+  @override
+  String get categoryBagsDescription =>
+      'Find stylish bags for everyday use and special occasions.';
+
+  @override
+  String get categoryJewelryDescription =>
+      'Explore elegant jewelry to express your style.';
+
+  @override
+  String get categoryNecklacesDescription =>
+      'Discover necklaces that add elegance to your outfit.';
+
+  @override
+  String get categoryBraceletsDescription =>
+      'Beautiful bracelets to complement your style.';
+
+  @override
+  String get categoryRingsDescription =>
+      'Find elegant rings for every occasion.';
+
+  @override
+  String get categoryGlassesDescription =>
+      'Explore stylish glasses for a modern look.';
+
+  @override
+  String get categorySneakersDescription =>
+      'Discover comfortable and trendy sneakers.';
+
+  @override
+  String get categoryWatchesDescription =>
+      'Elegant watches that combine style and functionality.';
+
+  @override
+  String get categoryBroochesDescription =>
+      'Unique brooches to add a special touch to your outfit.';
+
+  @override
+  String get categoryBanglesDescription =>
+      'Discover stylish bangles for every occasion.';
+
+  @override
+  String get categoryJewelrySetsDescription =>
+      'Beautiful jewelry sets for a complete elegant look.';
 }
