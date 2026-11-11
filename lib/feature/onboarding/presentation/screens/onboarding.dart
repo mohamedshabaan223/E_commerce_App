@@ -86,7 +86,6 @@ class _OnboardingState extends State<Onboarding> {
     final appColors = context.appColors;
 
     return Scaffold(
-
       backgroundColor: appColors.backgroundColor,
 
       body: PageView.builder(

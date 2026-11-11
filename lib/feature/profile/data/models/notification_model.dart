@@ -16,11 +16,11 @@ class NotificationModel {
   });
 
   NotificationModel copyWith({bool? isRead}) => NotificationModel(
-        time: time,
-        prefix: prefix,
-        highlight: highlight,
-        highlightIsGold: highlightIsGold,
-        suffix: suffix,
-        isRead: isRead ?? this.isRead,
-      );
+    time: time,
+    prefix: prefix,
+    highlight: highlight,
+    highlightIsGold: highlightIsGold,
+    suffix: suffix,
+    isRead: isRead ?? this.isRead,
+  );
 }

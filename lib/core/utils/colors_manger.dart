@@ -58,7 +58,8 @@ extension AppColorsContext on BuildContext {
   AppColors get appColors {
     final ThemeData theme = Theme.of(this);
     final bool isDark = theme.brightness == Brightness.dark;
-    final LustreColors colors = theme.extension<LustreColors>() ??
+    final LustreColors colors =
+        theme.extension<LustreColors>() ??
         (isDark ? LustreColors.dark : LustreColors.light);
     return AppColors(isDark, colors);
   }

@@ -61,6 +61,7 @@ class QuantitySelector extends StatelessWidget {
     );
   }
 }
+
 class _QuantityButton extends StatelessWidget {
   const _QuantityButton({required this.icon, required this.onTap});
 

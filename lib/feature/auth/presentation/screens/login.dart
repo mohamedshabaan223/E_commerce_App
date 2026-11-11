@@ -90,9 +90,7 @@ class _LoginState extends State<Login> {
                       },
                       child: Text(
                         'Forgot Password?',
-                        style: TextStyle(
-                          color: context.appColors.brightGold,
-                        ),
+                        style: TextStyle(color: context.appColors.brightGold),
                       ),
                     ),
                   ),
@@ -212,9 +210,7 @@ class _LoginState extends State<Login> {
                         },
                         child: Text(
                           'Sign Up',
-                          style: TextStyle(
-                            color: context.appColors.brightGold,
-                          ),
+                          style: TextStyle(color: context.appColors.brightGold),
                         ),
                       ),
                     ],

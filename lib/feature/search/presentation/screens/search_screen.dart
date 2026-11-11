@@ -54,7 +54,11 @@ class _SearchScreenState extends State<SearchScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _SearchTopBar(),
-                Divider(height: 1, thickness: 1, color: context.appColors.border),
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: context.appColors.border,
+                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
                   child: CustomSearchBar(

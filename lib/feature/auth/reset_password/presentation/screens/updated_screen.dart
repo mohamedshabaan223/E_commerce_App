@@ -32,7 +32,9 @@ class Updated extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: context.appColors.primaryColor.withValues(alpha: .10),
+                      color: context.appColors.primaryColor.withValues(
+                        alpha: .10,
+                      ),
                       blurRadius: 20,
                     ),
                   ],

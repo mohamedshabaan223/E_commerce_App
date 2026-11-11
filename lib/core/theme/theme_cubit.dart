@@ -7,9 +7,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
   final SecureStorageCacheing _storage;
 
-  static Future<ThemeCubit> load({
-    SecureStorageCacheing? storage,
-  }) async {
+  static Future<ThemeCubit> load({SecureStorageCacheing? storage}) async {
     final themeStorage = storage ?? SecureStorageCacheing();
     final isDarkMode = await themeStorage.getIsDarkMode() ?? false;
     return ThemeCubit._(

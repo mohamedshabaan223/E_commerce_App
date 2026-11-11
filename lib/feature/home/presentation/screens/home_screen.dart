@@ -1,8 +1,9 @@
-import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce_app/core/shared_widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/core/shared_widgets/section_header.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/categories/presentation/screens/categories_screen.dart';
+import 'package:ecommerce_app/feature/home/data/repo/home_repo.dart';
 import 'package:ecommerce_app/feature/home/presentation/viewmodels/home_cubit.dart';
 import 'package:ecommerce_app/feature/home/presentation/viewmodels/home_state.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/all_products.dart';
@@ -10,18 +11,20 @@ import 'package:ecommerce_app/feature/home/presentation/widgets/category_chips_r
 import 'package:ecommerce_app/feature/home/presentation/widgets/home_app_bar.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/hot_deals.dart';
 import 'package:ecommerce_app/feature/home/presentation/widgets/promo_banner.dart';
-import 'package:ecommerce_app/feature/search/presentation/screens/search_screen.dart';
 import 'package:ecommerce_app/feature/profile/presentation/screens/notifications_screen.dart';
+import 'package:ecommerce_app/feature/search/presentation/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ecommerce_app/feature/home/data/repo/home_repo.dart';
+
+import '../../../../generated/l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (_) => HomeCubit(HomeRepo())..load(),
       child: BlocListener<HomeCubit, HomeState>(
@@ -32,6 +35,12 @@ class HomeScreen extends StatelessWidget {
               'categories=${state.categories.length} (${state.categoriesError}) | '
               'products=${state.products.length} (${state.productsError})',
             );
+
+            for (final category in state.categories) {
+              debugPrint(
+                'CATEGORY ID: ${category.id} | NAME: ${category.name}',
+              );
+            }
           } else if (state is HomeFailure) {
             debugPrint('FAILED: ${state.message}');
           }
@@ -93,7 +102,7 @@ class HomeScreen extends StatelessWidget {
 
                 SizedBox(height: 12.h),
                 SectionHeader(
-                  title: 'Categories',
+                  title: l10n.categories,
                   onViewAll: () => Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const CategoriesScreen()),
@@ -124,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                     }
                     if (state.categories.isEmpty) {
                       return Text(
-                        'No categories yet',
+                        l10n.noCategoriesYet,
                         style: AppStyle.text12Regular.copyWith(
                           color: context.appColors.textSecondary,
                         ),
@@ -142,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SectionHeader(title: 'Hot Deals'),
+                        SectionHeader(title: l10n.hotDeals),
                         SizedBox(height: 12.h),
                         HotDealsList(products: state.hotDeals),
                         SizedBox(height: 24.h),
@@ -150,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SectionHeader(title: 'All Products'),
+                SectionHeader(title: l10n.allProducts),
                 SizedBox(height: 12.h),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {

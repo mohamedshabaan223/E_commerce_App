@@ -62,4 +62,12 @@ class SecureStorageCacheing {
     await _storage.delete(key: SecureKeys.refreshToken);
     await _storage.delete(key: SecureKeys.expiresAt);
   }
+
+  Future<void> saveLanguageCode(String languageCode) async {
+    await _storage.write(key: SecureKeys.languageCode, value: languageCode);
+  }
+
+  Future<String?> getLanguageCode() async {
+    return await _storage.read(key: SecureKeys.languageCode);
+  }
 }
