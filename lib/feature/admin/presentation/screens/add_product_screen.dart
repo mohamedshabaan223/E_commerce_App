@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_cubit.dart';
 import 'package:ecommerce_app/feature/admin/presentation/cubits/product_states.dart';
@@ -17,10 +18,6 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  static const Color backgroundColor = Color(0xFF121212);
-  static const Color cardColor = Color(0xFF1B1B1D);
-  static const Color goldColor = Color(0xFFC4B18B);
-
   static const List<String> _categories = ['Timepieces', 'Leather Goods'];
 
   String selectedCategory = _categories.first;
@@ -50,6 +47,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    context.read<ProductCubit>().loadSellerId();
+  }
+
+  @override
   void dispose() {
     for (final controller in _controllers) {
       controller.dispose();
@@ -59,7 +62,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void _clearForm() {
     for (final controller in _controllers) {
-      controller.clear();
+      if (controller != _sellerIdController) controller.clear();
     }
 
     setState(() {
@@ -69,7 +72,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void _showErrorSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
+      SnackBar(
+        content: Text(message),
+        backgroundColor: context.appColors.adminDangerColor,
+      ),
     );
   }
 
@@ -132,9 +138,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return BlocListener<ProductCubit, ProductStates>(
       listenWhen: (previous, current) =>
-          current is AddProductSuccess || current is AddProductFailure,
+          current is AddProductSuccess ||
+          current is AddProductFailure ||
+          current is SellerIdLoaded,
       listener: (context, state) {
-        if (state is AddProductSuccess) {
+        if (state is SellerIdLoaded) {
+          _sellerIdController.text = state.sellerId;
+        } else if (state is AddProductSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Product added successfully!'),
@@ -143,6 +153,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           );
 
           if (_pendingProduct != null) {
+            _pendingProduct!.id = state.productId;
             widget.onProductAdded?.call(_pendingProduct!);
             _pendingProduct = null;
           }
@@ -160,15 +171,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
               context.watch<ProductCubit>().state is AddProductLoading;
 
           return Scaffold(
-            backgroundColor: backgroundColor,
+            backgroundColor: context.appColors.adminBackgroundColor,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: cardColor,
+              backgroundColor: context.appColors.adminCardColor,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Add Product',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: context.appColors.adminForegroundColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -182,10 +193,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Product Information',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: context.appColors.adminForegroundColor,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
@@ -270,10 +281,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                       const SizedBox(height: 25),
 
-                      const Text(
+                      Text(
                         'Product Category',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: context.appColors.adminGreyColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -307,8 +318,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   ? null
                                   : () => widget.onFinished?.call(),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.white,
-                                side: const BorderSide(color: Colors.white24),
+                                foregroundColor:
+                                    context.appColors.adminForegroundColor,
+                                side: BorderSide(
+                                  color: context
+                                      .appColors.adminStrongBorderColor,
+                                ),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 16,
                                 ),
@@ -324,19 +339,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   ? null
                                   : () => _submitProduct(context),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: goldColor,
-                                foregroundColor: Colors.black,
+                                backgroundColor:
+                                    context.appColors.adminGoldColor,
+                                foregroundColor:
+                                    context.appColors.adminBlackColor,
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 16,
                                 ),
                               ),
                               child: isLoading
-                                  ? const SizedBox(
+                                  ? SizedBox(
                                       width: 22,
                                       height: 22,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
-                                        color: Colors.black,
+                                        color: context
+                                            .appColors.adminBlackColor,
                                       ),
                                     )
                                   : const Text(
@@ -371,22 +389,27 @@ class _AddProductScreenState extends State<AddProductScreen> {
           width: double.infinity,
           height: 150,
           decoration: BoxDecoration(
-            color: cardColor,
+            color: context.appColors.adminCardColor,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: goldColor.withValues(alpha: 0.4)),
+            border: Border.all(
+              color: context.appColors.adminGoldColor.withValues(alpha: 0.4),
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.cloud_upload_outlined,
                 size: 38,
-                color: goldColor,
+                color: context.appColors.adminGoldColor,
               ),
               const SizedBox(height: 10),
               Text(
                 url.isNotEmpty ? 'Image URL set' : 'Upload Cover Image',
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(
+                  color: context.appColors.adminForegroundColor,
+                  fontSize: 14,
+                ),
               ),
               const SizedBox(height: 5),
               Padding(
@@ -395,7 +418,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   url.isNotEmpty ? url : 'PNG, JPG up to 5MB',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  style: TextStyle(
+                    color: context.appColors.adminGreyColor,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],

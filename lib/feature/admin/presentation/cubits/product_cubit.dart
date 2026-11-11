@@ -9,16 +9,17 @@ class ProductCubit extends Cubit<ProductStates> {
 
   final AdminRemoteDataSource _remoteDataSource;
 
-  Future<void> addProduct(ProductModel product) async {
+  Future<String> addProduct(ProductModel product) async {
     emit(AddProductLoading());
 
     try {
-      await _remoteDataSource.addProduct(product);
-      emit(AddProductSuccess());
+      final productId = await _remoteDataSource.addProduct(product);
+      emit(AddProductSuccess(productId: productId));
+      return productId;
     } on Exception catch (error) {
       final failure = ErrorHandler.handle(error).failure;
-
       emit(AddProductFailure(errorMessage: failure.message));
+      return '';
     }
   }
 
@@ -33,6 +34,15 @@ class ProductCubit extends Cubit<ProductStates> {
       final failure = ErrorHandler.handle(error).failure;
 
       emit(DeleteProductFailure(errorMessage: failure.message));
+    }
+  }
+
+  Future<void> loadSellerId() async {
+    try {
+      final sellerId = await _remoteDataSource.getCurrentUserId();
+      emit(SellerIdLoaded(sellerId: sellerId));
+    } on Exception catch (_) {
+      // If it fails, the field stays manual.
     }
   }
 }

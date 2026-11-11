@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String label;
   final String? hint;
-  final String? errorText;
   final String? suffixText;
   final int maxLines;
   final TextEditingController? controller;
@@ -13,7 +12,6 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.label,
     this.hint,
-    this.errorText,
     this.suffixText,
     this.maxLines = 1,
     this.controller,
@@ -66,9 +64,7 @@ class CustomTextField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
-                color: errorText != null
-                    ? context.appColors.adminDangerColor
-                    : context.appColors.adminBorderColor,
+                color: context.appColors.adminBorderColor,
               ),
             ),
             focusedBorder: OutlineInputBorder(
@@ -80,17 +76,6 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
         ),
-
-        if (errorText != null) ...[
-          const SizedBox(height: 5),
-          Text(
-            errorText!,
-            style: TextStyle(
-              color: context.appColors.adminDangerColor,
-              fontSize: 11,
-            ),
-          ),
-        ],
       ],
     );
   }

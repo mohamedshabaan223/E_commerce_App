@@ -205,35 +205,39 @@ class _AdminScreensState extends State<AdminScreens> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: ListTile(
-        selected: isSelected,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        selectedTileColor: context.appColors.adminGoldColor.withValues(
-          alpha: 0.12,
-        ),
-        leading: Icon(
-          icon,
-          color: isSelected
-              ? context.appColors.adminGoldColor
-              : context.appColors.adminInactiveColor,
-        ),
-        title: Text(
-          label,
-          style: TextStyle(
+      child: Material(
+        color: Colors.transparent,
+
+        child: ListTile(
+          selected: isSelected,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          selectedTileColor: context.appColors.adminGoldColor.withValues(
+            alpha: 0.12,
+          ),
+          leading: Icon(
+            icon,
             color: isSelected
                 ? context.appColors.adminGoldColor
-                : context.appColors.adminLabelColor,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            fontSize: 14,
+                : context.appColors.adminInactiveColor,
           ),
-        ),
-        onTap: () {
-          _goTo(index);
+          title: Text(
+            label,
+            style: TextStyle(
+              color: isSelected
+                  ? context.appColors.adminGoldColor
+                  : context.appColors.adminLabelColor,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              fontSize: 14,
+            ),
+          ),
+          onTap: () {
+            _goTo(index);
 
-          if (isMobile) {
-            Navigator.maybePop(context);
-          }
-        },
+            if (isMobile) {
+              Navigator.maybePop(context);
+            }
+          },
+        ),
       ),
     );
   }

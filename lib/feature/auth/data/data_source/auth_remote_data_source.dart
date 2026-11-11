@@ -165,5 +165,15 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
+  Future<Either<Failure, void>> logOut() async{
+    try {
+      await dio.post(ApiConstatnt.logOutEndPoint);
+      await _googleSignIn.signOut();
+      await secureStorageCacheing.clearCache();
+      return Right(null);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e).failure);
+    }
+  }
 
 }
