@@ -4,7 +4,7 @@ import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_state.dart';
-import 'package:ecommerce_app/feature/auth/presentation/widgets/authHeader.dart';
+import 'package:ecommerce_app/feature/auth/presentation/widgets/auth_header.dart';
 import 'package:ecommerce_app/feature/auth/presentation/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -159,7 +159,7 @@ class _SignUpState extends State<SignUp> {
                           );
                           Navigator.pushReplacementNamed(
                             context,
-                            ConstantRoute.VerifyEmail,
+                            ConstantRoute.verifyEmail,
                             arguments: emailController.text.trim(),
                           );
                         } else if (state is AuthErrorState) {
@@ -218,7 +218,7 @@ class _SignUpState extends State<SignUp> {
                         onTap: () {
                           Navigator.pushReplacementNamed(
                             context,
-                            ConstantRoute.Login,
+                            ConstantRoute.login,
                           );
                         },
                         child: Text(
