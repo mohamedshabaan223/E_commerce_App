@@ -267,7 +267,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
               title: product.name,
               sku: product.id ?? 'N/A',
               price: product.price,
-              oldPrice: null,
               discountTag: product.discountPercentage > 0
                   ? '-${product.discountPercentage}%'
                   : null,
@@ -303,9 +302,7 @@ class _ProductListcreenState extends State<ProductListcreen> {
       return;
     }
 
-    if (product.id == null ||
-        product.id!.isEmpty ||
-        product.id!.startsWith('PRD-')) {
+    if (product.id == null || product.id!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Cannot delete: this product has no valid API UUID.'),

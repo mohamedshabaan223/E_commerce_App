@@ -5,7 +5,6 @@ class AdminProductCard extends StatelessWidget {
   final String title;
   final String sku;
   final double price;
-  final double? oldPrice;
   final String imageUrl;
   final int stockCount;
   final String? discountTag;
@@ -17,7 +16,6 @@ class AdminProductCard extends StatelessWidget {
     required this.title,
     required this.sku,
     required this.price,
-    this.oldPrice,
     required this.imageUrl,
     required this.stockCount,
     this.discountTag,
@@ -126,18 +124,6 @@ class AdminProductCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
-                    if (oldPrice != null) ...[
-                      const SizedBox(width: 8),
-                      Text(
-                        '\$${oldPrice!.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          color: context.appColors.adminGreyColor,
-                          fontSize: 11,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                    ],
 
                     if (discountTag != null) ...[
                       const SizedBox(width: 8),

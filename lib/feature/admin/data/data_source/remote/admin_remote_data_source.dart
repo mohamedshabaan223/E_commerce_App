@@ -6,11 +6,20 @@ import 'package:ecommerce_app/feature/admin/data/data_source/models/product_mode
 class AdminRemoteDataSource {
   final Dio dio = DioFactory().dio;
 
-  Future<void> addProduct(ProductModel product) async {
-    await dio.post(ApiConstatnt.addProductEndPoint, data: product.toJson());
+  Future<String> addProduct(ProductModel product) async {
+    final res = await dio.post(
+      ApiConstatnt.addProductEndPoint,
+      data: product.toJson(),
+    );
+    return res.data['id'].toString();
   }
 
   Future<void> deleteProduct(String productId) async {
     await dio.delete('${ApiConstatnt.deleteProductEndPoint}$productId');
+  }
+
+  Future<String> getCurrentUserId() async {
+    final res = await dio.get('auth/me');
+    return res.data['userId'].toString();
   }
 }
