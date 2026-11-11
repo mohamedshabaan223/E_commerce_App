@@ -38,6 +38,12 @@ class SellerIdLoaded extends ProductStates {
   SellerIdLoaded({required this.sellerId});
 }
 
+class SellerIdFailure extends ProductStates {
+  final String failureMessage;
+
+  SellerIdFailure({required this.failureMessage});
+}
+
 class MyProductsLoaded extends ProductStates {
   final List<ProductModel> products;
 

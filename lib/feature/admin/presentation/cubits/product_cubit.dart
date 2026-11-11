@@ -41,8 +41,9 @@ class ProductCubit extends Cubit<ProductStates> {
     try {
       final sellerId = await _remoteDataSource.getCurrentUserId();
       emit(SellerIdLoaded(sellerId: sellerId));
-    } on Exception catch (_) {
-      // If it fails, the field stays manual.
+    } on Exception catch (error) {
+      final failure = ErrorHandler.handle(error).failure;
+      emit(SellerIdFailure(failureMessage: failure.message));
     }
   }
 
