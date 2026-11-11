@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/core/shared_widgets/product_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecommerce_app/feature/home/data/models/product_model.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/screens/product_details_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/language/product_localization.dart';
 
 class AllProductsGrid extends StatelessWidget {
   const AllProductsGrid({super.key, required this.products});
@@ -37,7 +39,11 @@ class AllProductsGrid extends StatelessWidget {
           ),
           child: ProductCard(
             imageUrl: p.coverPictureUrl,
-            name: p.name,
+            name: localizedProductName(
+              context,
+              name: p.name,
+              arabicName: p.arabicName,
+            ),
             price: '\$${finalPrice.toStringAsFixed(0)}',
             oldPrice: hasDiscount ? '\$${p.price.toStringAsFixed(0)}' : null,
             rating: p.rating,

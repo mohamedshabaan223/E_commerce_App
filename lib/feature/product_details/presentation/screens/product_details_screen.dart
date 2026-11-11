@@ -1,7 +1,9 @@
 // feature/product_details/presentation/screens/product_details_screen.dart
+import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/add_to_cart_cubit.dart';
+import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:ecommerce_app/feature/product_details/data/repo/product_details_repo.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_cubit.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/viewmodels/cubits/product_details_state.dart';
@@ -17,11 +19,11 @@ import 'package:ecommerce_app/feature/product_details/presentation/widgets/produ
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/quantity_selector.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/review_tile.dart';
 import 'package:ecommerce_app/feature/product_details/presentation/widgets/reviews_header.dart';
-import 'package:ecommerce_app/core/network/dio_factory.dart';
-import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/language/product_localization.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.productId});
@@ -106,7 +108,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           return Scaffold(
             backgroundColor: context.appColors.backgroundColor,
             appBar: _buildAppBar(
-              state is ProductDetailsSuccess ? state.product.name : '',
+              state is ProductDetailsSuccess
+                  ? localizedProductName(
+                      context,
+                      name: state.product.name,
+                      arabicName: state.product.arabicName,
+                    )
+                  : '',
             ),
             body: _buildBody(context, state),
           );
@@ -178,7 +186,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           SizedBox(height: 20.h),
           ProductTitlePrice(
-            title: product.name,
+            title: localizedProductName(
+              context,
+              name: product.name,
+              arabicName: product.arabicName,
+            ),
             price: '\$${product.finalPrice.toStringAsFixed(0)}',
             oldPrice: product.hasDiscount
                 ? '\$${product.price.toStringAsFixed(0)}'
@@ -190,7 +202,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             reviewsCount: product.reviewsCount,
           ),
           SizedBox(height: 16.h),
-          ProductDescriptionCard(description: product.description),
+          ProductDescriptionCard(
+            description: localizedProductDescription(
+              context,
+              description: product.description,
+              arabicDescription: product.arabicDescription,
+            ),
+          ),
           SizedBox(height: 12.h),
           ProductSpecsCard(
             specs: {

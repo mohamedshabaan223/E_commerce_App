@@ -8,6 +8,7 @@ class ProductModel {
     required this.rating,
     required this.reviewsCount,
     required this.stock,
+    required this.arabicName,
   });
 
   final String id;
@@ -18,6 +19,7 @@ class ProductModel {
   final double rating;
   final int reviewsCount;
   final int stock;
+  final String arabicName;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
     id: json['id']?.toString() ?? '',
@@ -28,5 +30,6 @@ class ProductModel {
     rating: (json['rating'] ?? 0).toDouble(),
     reviewsCount: (json['reviewsCount'] ?? 0).toInt(),
     stock: (json['stock'] ?? 0).toInt(),
+    arabicName: json['arabicName']?.toString() ?? '',
   );
 }

@@ -13,6 +13,8 @@ class ProductDetailsModel {
     required this.color,
     required this.rating,
     required this.reviewsCount,
+    required this.arabicName,
+    required this.arabicDescription,
   });
 
   final String id;
@@ -27,6 +29,8 @@ class ProductDetailsModel {
   final String color;
   final double rating;
   final int reviewsCount;
+  final String arabicName;
+  final String arabicDescription;
 
   bool get hasDiscount => discountPercentage > 0;
 
@@ -52,6 +56,8 @@ class ProductDetailsModel {
       color: '${json['color'] ?? ''}',
       rating: double.tryParse('${json['rating'] ?? 0}') ?? 0,
       reviewsCount: int.tryParse('${json['reviewsCount'] ?? 0}') ?? 0,
+      arabicName: json['arabicName']?.toString() ?? '',
+      arabicDescription: json['arabicDescription']?.toString() ?? '',
     );
   }
 }
