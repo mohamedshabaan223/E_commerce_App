@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class AddressesListModel {
   final IconData? icon;
   final String city;
@@ -19,7 +20,6 @@ class AddressesListModel {
   });
 
   static final List<AddressesListModel> addresses = [
-
     AddressesListModel(
       icon: Icons.location_on,
       city: 'New York',
@@ -38,7 +38,5 @@ class AddressesListModel {
       phone: '+1 (555) 987-6543',
       notes: 'Ring buzzer #12',
     ),
-
-
   ];
 }

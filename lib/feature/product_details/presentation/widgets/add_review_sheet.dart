@@ -141,7 +141,9 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
                   borderRadius: BorderRadius.circular(15.r),
                   boxShadow: [
                     BoxShadow(
-                      color: context.appColors.primaryColor.withValues(alpha: 0.25),
+                      color: context.appColors.primaryColor.withValues(
+                        alpha: 0.25,
+                      ),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),

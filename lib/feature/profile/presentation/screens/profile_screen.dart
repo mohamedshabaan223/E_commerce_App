@@ -21,6 +21,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/language/lang_cubit.dart';
+import '../../../../generated/l10n/app_localizations.dart';
 import '../../../auth/reset_password/presentation/screens/change_password.dart';
 import 'about_us_screen.dart';
 import 'contact_us_screen.dart';
@@ -40,63 +42,81 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? _localImagePath;
   String? _currentAccountId;
 
-  final List<ProfileItemModel> _orders = const [
-    ProfileItemModel(
-      title: 'My Orders',
-      icon: Icons.shopping_bag_outlined,
-      destination: OrderScreen(),
-    ),
-    ProfileItemModel(
-      title: 'Addresses',
-      icon: Icons.location_on_outlined,
-      destination: AddressesListScreen(),
-    ),
-  ];
+  List<ProfileItemModel> _orders(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
-  final List<ProfileItemModel> _account = const [
-    ProfileItemModel(
-      title: 'Notifications',
-      icon: Icons.notifications_none_rounded,
-      destination: NotificationsScreen(),
-    ),
-    ProfileItemModel(
-      title: 'Change Password',
-      icon: Icons.lock_reset_rounded,
-      destination: ChangePassword(),
-    ),
-  ];
-
-  final List<ProfileItemModel> _info = const [
-    ProfileItemModel(
-      title: 'Privacy Policy',
-      icon: Icons.shield_outlined,
-      destination: PrivacyPolicyScreen(),
-    ),
-    ProfileItemModel(
-      title: 'About Us',
-      icon: Icons.info_outline_rounded,
-      destination: AboutUsScreen(),
-    ),
-    ProfileItemModel(
-      title: 'Contact Us',
-      icon: Icons.mail_outline_rounded,
-      destination: ContactUsScreen(),
-    ),
-  ];
-
-  final List<ProfileItemModel> _logout = const [
-    ProfileItemModel(
-      title: 'Logout',
-      icon: Icons.logout_rounded,
-      isDanger: true,
-      destination: Logout(),
-    ),
-  ];
-
-  List<ProfileItemModel> _adminItems(String userEmail) {
     return [
       ProfileItemModel(
-        title: 'Admin Dashboard',
+        title: l10n.myOrders,
+        icon: Icons.shopping_bag_outlined,
+        destination: OrderScreen(),
+      ),
+      ProfileItemModel(
+        title: l10n.addresses,
+        icon: Icons.location_on_outlined,
+        destination: AddressesListScreen(),
+      ),
+    ];
+  }
+
+  List<ProfileItemModel> _account(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return [
+      ProfileItemModel(
+        title: l10n.notifications,
+        icon: Icons.notifications_none_rounded,
+        destination: NotificationsScreen(),
+      ),
+      ProfileItemModel(
+        title: l10n.changePassword,
+        icon: Icons.lock_reset_rounded,
+        destination: ChangePassword(),
+      ),
+    ];
+  }
+
+  List<ProfileItemModel> _info(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return [
+      ProfileItemModel(
+        title: l10n.privacyPolicy,
+        icon: Icons.shield_outlined,
+        destination: PrivacyPolicyScreen(),
+      ),
+      ProfileItemModel(
+        title: l10n.aboutUs,
+        icon: Icons.info_outline_rounded,
+        destination: AboutUsScreen(),
+      ),
+      ProfileItemModel(
+        title: l10n.contactUs,
+        icon: Icons.mail_outline_rounded,
+        destination: ContactUsScreen(),
+      ),
+    ];
+  }
+
+  List<ProfileItemModel> _logout(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return [
+      ProfileItemModel(
+        title: l10n.logout,
+        icon: Icons.logout_rounded,
+        isDanger: true,
+        destination: Logout(),
+      ),
+    ];
+  }
+
+  List<ProfileItemModel> _adminItems(BuildContext context, String userEmail) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return [
+      ProfileItemModel(
+        title: l10n.adminDashboard,
         icon: Icons.dashboard_customize_outlined,
         badge: 'ADMIN',
         destination: AdminScreens(userEmail: userEmail),
@@ -139,26 +159,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     } catch (_) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not load the image')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Could not load the image')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: context.appColors.darkBackground,
-      appBar: const LUSTREAppBar(title: 'Profile'),
-
+      appBar: LUSTREAppBar(title: l10n.profile),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: BlocProvider(
-          create: (_) =>
-              ProfileCubit(ProfileRemoteDataSource())..loadProfile(),
+          create: (_) => ProfileCubit(ProfileRemoteDataSource())..loadProfile(),
           child: Column(
             children: [
               SizedBox(height: 8.h),
+
               BlocConsumer<ProfileCubit, ProfileState>(
                 listener: (context, state) {
                   if (state is ProfileFailure) {
@@ -170,17 +190,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 builder: (context, state) {
                   final user = state is ProfileSuccess ? state.user : null;
+
                   return Column(
                     children: [
                       _buildAvatar(context, user?.initials ?? ''),
                       SizedBox(height: 16.h),
+
                       Text(
                         user?.fullName ?? '',
                         style: AppStyle.text24Semibold.copyWith(
                           color: context.appColors.darkTextPrimary,
                         ),
                       ),
+
                       SizedBox(height: 4.h),
+
                       Text(
                         user?.email ?? '',
                         style: AppStyle.text14Regular.copyWith(
@@ -191,22 +215,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 },
               ),
+
               SizedBox(height: 24.h),
+
               _buildDarkModeCard(context),
-              ProfileMenuGroup(items: _orders),
-              ProfileMenuGroup(items: _account),
-              ProfileMenuGroup(items: _info),
+              _buildLanguageCard(context),
+
+              ProfileMenuGroup(items: _orders(context)),
+              ProfileMenuGroup(items: _account(context)),
+              ProfileMenuGroup(items: _info(context)),
+
+              // يظهر Admin Dashboard للأدمن فقط
               BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
                   final user = state is ProfileSuccess ? state.user : null;
+
                   if (user == null ||
                       user.email != AdminScreens.demoAdminEmail) {
                     return const SizedBox.shrink();
                   }
-                  return ProfileMenuGroup(items: _adminItems(user.email));
+
+                  return ProfileMenuGroup(
+                    items: _adminItems(context, user.email),
+                  );
                 },
               ),
-              ProfileMenuGroup(items: _logout),
+
+              ProfileMenuGroup(items: _logout(context)),
             ],
           ),
         ),
@@ -291,7 +326,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(width: 16.w),
           Expanded(
             child: Text(
-              'Dark Mode',
+              AppLocalizations.of(context)!.darkMode,
               style: AppStyle.text16Medium.copyWith(
                 color: context.appColors.darkTextPrimary,
               ),
@@ -300,6 +335,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Switch(
             value: context.watch<ThemeCubit>().state == ThemeMode.dark,
             onChanged: context.read<ThemeCubit>().setDarkMode,
+            activeThumbColor: context.appColors.darkGold,
+            activeTrackColor: context.appColors.darkIconBox,
+            inactiveThumbColor: context.appColors.darkTextSecondary,
+            inactiveTrackColor: context.appColors.darkIconBox,
+            trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageCard(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    final languageCode = context.watch<LanguageCubit>().state.languageCode;
+
+    final isArabic = languageCode == 'ar';
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: context.appColors.darkCard,
+        borderRadius: BorderRadius.circular(14.r),
+      ),
+      child: Row(
+        children: [
+          const IconBox(icon: Icons.language_rounded),
+
+          SizedBox(width: 16.w),
+
+          Expanded(
+            child: Text(
+              l10n.language,
+              style: AppStyle.text16Medium.copyWith(
+                color: context.appColors.darkTextPrimary,
+              ),
+            ),
+          ),
+
+          Text(
+            isArabic ? 'العربية' : 'English',
+            style: AppStyle.text14Regular.copyWith(
+              color: context.appColors.darkTextSecondary,
+            ),
+          ),
+
+          SizedBox(width: 8.w),
+
+          Switch(
+            value: isArabic,
+            onChanged: (value) {
+              context.read<LanguageCubit>().changeLanguage(value ? 'ar' : 'en');
+            },
             activeThumbColor: context.appColors.darkGold,
             activeTrackColor: context.appColors.darkIconBox,
             inactiveThumbColor: context.appColors.darkTextSecondary,

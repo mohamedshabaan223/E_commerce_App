@@ -57,10 +57,8 @@ class ReviewsSection extends StatelessWidget {
           },
           builder: (_, state) => AddReviewSheet(
             isLoading: state.submitStatus == SubmitStatus.loading,
-            onSubmit: (rating, comment) => reviewsCubit.addReview(
-              rating: rating,
-              comment: comment,
-            ),
+            onSubmit: (rating, comment) =>
+                reviewsCubit.addReview(rating: rating, comment: comment),
           ),
         ),
       ),

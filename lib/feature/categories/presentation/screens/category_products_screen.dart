@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/language/category_localization.dart';
+import '../../../../generated/l10n/app_localizations.dart';
+
 class CategoryProductsScreen extends StatelessWidget {
   const CategoryProductsScreen({super.key, required this.categoryName});
 
@@ -15,6 +18,8 @@ class CategoryProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (_) =>
           CategoryProductsCubit(CategoriesRepo())..load(categoryName),
@@ -34,7 +39,7 @@ class CategoryProductsScreen extends StatelessWidget {
             onPressed: () => Navigator.maybePop(context),
           ),
           title: Text(
-            categoryName,
+            localizeCategoryName(context, categoryName),
             style: AppStyle.text18Semibold.copyWith(
               color: context.appColors.textPrimary,
             ),
@@ -61,7 +66,7 @@ class CategoryProductsScreen extends StatelessWidget {
                           categoryName,
                         );
                       },
-                      child: const Text('Retry'),
+                      child: Text(l10n.retry),
                     ),
                   ],
                 ),
@@ -77,7 +82,7 @@ class CategoryProductsScreen extends StatelessWidget {
             if (state.products.isEmpty) {
               return Center(
                 child: Text(
-                  'No products yet',
+                  l10n.noProductsYet,
                   style: AppStyle.text14Regular.copyWith(
                     color: context.appColors.textSecondary,
                   ),
@@ -118,8 +123,8 @@ class CategoryProductsScreen extends StatelessWidget {
                         },
                         child: Text(
                           state.loadMoreError != null
-                              ? 'Try Again'
-                              : 'Load More',
+                              ? l10n.tryAgain
+                              : l10n.loadMore,
                         ),
                       ),
                     ),

@@ -13,7 +13,7 @@ class CartButton {
         backgroundColor: context.appColors.primaryColor,
         foregroundColor: context.appColors.cartButtonFg,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        minimumSize:  Size(double.infinity, 56),
+        minimumSize: Size(double.infinity, 56),
       ),
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => page));

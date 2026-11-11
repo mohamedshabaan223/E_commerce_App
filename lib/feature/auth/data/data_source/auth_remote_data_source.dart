@@ -11,7 +11,6 @@ import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
 import 'package:ecommerce_app/feature/auth/data/models/register_request.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 class AuthRemoteDataSource {
   final Dio dio = DioFactory().dio;
   final SecureStorageCacheing secureStorageCacheing = SecureStorageCacheing();
@@ -71,10 +70,7 @@ class AuthRemoteDataSource {
 
   Future<Either<Failure, void>> forgetPassword({required String email}) async {
     try {
-      await dio.post(
-        "auth/forgot-password",
-        data: {"email": email},
-      );
+      await dio.post("auth/forgot-password", data: {"email": email});
 
       return Right(null);
     } catch (e) {
@@ -145,7 +141,6 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
-  
 
   Future<Either<Failure, void>> signInWithGoogle() async {
     try {
@@ -170,7 +165,8 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
-  Future<Either<Failure, void>> logOut() async{
+
+  Future<Either<Failure, void>> logOut() async {
     try {
       await dio.post(ApiConstatnt.logOutEndPoint);
       await _googleSignIn.signOut();
@@ -180,5 +176,4 @@ class AuthRemoteDataSource {
       return Left(ErrorHandler.handle(e).failure);
     }
   }
-
 }

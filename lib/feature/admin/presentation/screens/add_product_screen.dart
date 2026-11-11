@@ -321,8 +321,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 foregroundColor:
                                     context.appColors.adminForegroundColor,
                                 side: BorderSide(
-                                  color: context
-                                      .appColors.adminStrongBorderColor,
+                                  color:
+                                      context.appColors.adminStrongBorderColor,
                                 ),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 16,
@@ -353,8 +353,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                       height: 22,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
-                                        color: context
-                                            .appColors.adminBlackColor,
+                                        color:
+                                            context.appColors.adminBlackColor,
                                       ),
                                     )
                                   : const Text(

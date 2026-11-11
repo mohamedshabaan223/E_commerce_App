@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../generated/l10n/app_localizations.dart';
+
 class CartScreen extends StatefulWidget {
   const CartScreen({required this.onBrowseProducts, super.key});
 
@@ -31,6 +33,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocListener<AddToCartCubit, CartState>(
       listenWhen: (previous, state) =>
           state is AddToCartSuccessState ||
@@ -45,7 +49,7 @@ class _CartScreenState extends State<CartScreen> {
           if (state is GetCartLoadingState) {
             return Scaffold(
               backgroundColor: context.appColors.backgroundColor,
-              appBar: CustomAppBar(title: 'Cart'),
+              appBar: CustomAppBar(title: l10n.cart),
               body: Center(
                 child: CircularProgressIndicator(
                   color: context.appColors.primaryColor,
@@ -57,7 +61,7 @@ class _CartScreenState extends State<CartScreen> {
           if (state is GetCartFailureState) {
             return Scaffold(
               backgroundColor: context.appColors.backgroundColor,
-              appBar: CustomAppBar(title: 'Cart'),
+              appBar: CustomAppBar(title: l10n.cart),
               body: Center(child: Text(state.errorMessage)),
             );
           }
@@ -71,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
 
             return Scaffold(
               backgroundColor: context.appColors.backgroundColor,
-              appBar: CustomAppBar(title: 'Cart'),
+              appBar: CustomAppBar(title: l10n.cart),
               body: Padding(
                 padding: EdgeInsets.all(20),
                 child: Column(
@@ -80,7 +84,7 @@ class _CartScreenState extends State<CartScreen> {
                     Row(
                       children: [
                         Text(
-                          "Shopping Cart",
+                          l10n.shoppingCart,
                           style: TextStyle(
                             fontFamily: 'DMSerifDisplay',
                             fontSize: 22.sp,
@@ -90,7 +94,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         Spacer(),
                         Text(
-                          "(${cartItems.length} ITEMS)",
+                          "(${cartItems.length} ${l10n.items.toUpperCase()})",
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
@@ -133,7 +137,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: TextField(
                               style: TextStyle(color: context.appColors.white),
                               decoration: InputDecoration(
-                                hintText: 'Enter coupon code',
+                                hintText: l10n.enterCouponCode,
                                 hintStyle: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
@@ -153,8 +157,8 @@ class _CartScreenState extends State<CartScreen> {
 
                               if (couponCode.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Please enter a coupon code'),
+                                  SnackBar(
+                                    content: Text(l10n.pleaseEnterCouponCode),
                                   ),
                                 );
                                 return;
@@ -175,7 +179,7 @@ class _CartScreenState extends State<CartScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 24),
                             ),
                             child: Text(
-                              'Apply',
+                              l10n.apply,
                               style: TextStyle(
                                 color: context.appColors.primaryColor,
                                 fontSize: 14.sp,
@@ -189,7 +193,7 @@ class _CartScreenState extends State<CartScreen> {
                     CartButton.cartButtonDesign(
                       context: context,
                       page: CheckoutScreen(),
-                      text: "Proceed to Checkout",
+                      text: l10n.proceedToCheckout,
                     ),
                   ],
                 ),

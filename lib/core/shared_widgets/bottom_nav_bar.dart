@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../feature/cart/Cubit/cart_states.dart';
 import '../../feature/cart/Cubit/get_cart_cubit.dart';
+import '../../generated/l10n/app_localizations.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
@@ -33,6 +34,9 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final labels = [l10n.home, l10n.categories, l10n.cart, l10n.profile];
+
     return SafeArea(
       top: false,
       child: Padding(
@@ -117,7 +121,7 @@ class BottomNavBar extends StatelessWidget {
                       ),
                       SizedBox(height: 3.h),
                       Text(
-                        item.label,
+                        labels[index],
                         style: TextStyle(
                           fontSize: 11.sp,
                           fontWeight: isSelected

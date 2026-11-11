@@ -3,19 +3,20 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../generated/l10n/app_localizations.dart';
+
 class EmptyCartScreen extends StatelessWidget {
-  const EmptyCartScreen({
-    required this.onBrowseProducts,
-    super.key,
-  });
+  const EmptyCartScreen({required this.onBrowseProducts, super.key});
 
   final VoidCallback onBrowseProducts;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: context.appColors.backgroundColor,
-      appBar: CustomAppBar(title: 'Cart'),
+      appBar: CustomAppBar(title: l10n.cart),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -42,7 +43,7 @@ class EmptyCartScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "Your cart is empty",
+              l10n.yourCartIsEmpty,
               style: TextStyle(
                 color: context.appColors.white,
                 fontSize: 22.sp,
@@ -50,8 +51,7 @@ class EmptyCartScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "Looks like you haven't added any items to "
-              "your cart yet.",
+              l10n.emptyCartDescription,
               style: TextStyle(
                 color: context.appColors.passwordColor,
                 fontSize: 14.sp,
@@ -65,10 +65,21 @@ class EmptyCartScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.appColors.primaryColor,
                 foregroundColor: context.appColors.cartButtonFg,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 minimumSize: Size(double.infinity, 56),
               ),
-              child: Center(child: Text("Browse Products", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: context.appColors.cartButtonFg))),
+              child: Center(
+                child: Text(
+                  l10n.browseProducts,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: context.appColors.cartButtonFg,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

@@ -328,7 +328,8 @@ class LustreColors extends ThemeExtension<LustreColors> {
       adminMutedColor: adminMutedColor ?? this.adminMutedColor,
       adminVeryMutedColor: adminVeryMutedColor ?? this.adminVeryMutedColor,
       adminInactiveColor: adminInactiveColor ?? this.adminInactiveColor,
-      adminPlaceholderColor: adminPlaceholderColor ?? this.adminPlaceholderColor,
+      adminPlaceholderColor:
+          adminPlaceholderColor ?? this.adminPlaceholderColor,
       adminBorderColor: adminBorderColor ?? this.adminBorderColor,
       adminStrongBorderColor:
           adminStrongBorderColor ?? this.adminStrongBorderColor,
@@ -362,7 +363,11 @@ class LustreColors extends ThemeExtension<LustreColors> {
       navBackground: Color.lerp(navBackground, other.navBackground, t)!,
       modalBackdrop: Color.lerp(modalBackdrop, other.modalBackdrop, t)!,
       surfaceVariant: Color.lerp(surfaceVariant, other.surfaceVariant, t)!,
-      headerBackground: Color.lerp(headerBackground, other.headerBackground, t)!,
+      headerBackground: Color.lerp(
+        headerBackground,
+        other.headerBackground,
+        t,
+      )!,
       categoryCard: Color.lerp(categoryCard, other.categoryCard, t)!,
       cartBadgeBg: Color.lerp(cartBadgeBg, other.cartBadgeBg, t)!,
       dealsBadgeBg: Color.lerp(dealsBadgeBg, other.dealsBadgeBg, t)!,
@@ -378,35 +383,65 @@ class LustreColors extends ThemeExtension<LustreColors> {
       darkOnGold: Color.lerp(darkOnGold, other.darkOnGold, t)!,
       darkTextPrimary: Color.lerp(darkTextPrimary, other.darkTextPrimary, t)!,
       darkTextBody: Color.lerp(darkTextBody, other.darkTextBody, t)!,
-      darkTextSecondary:
-          Color.lerp(darkTextSecondary, other.darkTextSecondary, t)!,
+      darkTextSecondary: Color.lerp(
+        darkTextSecondary,
+        other.darkTextSecondary,
+        t,
+      )!,
       darkTextMuted: Color.lerp(darkTextMuted, other.darkTextMuted, t)!,
       darkDanger: Color.lerp(darkDanger, other.darkDanger, t)!,
       darkDivider: Color.lerp(darkDivider, other.darkDivider, t)!,
-      adminBackgroundColor:
-          Color.lerp(adminBackgroundColor, other.adminBackgroundColor, t)!,
+      adminBackgroundColor: Color.lerp(
+        adminBackgroundColor,
+        other.adminBackgroundColor,
+        t,
+      )!,
       adminCardColor: Color.lerp(adminCardColor, other.adminCardColor, t)!,
       adminGoldColor: Color.lerp(adminGoldColor, other.adminGoldColor, t)!,
-      adminForegroundColor:
-          Color.lerp(adminForegroundColor, other.adminForegroundColor, t)!,
+      adminForegroundColor: Color.lerp(
+        adminForegroundColor,
+        other.adminForegroundColor,
+        t,
+      )!,
       adminBlackColor: Color.lerp(adminBlackColor, other.adminBlackColor, t)!,
       adminLabelColor: Color.lerp(adminLabelColor, other.adminLabelColor, t)!,
       adminGreyColor: Color.lerp(adminGreyColor, other.adminGreyColor, t)!,
       adminMutedColor: Color.lerp(adminMutedColor, other.adminMutedColor, t)!,
-      adminVeryMutedColor:
-          Color.lerp(adminVeryMutedColor, other.adminVeryMutedColor, t)!,
-      adminInactiveColor:
-          Color.lerp(adminInactiveColor, other.adminInactiveColor, t)!,
-      adminPlaceholderColor:
-          Color.lerp(adminPlaceholderColor, other.adminPlaceholderColor, t)!,
-      adminBorderColor:
-          Color.lerp(adminBorderColor, other.adminBorderColor, t)!,
-      adminStrongBorderColor:
-          Color.lerp(adminStrongBorderColor, other.adminStrongBorderColor, t)!,
-      adminDangerColor:
-          Color.lerp(adminDangerColor, other.adminDangerColor, t)!,
-      adminDangerBackgroundColor:
-          Color.lerp(adminDangerBackgroundColor, other.adminDangerBackgroundColor, t)!,
+      adminVeryMutedColor: Color.lerp(
+        adminVeryMutedColor,
+        other.adminVeryMutedColor,
+        t,
+      )!,
+      adminInactiveColor: Color.lerp(
+        adminInactiveColor,
+        other.adminInactiveColor,
+        t,
+      )!,
+      adminPlaceholderColor: Color.lerp(
+        adminPlaceholderColor,
+        other.adminPlaceholderColor,
+        t,
+      )!,
+      adminBorderColor: Color.lerp(
+        adminBorderColor,
+        other.adminBorderColor,
+        t,
+      )!,
+      adminStrongBorderColor: Color.lerp(
+        adminStrongBorderColor,
+        other.adminStrongBorderColor,
+        t,
+      )!,
+      adminDangerColor: Color.lerp(
+        adminDangerColor,
+        other.adminDangerColor,
+        t,
+      )!,
+      adminDangerBackgroundColor: Color.lerp(
+        adminDangerBackgroundColor,
+        other.adminDangerBackgroundColor,
+        t,
+      )!,
       brightGold: Color.lerp(brightGold, other.brightGold, t)!,
       otpGold: Color.lerp(otpGold, other.otpGold, t)!,
       inputFill: Color.lerp(inputFill, other.inputFill, t)!,

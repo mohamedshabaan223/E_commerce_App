@@ -43,7 +43,10 @@ class AddToCartButton extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
-            context.read<AddToCartCubit>().addToCart(productId: productId, quantity: quantity);
+            context.read<AddToCartCubit>().addToCart(
+              productId: productId,
+              quantity: quantity,
+            );
           },
           behavior: HitTestBehavior.opaque,
           child: Container(

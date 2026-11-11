@@ -25,17 +25,15 @@ class ProductDetailsRemoteDataSource {
   List _extractList(dynamic data) {
     if (data is List) return data;
     if (data is Map) {
-    
       for (final key in ['items', 'reviews', 'data', 'result', 'results']) {
         final v = data[key];
         if (v is List) return v;
         if (v is Map) {
-        
           final nested = _extractList(v);
           if (nested.isNotEmpty) return nested;
         }
       }
-      
+
       if (data.containsKey('product') && data['product'] is Map) {
         final nested = _extractList(data['product']);
         if (nested.isNotEmpty) return nested;
@@ -51,11 +49,7 @@ class ProductDetailsRemoteDataSource {
   }) async {
     await _dio.post(
       ApiConstatnt.productReviewsEndPoint(productId),
-      data: {
-        'productId': productId,
-        'rating': rating,
-        'comment': comment,
-      },
+      data: {'productId': productId, 'rating': rating, 'comment': comment},
     );
   }
 }

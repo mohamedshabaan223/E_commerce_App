@@ -231,9 +231,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     },
                     child: Text(
                       'Resend OTP',
-                      style: TextStyle(
-                        color: context.appColors.brightGold,
-                      ),
+                      style: TextStyle(color: context.appColors.brightGold),
                     ),
                   ),
               ],

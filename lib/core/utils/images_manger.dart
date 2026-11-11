@@ -8,5 +8,4 @@ abstract class ImagesManger {
   static const String phoneIcon = 'assets/icons/phone.svg';
   static const String addIcon = 'assets/icons/add.svg';
   static const String unselectedIcon = 'assets/icons/unselectedicon.svg';
-
 }

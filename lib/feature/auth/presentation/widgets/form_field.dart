@@ -53,9 +53,13 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
         ),
 
         labelText: widget.label,
-        labelStyle: AppStyle.text14Medium.copyWith(color: context.appColors.white),
+        labelStyle: AppStyle.text14Medium.copyWith(
+          color: context.appColors.white,
+        ),
         hintText: widget.hintText,
-        hintStyle: AppStyle.text10Semibold.copyWith(color: context.appColors.white),
+        hintStyle: AppStyle.text10Semibold.copyWith(
+          color: context.appColors.white,
+        ),
 
         prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
         suffixIcon: widget.isPassword

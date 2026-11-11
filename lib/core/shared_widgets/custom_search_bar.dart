@@ -2,10 +2,12 @@ import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../generated/l10n/app_localizations.dart';
+
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({
     super.key,
-    this.hint = 'Search products',
+    this.hint,
     this.controller,
     this.onChanged,
     this.onTap,
@@ -14,7 +16,7 @@ class CustomSearchBar extends StatelessWidget {
     this.hasBorder = false,
   });
 
-  final String hint;
+  final String? hint;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTap;
@@ -59,7 +61,7 @@ class CustomSearchBar extends StatelessWidget {
                 fontSize: 14.sp,
               ),
               decoration: InputDecoration(
-                hintText: hint,
+                hintText: hint ?? AppLocalizations.of(context)!.searchProducts,
                 hintStyle: TextStyle(
                   color: context.appColors.textSecondary,
                   fontSize: 14.sp,

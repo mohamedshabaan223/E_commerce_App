@@ -9,11 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../generated/l10n/app_localizations.dart';
+
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (_) => CategoriesCubit(CategoriesRepo())..load(),
       child: Scaffold(
@@ -32,7 +36,7 @@ class CategoriesScreen extends StatelessWidget {
             onPressed: () => Navigator.maybePop(context),
           ),
           title: Text(
-            'Categories',
+            l10n.categories,
             style: AppStyle.text18Semibold.copyWith(
               color: context.appColors.textPrimary,
             ),
@@ -57,7 +61,7 @@ class CategoriesScreen extends StatelessWidget {
                       onPressed: () {
                         context.read<CategoriesCubit>().load();
                       },
-                      child: const Text('Retry'),
+                      child: Text(l10n.retry),
                     ),
                   ],
                 ),
@@ -73,7 +77,7 @@ class CategoriesScreen extends StatelessWidget {
             if (state.categories.isEmpty) {
               return Center(
                 child: Text(
-                  'No categories available',
+                  l10n.noCategoriesAvailable,
                   style: AppStyle.text14Regular.copyWith(
                     color: context.appColors.textSecondary,
                   ),
