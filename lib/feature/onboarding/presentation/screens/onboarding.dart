@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,6 +9,7 @@ import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
+
 
   @override
   State<Onboarding> createState() => _OnboardingState();
@@ -34,6 +35,7 @@ class _OnboardingState extends State<Onboarding> {
   ];
   late final PageController pageController;
   int currentPage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -80,6 +82,7 @@ class _OnboardingState extends State<Onboarding> {
     final appColors = context.appColors;
 
     return Scaffold(
+
       backgroundColor: appColors.backgroundColor,
 
       body: PageView.builder(

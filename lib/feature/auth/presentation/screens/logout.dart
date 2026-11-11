@@ -92,7 +92,7 @@ class Logout extends StatelessWidget {
                             );
                             Navigator.pushNamedAndRemoveUntil(
                               context,
-                              ConstantRoute.Login,
+                              ConstantRoute.login,
                               (route) => false,
                             );
                           } else if (state is AuthErrorState) {

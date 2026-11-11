@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.dark,
             themeMode: themeMode,
             onGenerateRoute: RouteGenrator.getRoute,
+            initialRoute: ConstantRoute.splash,
 
-            initialRoute: ConstantRoute.onboarding,
           ),
         ),
       ),

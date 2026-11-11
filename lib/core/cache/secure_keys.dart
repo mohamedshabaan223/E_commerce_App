@@ -3,4 +3,5 @@ class SecureKeys {
   static const String refreshToken = 'refresh_token';
   static const String expiresAt = 'expires_at';
   static const String themeMode = 'theme_mode';
+  static const String onboardingCompleted = 'onboarding_completed';
 }

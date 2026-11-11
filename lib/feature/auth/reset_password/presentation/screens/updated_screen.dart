@@ -72,7 +72,7 @@ class Updated extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacementNamed(
                         context,
-                        ConstantRoute.Login,
+                        ConstantRoute.login,
                       );
                     },
                   ),

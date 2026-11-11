@@ -2,10 +2,10 @@ import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
-import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/logout.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/verify_email.dart';
+import 'package:ecommerce_app/feature/auth/presentation/screens/sign_up.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/get_cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
@@ -45,23 +45,23 @@ abstract class RouteGenrator {
               ProductDetailsScreen(productId: settings.arguments as String),
         );
 
-      case ConstantRoute.Login:
+      case ConstantRoute.login:
         return MaterialPageRoute(
           builder: (_) =>
               BlocProvider(create: (context) => AuthCubit(), child: Login()),
         );
 
-      case ConstantRoute.SignUp:
+      case ConstantRoute.signUp:
         return MaterialPageRoute(
           builder: (_) =>
               BlocProvider(create: (context) => AuthCubit(), child: SignUp()),
         );
 
-      case ConstantRoute.VerifyEmail:
+      case ConstantRoute.verifyEmail:
         final email = settings.arguments as String;
         return MaterialPageRoute(builder: (_) => VerifyEmail(email: email));
 
-      case ConstantRoute.Logout:
+      case ConstantRoute.logout:
         return MaterialPageRoute(builder: (_) => const Logout());
 
       case ConstantRoute.splash:

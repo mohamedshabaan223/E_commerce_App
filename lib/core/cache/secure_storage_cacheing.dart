@@ -48,6 +48,15 @@ class SecureStorageCacheing {
     };
   }
 
+  Future<void> saveOnboardingCompleted() async {
+    await _storage.write(key: SecureKeys.onboardingCompleted, value: 'true');
+  }
+
+  Future<bool> getOnboardingCompleted() async {
+    final completed = await _storage.read(key: SecureKeys.onboardingCompleted);
+    return completed == 'true';
+  }
+
   Future<void> clearCache() async {
     await _storage.delete(key: SecureKeys.accessToken);
     await _storage.delete(key: SecureKeys.refreshToken);
