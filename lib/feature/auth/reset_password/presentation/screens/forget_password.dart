@@ -114,9 +114,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                     ),
                                   ),
                                   if (state is ForgotPasswordLoading)
-                                    const Center(
+                                    Center(
                                       child: CircularProgressIndicator(
-                                        color: ColorsManger.primaryColor,
+                                        color: context.appColors.primaryColor,
                                       ),
                                     )
                                   else

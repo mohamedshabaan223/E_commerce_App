@@ -101,9 +101,9 @@ class _ResetPasswordState extends State<ResetPassword> {
 
                           SizedBox(height: 38.h),
                           if (state is ResetPasswordLoading)
-                            const Center(
+                            Center(
                               child: CircularProgressIndicator(
-                                color: ColorsManger.primaryColor,
+                                color: context.appColors.primaryColor,
                               ),
                             )
                           else

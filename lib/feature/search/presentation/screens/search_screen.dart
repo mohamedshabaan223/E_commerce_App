@@ -48,13 +48,13 @@ class _SearchScreenState extends State<SearchScreen> {
       create: (_) => SearchCubit(SearchRepo())..search(''),
       child: Builder(
         builder: (context) => Scaffold(
-          backgroundColor: ColorsManger.backgroundColor,
+          backgroundColor: context.appColors.backgroundColor,
           body: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _SearchTopBar(),
-                Divider(height: 1, thickness: 1, color: ColorsManger.border),
+                Divider(height: 1, thickness: 1, color: context.appColors.border),
                 Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
                   child: CustomSearchBar(
@@ -74,15 +74,15 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Text(
                             state.message,
                             style: AppStyle.text14Regular.copyWith(
-                              color: ColorsManger.textSecondary,
+                              color: context.appColors.textSecondary,
                             ),
                           ),
                         );
                       }
                       if (state is! SearchSuccess) {
-                        return const Center(
+                        return Center(
                           child: CircularProgressIndicator(
-                            color: ColorsManger.primaryColor,
+                            color: context.appColors.primaryColor,
                           ),
                         );
                       }
@@ -92,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Text(
                             'No products found',
                             style: AppStyle.text14Regular.copyWith(
-                              color: ColorsManger.textSecondary,
+                              color: context.appColors.textSecondary,
                             ),
                           ),
                         );
@@ -103,7 +103,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           Text(
                             '${products.length} results',
                             style: AppStyle.text12Regular.copyWith(
-                              color: ColorsManger.textSecondary,
+                              color: context.appColors.textSecondary,
                             ),
                           ),
                           SizedBox(height: 12.h),
@@ -176,7 +176,7 @@ class _SearchTopBar extends StatelessWidget {
               onTap: () => Navigator.of(context).pop(),
               child: Icon(
                 Icons.arrow_back_ios_new,
-                color: ColorsManger.textPrimary,
+                color: context.appColors.textPrimary,
                 size: 20.sp,
               ),
             ),
@@ -184,7 +184,7 @@ class _SearchTopBar extends StatelessWidget {
           Text(
             'Search',
             style: AppStyle.text18Medium.copyWith(
-              color: ColorsManger.textPrimary,
+              color: context.appColors.textPrimary,
             ),
           ),
         ],

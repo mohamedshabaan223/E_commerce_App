@@ -36,10 +36,7 @@ class CustomOtp extends StatelessWidget {
         cursor: Container(
           width: 2.h,
           height: 20.h,
-          color: context.appColors.forTheme(
-            const Color(0xffDAC49B),
-            ColorsManger.lightPrimary,
-          ),
+          color: context.appColors.otpGold,
         ),
         length: 6,
         defaultPinTheme: PinTheme(

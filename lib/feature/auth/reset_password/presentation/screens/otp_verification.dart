@@ -143,9 +143,9 @@ class _VerificationState extends State<Verification> {
                         ),
                         SizedBox(height: 50.h),
                         if (state is OtpLoading)
-                          const Center(
+                          Center(
                             child: CircularProgressIndicator(
-                              color: ColorsManger.primaryColor,
+                              color: context.appColors.primaryColor,
                             ),
                           )
                         else
@@ -211,7 +211,7 @@ class _VerificationState extends State<Verification> {
                                     style: AppStyle.text12Medium.copyWith(
                                       color: secondsRemaining > 0
                                           ? Colors.grey
-                                          : ColorsManger.primaryColor,
+                                          : context.appColors.primaryColor,
                                     ),
                                   ),
                                 ),

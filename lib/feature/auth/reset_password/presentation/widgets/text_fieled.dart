@@ -80,7 +80,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
               : null,
           validator: widget.validator,
           controller: widget.controller,
-          cursorColor: ColorsManger.primaryColor,
+          cursorColor: context.appColors.primaryColor,
           obscureText: isobsecure,
           style: AppStyle.text14Semibold.copyWith(
             color: context.appColors.passwordColor,
@@ -121,7 +121,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
                 isobsecure
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                color: ColorsManger.passwordColor,
+                color: context.appColors.passwordColor,
               ),
             ),
           ),

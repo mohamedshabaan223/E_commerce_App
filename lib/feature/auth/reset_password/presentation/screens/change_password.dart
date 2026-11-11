@@ -58,10 +58,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         data: Theme.of(context).copyWith(
                           inputDecorationTheme: InputDecorationTheme(
                             filled: true,
-                            fillColor: context.appColors.forTheme(
-                              const Color(0xFF26262A),
-                              ColorsManger.lightSurfaceVariant,
-                            ),
+                            fillColor: context.appColors.inputFill,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.r),
                               borderSide: BorderSide.none,

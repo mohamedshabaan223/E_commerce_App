@@ -32,7 +32,7 @@ class Updated extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: ColorsManger.primaryColor.withValues(alpha: .10),
+                      color: context.appColors.primaryColor.withValues(alpha: .10),
                       blurRadius: 20,
                     ),
                   ],
@@ -40,7 +40,7 @@ class Updated extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.check_circle,
-                  color: ColorsManger.primaryColor,
+                  color: context.appColors.primaryColor,
                   size: 25.h,
                 ),
               ),

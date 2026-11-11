@@ -18,10 +18,7 @@ class AuthHeader extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: context.appColors.forTheme(
-                  const Color(0xFF26262A),
-                  ColorsManger.lightSurfaceVariant,
-                ),
+                color: context.appColors.inputFill,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(

@@ -41,7 +41,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
         MediaQuery.of(context).viewInsets.bottom + 24.h,
       ),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       child: Column(
@@ -51,7 +51,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
             width: 40.w,
             height: 4.h,
             decoration: BoxDecoration(
-              color: ColorsManger.border,
+              color: context.appColors.border,
               borderRadius: BorderRadius.circular(2.r),
             ),
           ),
@@ -62,7 +62,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
               Text(
                 'Add Review',
                 style: AppStyle.text22Medium.copyWith(
-                  color: ColorsManger.textPrimary,
+                  color: context.appColors.textPrimary,
                 ),
               ),
               GestureDetector(
@@ -72,13 +72,13 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
                   width: 32.r,
                   height: 32.r,
                   decoration: BoxDecoration(
-                    color: ColorsManger.surfaceVariant,
+                    color: context.appColors.surfaceVariant,
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.close,
-                    color: ColorsManger.textSecondary,
+                    color: context.appColors.textSecondary,
                     size: 18.sp,
                   ),
                 ),
@@ -96,7 +96,7 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
           Text(
             '$_selectedStars OF 5 STARS',
             style: AppStyle.text12Medium.copyWith(
-              color: ColorsManger.primaryColor,
+              color: context.appColors.primaryColor,
               letterSpacing: 1.0,
             ),
           ),
@@ -105,15 +105,15 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
             controller: _controller,
             maxLines: 4,
             style: AppStyle.text14Regular.copyWith(
-              color: ColorsManger.textPrimary,
+              color: context.appColors.textPrimary,
             ),
             decoration: InputDecoration(
               hintText: 'Write your review (optional)',
               hintStyle: AppStyle.text14Regular.copyWith(
-                color: ColorsManger.textSecondary,
+                color: context.appColors.textSecondary,
               ),
               filled: true,
-              fillColor: ColorsManger.backgroundColor,
+              fillColor: context.appColors.backgroundColor,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.r),
                 borderSide: BorderSide.none,
@@ -137,11 +137,11 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
                 decoration: BoxDecoration(
                   color: widget.isLoading
                       ? Colors.grey
-                      : ColorsManger.primaryColor,
+                      : context.appColors.primaryColor,
                   borderRadius: BorderRadius.circular(15.r),
                   boxShadow: [
                     BoxShadow(
-                      color: ColorsManger.primaryColor.withValues(alpha: 0.25),
+                      color: context.appColors.primaryColor.withValues(alpha: 0.25),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -153,14 +153,14 @@ class _AddReviewSheetState extends State<AddReviewSheet> {
                         height: 22.h,
                         width: 22.h,
                         child: CircularProgressIndicator(
-                          color: ColorsManger.backgroundColor,
+                          color: context.appColors.backgroundColor,
                           strokeWidth: 2.5,
                         ),
                       )
                     : Text(
                         'Submit',
                         style: AppStyle.text14Semibold.copyWith(
-                          color: ColorsManger.backgroundColor,
+                          color: context.appColors.backgroundColor,
                         ),
                       ),
               ),

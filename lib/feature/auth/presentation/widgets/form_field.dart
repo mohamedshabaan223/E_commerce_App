@@ -42,20 +42,20 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
       validator: widget.validator,
       obscureText: isObscure,
       decoration: InputDecoration(
-        errorStyle: TextStyle(color: ColorsManger.darkDanger),
+        errorStyle: TextStyle(color: context.appColors.darkDanger),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: ColorsManger.darkDanger),
+          borderSide: BorderSide(color: context.appColors.darkDanger),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: ColorsManger.darkDanger),
+          borderSide: BorderSide(color: context.appColors.darkDanger),
         ),
 
         labelText: widget.label,
-        labelStyle: AppStyle.text14Medium.copyWith(color: ColorsManger.white),
+        labelStyle: AppStyle.text14Medium.copyWith(color: context.appColors.white),
         hintText: widget.hintText,
-        hintStyle: AppStyle.text10Semibold.copyWith(color: ColorsManger.white),
+        hintStyle: AppStyle.text10Semibold.copyWith(color: context.appColors.white),
 
         prefixIcon: widget.prefixIcon == null ? null : Icon(widget.prefixIcon),
         suffixIcon: widget.isPassword
@@ -67,7 +67,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
                 },
                 icon: Icon(
                   isObscure ? Icons.visibility_off : Icons.visibility,
-                  color: ColorsManger.white,
+                  color: context.appColors.white,
                 ),
               )
             : widget.suffixIcon == null

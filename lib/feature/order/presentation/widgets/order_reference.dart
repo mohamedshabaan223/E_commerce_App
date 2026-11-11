@@ -13,7 +13,7 @@ class OrderReference extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: Color(0XFF1B1B1D),
+        color: context.appColors.cardSurface,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(

@@ -16,7 +16,7 @@ class RowDetailsPayment extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        color: Color(0XFF141416),
+        color: context.appColors.backgroundColor,
         borderRadius: BorderRadius.circular(4.r),
       ),
       child: Column(

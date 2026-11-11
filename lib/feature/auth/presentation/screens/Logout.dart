@@ -114,10 +114,7 @@ class Logout extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () => context.read<AuthCubit>().logOut(),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: context.appColors.forTheme(
-                              const Color(0xFFC2A878),
-                              ColorsManger.lightPrimary,
-                            ),
+                            backgroundColor: context.appColors.brightGold,
                             foregroundColor: context.appColors.black,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -134,10 +131,7 @@ class Logout extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () => Navigator.pop(context),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: context.appColors.forTheme(
-                            const Color(0xFF26262A),
-                            ColorsManger.lightSurfaceVariant,
-                          ),
+                          backgroundColor: context.appColors.inputFill,
                           foregroundColor: context.appColors.forTheme(
                             Colors.white,
                             ColorsManger.lightTextPrimary,

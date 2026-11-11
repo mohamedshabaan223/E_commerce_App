@@ -28,7 +28,7 @@ class ReviewsSection extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      barrierColor: ColorsManger.modalBackdrop,
+      barrierColor: context.appColors.modalBackdrop,
       isScrollControlled: true,
       builder: (sheetContext) => BlocProvider.value(
         value: reviewsCubit,
@@ -83,9 +83,9 @@ class ReviewsSection extends StatelessWidget {
             if (state.isLoading && state.reviews.isEmpty) {
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 24.h),
-                child: const Center(
+                child: Center(
                   child: CircularProgressIndicator(
-                    color: ColorsManger.primaryColor,
+                    color: context.appColors.primaryColor,
                   ),
                 ),
               );
@@ -130,9 +130,9 @@ class _Message extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: ColorsManger.surface,
+        color: context.appColors.surface,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: ColorsManger.border),
+        border: Border.all(color: context.appColors.border),
       ),
       child: Column(
         children: [
@@ -140,7 +140,7 @@ class _Message extends StatelessWidget {
             text,
             textAlign: TextAlign.center,
             style: AppStyle.text14Regular.copyWith(
-              color: ColorsManger.textSecondary,
+              color: context.appColors.textSecondary,
             ),
           ),
           if (onAction != null) ...[

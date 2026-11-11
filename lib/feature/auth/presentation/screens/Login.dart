@@ -40,10 +40,7 @@ class _LoginState extends State<Login> {
             data: Theme.of(context).copyWith(
               inputDecorationTheme: InputDecorationTheme(
                 filled: true,
-                fillColor: context.appColors.forTheme(
-                  const Color(0xFF26262A),
-                  ColorsManger.lightSurfaceVariant,
-                ),
+                fillColor: context.appColors.inputFill,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
@@ -94,10 +91,7 @@ class _LoginState extends State<Login> {
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
-                          color: context.appColors.forTheme(
-                            const Color(0xFFC2A878),
-                            ColorsManger.lightPrimary,
-                          ),
+                          color: context.appColors.brightGold,
                         ),
                       ),
                     ),
@@ -219,10 +213,7 @@ class _LoginState extends State<Login> {
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: context.appColors.forTheme(
-                              const Color(0xFFC2A878),
-                              ColorsManger.lightPrimary,
-                            ),
+                            color: context.appColors.brightGold,
                           ),
                         ),
                       ),

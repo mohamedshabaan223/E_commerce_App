@@ -106,10 +106,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: context.appColors.forTheme(
-                  const Color(0xFF26262A),
-                  ColorsManger.lightSurfaceVariant,
-                ),
+                color: context.appColors.inputFill,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Icon(
@@ -180,10 +177,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                             );
                           },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: context.appColors.forTheme(
-                        const Color(0xFFC2A878),
-                        ColorsManger.lightPrimary,
-                      ),
+                      backgroundColor: context.appColors.brightGold,
                       foregroundColor: context.appColors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -219,10 +213,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     child: Text(
                       'Resend OTP',
                       style: TextStyle(
-                        color: context.appColors.forTheme(
-                          const Color(0xFFC2A878),
-                          ColorsManger.lightPrimary,
-                        ),
+                        color: context.appColors.brightGold,
                       ),
                     ),
                   ),
