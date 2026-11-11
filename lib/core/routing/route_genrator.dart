@@ -59,7 +59,12 @@ abstract class RouteGenrator {
 
       case ConstantRoute.verifyEmail:
         final email = settings.arguments as String;
-        return MaterialPageRoute(builder: (_) => VerifyEmail(email: email));
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(),
+            child: VerifyEmail(email: email),
+          ),
+        );
 
       case ConstantRoute.logout:
         return MaterialPageRoute(builder: (_) => const Logout());

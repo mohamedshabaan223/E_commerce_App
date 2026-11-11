@@ -119,8 +119,13 @@ class AuthRemoteDataSource {
     }
   }
 
-  Future<void> resendOtp({required String email}) async {
-    await dio.post('auth/resend-otp', data: {'email': email});
+  Future<Either<Failure, void>> resendOtp({required String email}) async {
+    try {
+      await dio.post('auth/resend-otp', data: {'email': email});
+      return Right(null);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e).failure);
+    }
   }
 
   Future<Either<Failure, void>> verifyEmail({

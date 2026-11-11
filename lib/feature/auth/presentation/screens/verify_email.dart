@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/auth/presentation/widgets/custom_otp.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
@@ -22,6 +23,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   final TextEditingController otpcontroller = TextEditingController();
   Timer? timer;
   int remainingSeconds = 30;
+  bool _isResending = false;
 
   @override
   void initState() {
@@ -141,13 +143,27 @@ class _VerifyEmailState extends State<VerifyEmail> {
               child: BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccessState) {
+                    if (_isResending) {
+                      _isResending = false;
+                      startTimer();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('OTP sent successfully!')),
+                      );
+                      return;
+                    }
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Email verified successfully!'),
                       ),
                     );
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      ConstantRoute.login,
+                      (route) => false,
+                    );
                   }
                   if (state is AuthErrorState) {
+                    _isResending = false;
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
@@ -209,7 +225,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 ),
                 if (remainingSeconds == 0)
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _isResending = true;
+                      context.read<AuthCubit>().resendOtp(email: widget.email);
+                    },
                     child: Text(
                       'Resend OTP',
                       style: TextStyle(

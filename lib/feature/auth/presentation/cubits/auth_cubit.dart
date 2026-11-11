@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/feature/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:ecommerce_app/feature/auth/data/models/login_request.dart';
@@ -30,12 +29,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> resendOtp({required String email}) async {
     emit(AuthLoadingState());
-    try {
-      await _authRemoteDataSource.resendOtp(email: email);
-      emit(AuthSuccessState());
-    } on DioException catch (e) {
-      emit(AuthErrorState(errorMessage: e.toString()));
-    }
+    final response = await _authRemoteDataSource.resendOtp(email: email);
+    response.fold(
+      (error) => emit(AuthErrorState(errorMessage: error.message)),
+      (value) => emit(AuthSuccessState()),
+    );
   }
 
   Future<void> verifyEmail({required String email, required String otp}) async {
