@@ -1,4 +1,3 @@
-// feature/profile/presentation/screens/screens/contact_us_screen.dart
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/profile/presentation/widgets/info_card.dart';

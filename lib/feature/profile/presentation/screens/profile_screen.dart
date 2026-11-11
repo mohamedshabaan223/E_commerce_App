@@ -74,15 +74,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ),
   ];
 
-  final List<ProfileItemModel> _admin = const [
-    ProfileItemModel(
-      title: 'Admin Dashboard',
-      icon: Icons.dashboard_customize_outlined,
-      badge: 'ADMIN',
-      destination: AdminScreens(),
-    ),
-  ];
-
   final List<ProfileItemModel> _logout = const [
     ProfileItemModel(
       title: 'Logout',
@@ -92,6 +83,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ),
   ];
 
+  List<ProfileItemModel> _adminItems(String userEmail) {
+    return [
+      ProfileItemModel(
+        title: 'Admin Dashboard',
+        icon: Icons.dashboard_customize_outlined,
+        badge: 'ADMIN',
+        destination: AdminScreens(userEmail: userEmail),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,13 +102,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
-          children: [
-            SizedBox(height: 8.h),
-            BlocProvider(
-              create: (_) =>
-                  ProfileCubit(ProfileRemoteDataSource())..loadProfile(),
-              child: BlocConsumer<ProfileCubit, ProfileState>(
+        child: BlocProvider(
+          create: (_) =>
+              ProfileCubit(ProfileRemoteDataSource())..loadProfile(),
+          child: Column(
+            children: [
+              SizedBox(height: 8.h),
+              BlocConsumer<ProfileCubit, ProfileState>(
                 listener: (context, state) {
                   if (state is ProfileFailure) {
                     ScaffoldMessenger.of(context)
@@ -136,15 +138,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 },
               ),
-            ),
-            SizedBox(height: 24.h),
-            _buildDarkModeCard(context),
-            ProfileMenuGroup(items: _orders),
-            ProfileMenuGroup(items: _account),
-            ProfileMenuGroup(items: _info),
-            ProfileMenuGroup(items: _admin),
-            ProfileMenuGroup(items: _logout),
-          ],
+              SizedBox(height: 24.h),
+              _buildDarkModeCard(context),
+              ProfileMenuGroup(items: _orders),
+              ProfileMenuGroup(items: _account),
+              ProfileMenuGroup(items: _info),
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  final user = state is ProfileSuccess ? state.user : null;
+                  if (user == null ||
+                      user.email != AdminScreens.demoAdminEmail) {
+                    return const SizedBox.shrink();
+                  }
+                  return ProfileMenuGroup(items: _adminItems(user.email));
+                },
+              ),
+              ProfileMenuGroup(items: _logout),
+            ],
+          ),
         ),
       ),
     );

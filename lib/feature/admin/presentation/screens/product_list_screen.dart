@@ -303,7 +303,6 @@ class _ProductListcreenState extends State<ProductListcreen> {
   }
 
   void _showDeleteDialog(BuildContext context, ProductModel product) {
-    // Safety rule: Do not delete the existing test product named Etsh.
     if (product.name.trim().toLowerCase() == 'etsh') {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

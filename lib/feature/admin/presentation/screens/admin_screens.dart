@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
 import 'package:ecommerce_app/feature/admin/data/data_source/remote/admin_remote_data_source.dart';
@@ -9,7 +10,14 @@ import 'add_product_screen.dart';
 import 'product_list_screen.dart';
 
 class AdminScreens extends StatefulWidget {
-  const AdminScreens({super.key});
+  const AdminScreens({super.key, this.userEmail});
+
+  /// Demo-only
+  static const String demoAdminEmail = 'r9ghd99@gmail.com';
+
+  final String? userEmail;
+
+  bool get isDemoAdmin => userEmail == demoAdminEmail;
 
   @override
   State<AdminScreens> createState() => _AdminScreensState();
@@ -18,7 +26,6 @@ class AdminScreens extends StatefulWidget {
 class _AdminScreensState extends State<AdminScreens> {
   int _currentIndex = 0;
 
-  // المنتجات التي تمت إضافتها من شاشة Admin فقط
   final List<ProductModel> _products = [];
 
   void _goTo(int index) {
@@ -27,7 +34,6 @@ class _AdminScreensState extends State<AdminScreens> {
     });
   }
 
-  // استقبال المنتج بعد نجاح الإضافة
   void _addProduct(ProductModel product) {
     setState(() {
       _products.add(product);
@@ -35,7 +41,30 @@ class _AdminScreensState extends State<AdminScreens> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (!widget.isDemoAdmin) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          ConstantRoute.login,
+          (route) => false,
+        );
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!widget.isDemoAdmin) {
+      return Scaffold(
+        backgroundColor: context.appColors.adminBackgroundColor,
+        body: const SizedBox.shrink(),
+      );
+    }
+
     return BlocProvider(
       create: (_) => ProductCubit(AdminRemoteDataSource()),
       child: LayoutBuilder(
