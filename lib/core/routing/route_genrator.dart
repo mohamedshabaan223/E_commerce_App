@@ -1,11 +1,11 @@
 import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
+import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Login.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/Logout.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/VerifyEmail.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/signUp.dart';
-import 'package:ecommerce_app/feature/admin/presentation/screens/admin_screens.dart';
 import 'package:ecommerce_app/feature/cart/Cubit/get_cart_cubit.dart';
 import 'package:ecommerce_app/feature/cart/data/remote_data_sources/cart_remote_data_source.dart';
 import 'package:ecommerce_app/feature/main/presentation/screens/main_screen.dart';
@@ -59,7 +59,6 @@ abstract class RouteGenrator {
 
       case ConstantRoute.VerifyEmail:
         final email = settings.arguments as String;
-
         return MaterialPageRoute(builder: (_) => VerifyEmail(email: email));
 
       case ConstantRoute.Logout:
@@ -72,7 +71,9 @@ abstract class RouteGenrator {
         return MaterialPageRoute(builder: (_) => const Onboarding());
 
       case ConstantRoute.emptyCartScreen:
-        return MaterialPageRoute(builder: (_) => EmptyCartScreen(onBrowseProducts: () {}));
+        return MaterialPageRoute(
+          builder: (_) => EmptyCartScreen(onBrowseProducts: () {}),
+        );
 
       case ConstantRoute.cartScreen:
         return MaterialPageRoute(
