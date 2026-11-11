@@ -178,7 +178,9 @@ void main() {
     expect(find.text('main'), findsOneWidget);
   });
 
-  testWidgets('onboarding skip completes and navigates to login', (tester) async {
+  testWidgets('onboarding skip jumps to last page and get started completes onboarding', (
+    tester,
+  ) async {
     final storage = _FakeStorage();
 
     await tester.pumpWidget(
@@ -194,7 +196,14 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('skip'));
+    await tester.tap(find.text('Skip'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('GET STARTED'), findsOneWidget);
+    expect(find.byType(Onboarding), findsOneWidget);
+    expect(storage.onboardingCompleted, isFalse);
+
+    await tester.tap(find.text('GET STARTED'));
     await tester.pumpAndSettle();
 
     expect(storage.onboardingCompleted, isTrue);

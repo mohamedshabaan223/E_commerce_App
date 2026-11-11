@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
 import 'package:ecommerce_app/feature/auth/presentation/cubits/auth_cubit.dart';
 import 'package:ecommerce_app/feature/auth/presentation/screens/login.dart';
@@ -8,8 +9,9 @@ import '../../../../core/utils/colors_manger.dart';
 import '../../../auth/reset_password/presentation/widgets/filled_button.dart';
 
 class Onboarding extends StatefulWidget {
-  const Onboarding({super.key});
+  const Onboarding({super.key, this.storage});
 
+  final SecureStorageCacheing? storage;
 
   @override
   State<Onboarding> createState() => _OnboardingState();
@@ -67,7 +69,9 @@ class _OnboardingState extends State<Onboarding> {
     );
   }
 
-  void goToLogin() {
+  Future<void> goToLogin() async {
+    await (widget.storage ?? SecureStorageCacheing()).saveOnboardingCompleted();
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
