@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
 import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/routing/route_genrator.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
@@ -9,17 +8,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final token = await SecureStorageCacheing().getAccessToken();
   final themeCubit = await ThemeCubit.load();
-  final bool isLoggedIn = token != null;
-  runApp(MyApp(isLoggedIn: isLoggedIn, themeCubit: themeCubit));
+  runApp(MyApp(themeCubit: themeCubit));
 }
 
 class MyApp extends StatelessWidget {
-  final bool isLoggedIn;
   final ThemeCubit themeCubit;
 
-  const MyApp({super.key, required this.isLoggedIn, required this.themeCubit});
+  const MyApp({super.key, required this.themeCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +32,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.dark,
             themeMode: themeMode,
             onGenerateRoute: RouteGenrator.getRoute,
-            initialRoute: isLoggedIn
-                ? ConstantRoute.splash
-                : ConstantRoute.splash,
+            initialRoute: ConstantRoute.splash,
           ),
         ),
       ),

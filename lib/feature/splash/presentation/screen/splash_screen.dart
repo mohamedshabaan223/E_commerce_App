@@ -1,5 +1,6 @@
+import 'package:ecommerce_app/core/cache/secure_storage_cacheing.dart';
+import 'package:ecommerce_app/core/routing/constant_route.dart';
 import 'package:ecommerce_app/core/utils/app_style.dart';
-import 'package:ecommerce_app/feature/onboarding/presentation/screens/onboarding.dart';
 import 'package:ecommerce_app/core/utils/colors_manger.dart';
 import 'package:flutter/material.dart';
 
@@ -11,16 +12,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-@override
+  @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () async {
+      final token = await SecureStorageCacheing().getAccessToken();
       if (!mounted) return;
-      Navigator.pushReplacement(
+      Navigator.pushNamedAndRemoveUntil(
         context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Onboarding(),
-        ),
+        token == null ? ConstantRoute.onboarding : ConstantRoute.mainScreen,
+        (route) => false,
       );
     });
   }

@@ -73,18 +73,24 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  Future<void> logOut() async {
+    emit(AuthLoadingState());
+    final response = await _authRemoteDataSource.logOut();
+    response.fold(
+      (error) => emit(AuthErrorState(errorMessage: error.message)),
+      (val) => emit(AuthSuccessState()),
+    );
+  }
+
   Future<void> signInWithGoogle() async {
-  emit(AuthLoadingState());
-  final response = await _authRemoteDataSource.signInWithGoogle();
-  response.fold(
-    (error) {
+    emit(AuthLoadingState());
+    final response = await _authRemoteDataSource.signInWithGoogle();
+    response.fold((error) {
       if (error.code == ResponseCode.cancel) {
         emit(AuthInitialState());
         return;
       }
       emit(AuthErrorState(errorMessage: error.message));
-    },
-    (_) => emit(AuthSuccessState()),
-  );
-}
+    }, (_) => emit(AuthSuccessState()));
+  }
 }
