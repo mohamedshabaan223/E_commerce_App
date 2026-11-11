@@ -22,4 +22,25 @@ class AdminRemoteDataSource {
     final res = await dio.get('auth/me');
     return res.data['userId'].toString();
   }
+
+  Future<List<ProductModel>> getProducts() async {
+    final products = <ProductModel>[];
+    var page = 1;
+    var hasNextPage = true;
+
+    while (hasNextPage) {
+      final res = await dio.get(
+        ApiConstatnt.getProductsEndPoint,
+        queryParameters: {'page': page, 'pageSize': 20},
+      );
+      final items = res.data['items'] as List;
+      products.addAll(
+        items.map((e) => ProductModel.fromJson(Map<String, dynamic>.from(e))),
+      );
+      hasNextPage = res.data['hasNextPage'] == true;
+      page++;
+    }
+
+    return products;
+  }
 }

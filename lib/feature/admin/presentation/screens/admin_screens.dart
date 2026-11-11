@@ -65,7 +65,7 @@ class _AdminScreensState extends State<AdminScreens> {
                       color: context.appColors.adminGoldColor,
                     ),
                     title: Text(
-                      'LUXE Admin',
+                      'LUSTRE Admin',
                       style: TextStyle(
                         color: context.appColors.adminForegroundColor,
                         fontFamily: 'Serif',
@@ -105,7 +105,7 @@ class _AdminScreensState extends State<AdminScreens> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'LUXE',
+                  'LUSTRE',
                   style: TextStyle(
                     color: context.appColors.adminForegroundColor,
                     fontSize: 22,

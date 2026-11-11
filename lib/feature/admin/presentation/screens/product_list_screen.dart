@@ -27,6 +27,12 @@ class _ProductListcreenState extends State<ProductListcreen> {
   String _searchQuery = '';
 
   @override
+  void initState() {
+    super.initState();
+    context.read<ProductCubit>().loadMyProducts();
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -49,9 +55,17 @@ class _ProductListcreenState extends State<ProductListcreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<ProductCubit, ProductStates>(
       listenWhen: (previous, current) =>
-          current is DeleteProductSuccess || current is DeleteProductFailure,
+          current is DeleteProductSuccess ||
+          current is DeleteProductFailure ||
+          current is MyProductsLoaded,
       listener: (context, state) {
-        if (state is DeleteProductSuccess) {
+        if (state is MyProductsLoaded) {
+          setState(() {
+            widget.products
+              ..clear()
+              ..addAll(state.products);
+          });
+        } else if (state is DeleteProductSuccess) {
           setState(() {
             widget.products.removeWhere(
               (product) => product.id == state.deletedProductId,

@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/feature/admin/data/data_source/models/product_model.dart';
+
 abstract class ProductStates {}
 
 class ProductInitial extends ProductStates {}
@@ -34,4 +36,10 @@ class SellerIdLoaded extends ProductStates {
   final String sellerId;
 
   SellerIdLoaded({required this.sellerId});
+}
+
+class MyProductsLoaded extends ProductStates {
+  final List<ProductModel> products;
+
+  MyProductsLoaded({required this.products});
 }

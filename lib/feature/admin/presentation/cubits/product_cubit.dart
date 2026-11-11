@@ -45,4 +45,21 @@ class ProductCubit extends Cubit<ProductStates> {
       // If it fails, the field stays manual.
     }
   }
+
+  Future<void> loadMyProducts() async {
+    try {
+      final sellerId = await _remoteDataSource.getCurrentUserId();
+      final allProducts = await _remoteDataSource.getProducts();
+      final myProducts = allProducts
+          .where(
+            (product) =>
+                product.sellerId.toLowerCase() == sellerId.toLowerCase(),
+          )
+          .toList();
+      if (isClosed) return;
+      emit(MyProductsLoaded(products: myProducts));
+    } on Exception catch (_) {
+      // If it fails, the list stays as it is.
+    }
+  }
 }

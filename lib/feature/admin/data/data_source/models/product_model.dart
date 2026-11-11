@@ -48,4 +48,23 @@ class ProductModel {
       "productPictureUrls": productPictureUrls,
     };
   }
+
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      id: json['id']?.toString(),
+      sellerId: json['sellerId']?.toString() ?? '',
+      name: json['name']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      nameArabic: json['arabicName']?.toString() ?? '',
+      descriptionArabic: json['arabicDescription']?.toString() ?? '',
+      coverPictureUrl: json['coverPictureUrl']?.toString() ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0,
+      stock: (json['stock'] as num?)?.toInt() ?? 0,
+      weight: (json['weight'] as num?)?.toDouble() ?? 0,
+      color: json['color']?.toString() ?? '',
+      discountPercentage: (json['discountPercentage'] as num?)?.toInt() ?? 0,
+      categoryIds: [],
+      productPictureUrls: [],
+    );
+  }
 }
