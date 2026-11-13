@@ -292,11 +292,16 @@ To point the app to your own server, change `baseUrl` in that file.
 
 ## Team
 
-| Name | Role | GitHub |
-| --- | --- | --- |
-| Mohamed Shabaan | Flutter Developer | [@mohamedshabaan223](https://github.com/mohamedshabaan223) |
-| _Teammate name_ | _Role_ | [@username](https://github.com/username) |
-| _Teammate name_ | _Role_ | [@username](https://github.com/username) |
+| # | Name | Role | GitHub |
+| :-: | --- | --- | --- |
+| 1 | **Raghdaa Emad Elsayed** | _Role_ | _add link_ |
+| 2 | **Mohamed Shabaan Abdelrazik** | _Role_ | [@mohamedshabaan223](https://github.com/mohamedshabaan223) |
+| 3 | **Reham Mohamed Nofal** | _Role_ | _add link_ |
+| 4 | **Ahmed Mahmoud Hassan** | _Role_ | _add link_ |
+| 5 | **Sohailah Mohammed Eliwa** | _Role_ | _add link_ |
+| 6 | **Malak Mahmoud Elgizawy** | _Role_ | _add link_ |
+| 7 | **Alaa Diaa Mohamed** | _Role_ | _add link_ |
+| 8 | **Mervat Hamed Elshafie** | _Role_ | _add link_ |
 
 **Supervisor:** _Dr. Full Name_
 **Faculty / University:** _Faculty of ..., University name_ — Graduation Project, _2026_
