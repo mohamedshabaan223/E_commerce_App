@@ -1,0 +1,139 @@
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:ecommerce_app/feature/categories/data/repo/categories_repo.dart';
+import 'package:ecommerce_app/feature/categories/presentation/viewmodels/cubits/category_products_cubit.dart';
+import 'package:ecommerce_app/feature/categories/presentation/viewmodels/cubits/category_products_state.dart';
+import 'package:ecommerce_app/feature/home/presentation/widgets/all_products.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/language/category_localization.dart';
+import '../../../../generated/l10n/app_localizations.dart';
+
+class CategoryProductsScreen extends StatelessWidget {
+  const CategoryProductsScreen({super.key, required this.categoryName});
+
+  final String categoryName;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return BlocProvider(
+      create: (_) =>
+          CategoryProductsCubit(CategoriesRepo())..load(categoryName),
+      child: Scaffold(
+        backgroundColor: context.appColors.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: context.appColors.backgroundColor,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: context.appColors.primaryColor,
+              size: 20.sp,
+            ),
+            onPressed: () => Navigator.maybePop(context),
+          ),
+          title: Text(
+            localizeCategoryName(context, categoryName),
+            style: AppStyle.text18Semibold.copyWith(
+              color: context.appColors.textPrimary,
+            ),
+          ),
+        ),
+        body: BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
+          builder: (context, state) {
+            if (state is CategoryProductsFailure) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.message,
+                      style: AppStyle.text14Regular.copyWith(
+                        color: context.appColors.textSecondary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 12.h),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<CategoryProductsCubit>().load(
+                          categoryName,
+                        );
+                      },
+                      child: Text(l10n.retry),
+                    ),
+                  ],
+                ),
+              );
+            }
+            if (state is! CategoryProductsSuccess) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: context.appColors.primaryColor,
+                ),
+              );
+            }
+            if (state.products.isEmpty) {
+              return Center(
+                child: Text(
+                  l10n.noProductsYet,
+                  style: AppStyle.text14Regular.copyWith(
+                    color: context.appColors.textSecondary,
+                  ),
+                ),
+              );
+            }
+
+            return SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
+              child: Column(
+                children: [
+                  AllProductsGrid(products: state.products),
+
+                  if (state.loadMoreError != null) ...[
+                    SizedBox(height: 12.h),
+                    Text(
+                      state.loadMoreError!,
+                      style: AppStyle.text14Regular.copyWith(
+                        color: context.appColors.textSecondary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+
+                  if (state.isLoadingMore)
+                    Padding(
+                      padding: EdgeInsets.all(16.h),
+                      child: CircularProgressIndicator(
+                        color: context.appColors.primaryColor,
+                      ),
+                    )
+                  else if (state.hasNextPage)
+                    Padding(
+                      padding: EdgeInsets.only(top: 16.h),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.read<CategoryProductsCubit>().loadMore();
+                        },
+                        child: Text(
+                          state.loadMoreError != null
+                              ? l10n.tryAgain
+                              : l10n.loadMore,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,73 @@
+import 'package:ecommerce_app/core/cache/secure_keys.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+class SecureStorageCacheing {
+  static const _storage = FlutterSecureStorage();
+
+  Future<void> saveAuthData({
+    required String accessToken,
+    required String refreshToken,
+    required DateTime expiresAt,
+  }) async {
+    await _storage.write(key: SecureKeys.accessToken, value: accessToken);
+    await _storage.write(
+      key: SecureKeys.expiresAt,
+      value: expiresAt.toIso8601String(),
+    );
+    await _storage.write(key: SecureKeys.refreshToken, value: refreshToken);
+  }
+
+  Future<String?> getAccessToken() async {
+    final accessToken = await _storage.read(key: SecureKeys.accessToken);
+    return accessToken;
+  }
+
+  Future<String?> getRefreshToken() async {
+    final refreshToken = await _storage.read(key: SecureKeys.refreshToken);
+    return refreshToken;
+  }
+
+  Future<DateTime?> getExpireAtToken() async {
+    final expiresAt = await _storage.read(key: SecureKeys.expiresAt);
+    return expiresAt != null ? DateTime.parse(expiresAt) : null;
+  }
+
+  Future<void> saveThemeMode(bool isDarkMode) async {
+    await _storage.write(
+      key: SecureKeys.themeMode,
+      value: isDarkMode ? 'dark' : 'light',
+    );
+  }
+
+  Future<bool?> getIsDarkMode() async {
+    final themeMode = await _storage.read(key: SecureKeys.themeMode);
+    return switch (themeMode) {
+      'dark' => true,
+      'light' => false,
+      _ => null,
+    };
+  }
+
+  Future<void> saveOnboardingCompleted() async {
+    await _storage.write(key: SecureKeys.onboardingCompleted, value: 'true');
+  }
+
+  Future<bool> getOnboardingCompleted() async {
+    final completed = await _storage.read(key: SecureKeys.onboardingCompleted);
+    return completed == 'true';
+  }
+
+  Future<void> clearCache() async {
+    await _storage.delete(key: SecureKeys.accessToken);
+    await _storage.delete(key: SecureKeys.refreshToken);
+    await _storage.delete(key: SecureKeys.expiresAt);
+  }
+
+  Future<void> saveLanguageCode(String languageCode) async {
+    await _storage.write(key: SecureKeys.languageCode, value: languageCode);
+  }
+
+  Future<String?> getLanguageCode() async {
+    return await _storage.read(key: SecureKeys.languageCode);
+  }
+}

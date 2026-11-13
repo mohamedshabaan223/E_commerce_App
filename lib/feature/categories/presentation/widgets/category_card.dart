@@ -1,0 +1,102 @@
+import 'package:ecommerce_app/core/utils/app_style.dart';
+import 'package:ecommerce_app/core/utils/colors_manger.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class CategoryCard extends StatelessWidget {
+  const CategoryCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.subtitle,
+    this.onTap,
+  });
+
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.r),
+          child: Container(
+            color: context.appColors.categoryCard,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AspectRatio(
+                  aspectRatio: 2.2 / 1,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) =>
+                            ColoredBox(color: context.appColors.surface),
+                      ),
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              context.appColors.backgroundColor.withValues(
+                                alpha: 0.6,
+                              ),
+                              context.appColors.backgroundColor,
+                            ],
+                            stops: const [0.6, 0.9, 1.0],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: AppStyle.text18Medium.copyWith(
+                          color: context.appColors.textPrimary,
+                        ),
+                      ),
+                      SizedBox(height: 6.h),
+                      Text(
+                        subtitle,
+                        style: AppStyle.text12Regular.copyWith(
+                          color: context.appColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
