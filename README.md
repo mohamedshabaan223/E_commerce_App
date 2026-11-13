@@ -294,14 +294,14 @@ To point the app to your own server, change `baseUrl` in that file.
 
 | # | Name | Role | GitHub |
 | :-: | --- | --- | --- |
-| 1 | **Raghdaa Emad Elsayed** | _Role_ | _add link_ |
+| 1 | **Raghdaa Emad Elsayed** | _Role_ | [@raghdaaaaa](https://github.com/raghdaaaaa) |
 | 2 | **Mohamed Shabaan Abdelrazik** | _Role_ | [@mohamedshabaan223](https://github.com/mohamedshabaan223) |
-| 3 | **Reham Mohamed Nofal** | _Role_ | _add link_ |
-| 4 | **Ahmed Mahmoud Hassan** | _Role_ | _add link_ |
-| 5 | **Sohailah Mohammed Eliwa** | _Role_ | _add link_ |
-| 6 | **Malak Mahmoud Elgizawy** | _Role_ | _add link_ |
-| 7 | **Alaa Diaa Mohamed** | _Role_ | _add link_ |
-| 8 | **Mervat Hamed Elshafie** | _Role_ | _add link_ |
+| 3 | **Reham Mohamed Nofal** | _Role_ | [@reham-05](https://github.com/reham-05) |
+| 4 | **Ahmed Mahmoud Hassan** | _Role_ | [@medo337](https://github.com/medo337) |
+| 5 | **Sohailah Mohammed Eliwa** | _Role_ | [@sohailahazab257-droid](https://github.com/sohailahazab257-droid) |
+| 6 | **Malak Mahmoud Elgizawy** | _Role_ | [@malakelgizawy11](https://github.com/malakelgizawy11) |
+| 7 | **Alaa Diaa Mohamed** | _Role_ | [@haladiaa47-create](https://github.com/haladiaa47-create) |
+| 8 | **Mervat Hamed Elshafie** | _Role_ | [@Nevo-code](https://github.com/Nevo-code) |
 
 **Supervisor:** _Dr. Full Name_
 **Faculty / University:** _Faculty of ..., University name_ — Graduation Project, _2026_
